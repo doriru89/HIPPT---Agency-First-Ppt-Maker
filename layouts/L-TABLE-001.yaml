@@ -1,0 +1,42 @@
+code: L-TABLE-001
+name: Comparison Table
+source: smart-tickets-r2-s6
+slide_type: data
+background: light
+density: low
+max_regions: 3
+tags:
+- data-table
+supports:
+- accent-bar
+- composite-region
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 86.9%, y: 2.6%, w: 8.1%, h: 2.6%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 14.3%}
+- role: data_table
+  element_type: composite
+  box: {x: 5%, y: 22.3%, w: 90%, h: 76.4%}
+- role: slide_counter
+  element_type: text
+  box: {x: 92.1%, y: 94.4%, w: 2.9%, h: 2.6%}
+- role: verdict_bar
+  element_type: text
+  box: {x: 5%, y: 101.7%, w: 90%, h: 4.7%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

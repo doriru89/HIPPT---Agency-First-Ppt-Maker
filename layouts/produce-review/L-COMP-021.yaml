@@ -1,0 +1,51 @@
+code: L-COMP-021
+name: Comparison (PPTX s21)
+source: produce-review-s21
+slide_type: comparison
+background: light
+density: medium
+max_regions: 6
+tags:
+- three-column
+- evidence-images
+supports:
+- accent-bar
+- composite-region
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.0%, y: 1.5%, w: 9.0%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 14.2%, y: 1.5%, w: 16.8%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 88.6%, y: 1.5%, w: 10.4%, h: 2.2%}
+- role: headline
+  element_type: shape
+  box: {x: 1.0%, y: 4.6%, w: 98.0%, h: 93.6%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 8.1%, y: 39.4%, w: 9.6%, h: 21.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 26.7%, y: 39.4%, w: 9.6%, h: 21.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 45.2%, y: 39.4%, w: 46.7%, h: 21.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 63.7%, y: 39.4%, w: 9.6%, h: 21.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 82.2%, y: 39.4%, w: 9.6%, h: 21.2%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

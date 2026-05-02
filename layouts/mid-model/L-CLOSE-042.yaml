@@ -1,0 +1,35 @@
+code: L-CLOSE-042
+name: Close (PPTX s42)
+source: mid-model-s42
+slide_type: close
+background: light
+density: low
+max_regions: 2
+tags:
+- evidence-images
+supports:
+- accent-bar
+- image-proof
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.9%, y: 3.3%, w: 15.2%, h: 1.5%}
+- role: section_label
+  element_type: text
+  box: {x: 83.0%, y: 3.3%, w: 15.2%, h: 1.5%}
+- role: headline
+  element_type: shape
+  box: {x: 1.9%, y: 13.1%, w: 96.2%, h: 14.7%}
+- role: evidence_image
+  element_type: image
+  box: {x: -0.2%, y: 37.9%, w: 100%, h: 62.1%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

@@ -1,0 +1,46 @@
+code: L-COMP-025
+name: Comparison (PPTX s25)
+source: produce-review-s25
+slide_type: comparison
+background: light
+density: medium
+max_regions: 4
+tags:
+- three-column
+- evidence-images
+supports:
+- accent-bar
+- composite-region
+- image-proof
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.0%, y: 1.5%, w: 9.0%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 14.2%, y: 1.5%, w: 16.8%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 88.6%, y: 1.5%, w: 10.4%, h: 2.2%}
+- role: headline
+  element_type: composite
+  box: {x: 1.0%, y: 4.6%, w: 98.0%, h: 93.6%}
+- role: detail_text
+  element_type: shape
+  box: {x: 41.1%, y: 34.2%, w: 11.6%, h: 40.1%}
+- role: evidence_image
+  element_type: image
+  box: {x: 50.7%, y: 35.4%, w: 13.8%, h: 32.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 2.1%, y: 45.2%, w: 90.5%, h: 41.0%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

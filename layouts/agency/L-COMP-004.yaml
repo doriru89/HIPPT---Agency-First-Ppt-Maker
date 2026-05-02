@@ -1,0 +1,41 @@
+code: L-COMP-004
+name: Comparison (PPTX s4)
+source: agency-s4
+slide_type: comparison
+background: dark
+density: medium
+max_regions: 6
+tags:
+- three-column
+- evidence-images
+supports:
+- accent-bar
+- composite-region
+regions:
+- role: body_text
+  element_type: shape
+  box: {x: 3.6%, y: 3.7%, w: 9.4%, h: 6.3%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 1.5%, y: 28.8%, w: 22.8%, h: 57.5%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 26.8%, y: 28.8%, w: 22.8%, h: 58.0%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 51.2%, y: 28.8%, w: 22.6%, h: 57.7%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 75.8%, y: 28.8%, w: 22.7%, h: 57.1%}
+- role: body_text
+  element_type: shape
+  box: {x: 6.6%, y: 71.8%, w: 12.5%, h: 8.1%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

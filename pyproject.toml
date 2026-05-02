@@ -1,0 +1,47 @@
+[project]
+name = "hippt"
+version = "0.1.0"
+description = "Agency-First Presentation Maker — idea to 80%+ scored PPTX"
+requires-python = ">=3.10"
+dependencies = [
+    "python-pptx>=1.0",
+    "pyyaml>=6.0",
+    "lxml>=4.9",
+]
+
+[project.optional-dependencies]
+export = [
+    "playwright>=1.40",
+]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+hippt-draft = "hippt.slides_to_pptx:main"
+hippt-export = "hippt.html_to_pptx:main"
+hippt-analyze = "hippt.analyze_pptx:main"
+hippt-tokens = "hippt.pptx_to_tokens:main"
+hippt-layouts = "hippt.pptx_to_layout:main"
+hippt-extract-layouts = "hippt.extract_layouts:main"
+hippt-cockpit = "hippt.review_cockpit:main"
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["hippt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]

@@ -1,0 +1,30 @@
+code: L-TITLE-001
+name: Title (PPTX s1)
+source: mid-model-s1
+slide_type: title
+background: light
+density: low
+max_regions: 1
+tags: []
+supports:
+- composite-region
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.9%, y: 3.3%, w: 15.2%, h: 1.5%}
+- role: section_label
+  element_type: text
+  box: {x: 83.0%, y: 3.3%, w: 15.2%, h: 1.5%}
+- role: headline
+  element_type: composite
+  box: {x: 0%, y: 13.1%, w: 98.2%, h: 89.8%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

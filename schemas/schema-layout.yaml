@@ -1,0 +1,73 @@
+# Layout YAML Schema — v1
+# Each layout file lives at layouts/L-{TYPE}-{NNN}.yaml
+# Positions are percentage-based (portable across viewports)
+
+schema_version: 1
+
+# --- Required fields ---
+code: L-EDIT-001                    # Unique layout code
+name: Editorial Two-Column          # Human-readable name
+source: smart-tickets-r2-s4         # Which deck/slide originated this layout
+slide_type: editorial               # title | editorial | data | comparison | radial | timeline | close | hero
+
+# --- Structural metadata (Layer 1 — tag-based filtering) ---
+background: light                   # light | dark | custom
+density: high                       # low | medium | high
+max_regions: 7                      # max content regions on this layout
+tags:                               # capability tags for search
+  - two-column
+  - long-form-text
+  - evidence-images
+supports:                           # element types this layout can hold
+  - text-heading
+  - text-body
+  - image-proof
+  - accent-bar
+
+# --- Region definitions (position boxes) ---
+# Each region = one content zone with role + bounding box
+# Boxes are percentages of slide dimensions (portable)
+regions:
+  - role: masthead                  # semantic role
+    element_type: text              # text | image | shape | table | composite
+    box: { x: 5%, y: 1%, w: 90%, h: 4% }
+  - role: headline
+    element_type: text
+    box: { x: 5%, y: 5%, w: 90%, h: 10% }
+  - role: column_left
+    element_type: composite         # composite = may contain mixed text/image
+    box: { x: 5%, y: 18%, w: 42%, h: 45% }
+  - role: column_right
+    element_type: composite
+    box: { x: 52%, y: 18%, w: 43%, h: 45% }
+  - role: evidence_images
+    element_type: image
+    box: { x: 5%, y: 65%, w: 90%, h: 20% }
+  - role: timeline_bar
+    element_type: shape
+    box: { x: 5%, y: 87%, w: 90%, h: 6% }
+  - role: verdict_bar
+    element_type: text
+    box: { x: 0%, y: 93%, w: 100%, h: 7% }
+
+# --- Semantic context (Layer 2 — AI reasoning) ---
+context: >
+  Best for editorial slides with two parallel arguments or
+  before/after comparisons. The left column typically carries
+  the problem/status-quo, the right column the solution/proposal.
+  Evidence images at bottom ground the argument visually.
+  Timeline bar shows progression if applicable.
+
+anti_patterns: >
+  Don't use for data-heavy slides (use L-DATA instead).
+  Don't use when both columns have equal weight — this layout
+  implies left-to-right narrative flow.
+
+# --- Provenance ---
+origin: html                        # html | pptx (Phase 4 dual ingestion)
+slide_master: null                  # slide master name from source PPTX (Phase 4-5)
+aspect_ratio: "16:9"               # aspect ratio for spatial semantics (Phase 4)
+thumbnail: null                     # path to layout preview image (Phase 7)
+created: 2026-04-29
+verified_in: google-slides          # google-slides | powerpoint | keynote
+calibration_status: confirmed       # candidate | calibrating | confirmed

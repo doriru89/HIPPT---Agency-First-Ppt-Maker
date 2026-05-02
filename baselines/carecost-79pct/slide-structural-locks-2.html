@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Locks - Part 2</title>
+
+
+
+<style>
+html {
+  background: #FFFAF8;
+  overflow: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  margin: 0;
+  font-family: Calibri, 'Segoe UI', sans-serif;
+  background: #FFFAF8;
+  color: #1A1F36;
+  transform-origin: top left;
+  position: relative;
+}
+.accent-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: #A84C6A;
+}
+.container {
+  padding: 80px 100px 80px 120px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #A84C6A;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.headline {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1A1F36;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+.part-indicator {
+  font-size: 16px;
+  color: hsl(345, 30%, 70%);
+  margin-bottom: 16px;
+}
+.subtitle {
+  font-size: 20px;
+  color: #475569;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  flex: 1;
+}
+.card {
+  background: hsl(345, 25%, 16%);
+  border: 1px solid hsl(345, 20%, 25%);
+  border-radius: 2px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.card-number {
+  font-size: 36px;
+  font-weight: 700;
+  color: #A84C6A;
+}
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1A1F36;
+  flex: 1;
+}
+.card-market {
+  font-size: 13px;
+  color: hsl(345, 30%, 70%);
+  margin-top: -4px;
+}
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  background: hsl(345, 20%, 22%);
+  color: #475569;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.lock-reason {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+  flex: 1;
+}
+.verdict {
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.verdict-purple {
+  background: hsl(280, 45%, 28%);
+  color: hsl(280, 70%, 90%);
+}
+.verdict-dark-red {
+  background: hsl(345, 50%, 20%);
+  color: hsl(345, 70%, 92%);
+}
+.verdict-blue {
+  background: hsl(200, 50%, 28%);
+  color: hsl(200, 80%, 90%);
+}
+</style>
+</head>
+<body>
+<div class="accent-bar"></div>
+<div class="container">
+  <div class="eyebrow">Competitive Landscape</div>
+  <div class="headline">Eight categories. Eight structural locks.</div>
+  <div class="part-indicator">Part 2</div>
+  <div class="subtitle">Why $3.7B in combined funding can't follow us into the empty quadrant.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">5</div>
+        <div>
+          <div class="card-title">AI Symptom Checkers</div>
+          <div class="card-market">Track 1 Without Track 2</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">Ada Health ($167M)</span>
+        <span class="chip">K Health ($441M)</span>
+        <span class="chip">Infermedica</span>
+        <span class="chip">Buoy (dying)</span>
+      </div>
+      <div class="lock-reason">
+        Struggling to survive — Babylon bankrupt, Buoy down to 28 employees. Triage without cost is a dead end. Adding cost multiplies liability.
+      </div>
+      <div class="verdict verdict-purple">Future Integration</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">6</div>
+        <div>
+          <div class="card-title">Benefits & AI Platforms</div>
+          <div class="card-market">Actively Harmful</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">Nayya</span>
+        <span class="chip">Healthee</span>
+        <span class="chip">SAVVI/Benefitfocus</span>
+      </div>
+      <div class="lock-reason">
+        Healthee drove 20% increase in HDHP adoption. SAVVI reports 70% HDHP election as success. They create the problem CareCost solves.
+      </div>
+      <div class="verdict verdict-dark-red">Adversary</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">7</div>
+        <div>
+          <div class="card-title">Provider-Side Cost Tools</div>
+          <div class="card-market">B2B Only</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">MD Clarity</span>
+        <span class="chip">Rivet Health</span>
+        <span class="chip">Serif Health (300+ clients)</span>
+      </div>
+      <div class="lock-reason">
+        No consumer flywheel. No triage. Automate estimates for procedures already named by provider. Can't bridge symptoms to procedures.
+      </div>
+      <div class="verdict verdict-blue">B2B Peers</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">8</div>
+        <div>
+          <div class="card-title">Big Tech & Government</div>
+          <div class="card-market">Could They? Won't They.</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">Google (2008-2012)</span>
+        <span class="chip">ChatGPT (230M/week)</span>
+        <span class="chip">Amazon Clinic</span>
+        <span class="chip">CMS Tools</span>
+      </div>
+      <div class="lock-reason">
+        Google: no ad revenue upside. ChatGPT: zero MRF access. Amazon: IS a provider. CMS: can't build consumer UX. Bad data is the moat.
+      </div>
+      <div class="verdict verdict-purple">Tailwind, Not Threat</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

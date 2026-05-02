@@ -1,0 +1,54 @@
+# CareCost design tokens — extracted from approved HTML (2026-05-02)
+# Referenced by slides_to_pptx.py --tokens flag
+
+palette:
+  - hex: "#0F2B46"
+    role: primary
+  - hex: "#1A3D5C"
+    role: primary_light
+  - hex: "#E8634A"
+    role: accent
+  - hex: "#F28C7A"
+    role: accent_light
+  - hex: "#FAFBFC"
+    role: bg
+  - hex: "#FFF8F6"
+    role: bg_warm
+  - hex: "#FFFFFF"
+    role: surface
+  - hex: "#3D5A73"
+    role: text_mid
+  - hex: "#7A96AD"
+    role: text_light
+  - hex: "#E2E8F0"
+    role: border
+  - hex: "#10B981"
+    role: success
+  - hex: "#D4A843"
+    role: gold
+
+typography:
+  display:
+    family: "Georgia"
+    size: 48
+    weight: 700
+  heading:
+    family: "Georgia"
+    size: 28
+    weight: 700
+  body:
+    family: "Segoe UI"
+    size: 16
+    weight: 400
+  label:
+    family: "Segoe UI"
+    size: 12
+    weight: 600
+  mono:
+    family: "Consolas"
+    size: 10
+    weight: 400
+
+spacing:
+  base_unit: 8
+  rhythm: [8, 16, 24, 32, 48]

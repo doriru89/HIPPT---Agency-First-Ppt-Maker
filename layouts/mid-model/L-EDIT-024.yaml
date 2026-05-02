@@ -1,0 +1,40 @@
+code: L-EDIT-024
+name: Editorial (PPTX s24)
+source: mid-model-s24
+slide_type: editorial
+background: light
+density: low
+max_regions: 3
+tags:
+- three-column
+supports:
+- accent-bar
+- text-body
+regions:
+- role: headline
+  element_type: shape
+  box: {x: 0%, y: -0.1%, w: 33.3%, h: 100.1%}
+- role: headline
+  element_type: shape
+  box: {x: 66.7%, y: -0.1%, w: 33.3%, h: 100.1%}
+- role: headline
+  element_type: shape
+  box: {x: 33.3%, y: 0%, w: 33.3%, h: 100.1%}
+- role: section_label
+  element_type: text
+  box: {x: 43.9%, y: 3.3%, w: 12.3%, h: 1.7%}
+- role: footer
+  element_type: text
+  box: {x: 17.4%, y: 95.1%, w: 15.2%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 67.4%, y: 95.1%, w: 15.2%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

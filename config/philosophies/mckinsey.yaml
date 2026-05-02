@@ -1,0 +1,56 @@
+name: mckinsey
+description: "Consulting-grade structured argumentation. Pyramid Principle, assertion-evidence, SCR arc."
+icon: "pyramid"
+
+structure:
+  framework: pyramid_principle
+  arc: situation_complication_resolution
+  slide_vocabulary:
+    - title
+    - content
+    - hero-stat
+    - evidence-cascade
+    - comparison-grid  # unequal sizing by importance
+    - data-annotation  # direct-labeled charts
+    - before-after
+    - section-break
+    - quote
+  forbidden_slide_types:
+    - full-bleed-image  # not data-forward enough
+    - storyboard
+  density_limits:
+    max_bullets_per_slide: 5
+    max_words_per_slide: 50
+    max_items_in_grid: 6
+    min_data_ink_ratio: 0.4
+  ghost_deck_criteria:
+    evaluate: [assertion_quality, horizontal_logic, vertical_logic, mece, scr_arc]
+    min_score: 18
+    forbidden_patterns:
+      - label_titles  # "What We Built" → must be "We shipped 6 pages with 8+/10 rigor"
+      - overlapping_slides  # MECE violation
+  required_slides:
+    - title
+    - exec_summary  # slide 2 conveys full message alone
+    - synthesis
+  exec_summary_rule: "Slide 2 must contain the governing thought + 3 supporting points. Reading slide 2 alone = understanding the full argument."
+
+aesthetic_guidance: minimal
+# "Select a palette with high contrast and professional tone. Explore freely within those bounds.
+#  One dominant accent color. Data should be the hero, not decoration."
+
+preset_ref: data-forward  # links to /frontend-design preset for palette/typography starting point
+
+asset_guidance:
+  photo: optional
+  data_viz: required  # at least 2 data visualizations
+  shader: forbidden
+  lottie: forbidden
+  brand: required_if_mentioned
+
+learned_patterns: []
+# Auto-populated by design-capture. Example:
+# - pattern: "stat-trio above evidence grid"
+#   source: "artopath-final-2026-04-23"
+#   score: 8.5
+#   dimension: tufte

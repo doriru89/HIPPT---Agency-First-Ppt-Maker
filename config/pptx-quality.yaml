@@ -1,0 +1,971 @@
+# PPTX Quality — Unified rubric, standards, and safety reference
+# Merged from pptx-quality-rubric.yaml (v4) + pptx-quality-standards.yaml (v1)
+# Created: 2026-05-02
+
+# ── Section 1: DEFINITIONS (rubric: Q1-Q10 scoring, anti-patterns, anchors, convergence) ──
+
+# PPTX Quality Rubric — 10 dimensions × 10-point scale
+# Target: 80/100 (80% first pass), 95/100 (after convergence)
+# Calibration methodology: borrowed from agent-soul-audit + prompt-audit
+# Created: 2026-04-27, updated: 2026-05-01 (Q10 Export Fidelity, errata coverage audit)
+# SlideAudit reference: Zhang et al., UIST 2025 — 27 flaw categories, 2400-slide dataset
+# Taxonomy-informed prompting improved F1 by +0.179 (GPT-4o: 0.476 → 0.655)
+#
+# Errata coverage: all 37 errata map to Q1-Q10 or are process gates/build bugs.
+# Q2: E-PRES-003,006,008,010,027,031 | Q3: E-PRES-001,013,029
+# Q4: E-PRES-002,012,014 + E-PPTX-001,006 | Q5: E-PRES-011,021
+# Q6: E-PRES-029,036,037 + E-PPTX-003,004 | Q7: E-PRES-009,015,016 + E-PPTX-002,005
+# Q8: E-PRES-003,010,011,020,021,026,030,032,033,038
+# Q10: E-PPTX-001 through E-PPTX-006
+# Process gates (not scored): E-PRES-017,028,034,035
+# Build bugs (binary): E-PRES-004,005,027
+
+version: 4
+target_score: 80
+max_score: 100
+pass_threshold: 70  # 7/10 average minimum
+
+dimensions:
+  Q1:
+    name: Structure & Narrative
+    weight: 10
+    measures: "SCR arc, ghost deck quality, MECE logic, assertion-evidence pattern"
+    bright_line_9plus: "Titles alone tell the complete story without reading body text"
+    scoring:
+      1-3: "No narrative arc, titles are labels not assertions, no executive summary"
+      4-6: "Partial structure, some assertive titles, SCR arc present but weak"
+      7-8: "Clear SCR arc, most titles assertive, MECE structure, exec summary present"
+      9-10: "Ghost deck reads as standalone story, every title is an assertion with evidence"
+
+  Q2:
+    name: Canvas Utilization
+    weight: 10
+    measures: "Viewport fill, grid balance, intentional whitespace, E-PRES-006 compliance"
+    bright_line_9plus: "Every detail slide ≥80% fill, breathing slides have intentional empty space"
+    mandatory_gate: "Q2 < 7 → max total score capped at 7/10"
+    slideaudit_flaws:
+      - "Cluttered Layout — too many elements crammed without hierarchy"
+      - "Occluded Content — elements hidden behind others or cropped"
+      - "Unbalanced Space/Margin — asymmetric whitespace without intent"
+      - "Content Overflow — elements extending beyond slide boundaries"
+      - "Inadequate Grouping — related elements not visually grouped (Gestalt proximity)"
+      - "Excessive Text Density — text walls that overwhelm the slide"
+      - "Poor Image Placement — images competing with text or floating without anchor"
+      - "Inappropriate Image Sizing — images too small to read or too large for context"
+    scoring:
+      1-3: "Content islands floating in void (<40% fill), E-PRES-006 violations everywhere"
+      4-6: "Some slides well-filled, others sparse; inconsistent fill across deck"
+      7-8: "Most slides ≥80% fill, breathing slides clearly intentional"
+      9-10: "Professional fill ratios (80%+), viewport-sized elements, grid-aligned"
+
+  Q3:
+    name: Typography & Hierarchy
+    weight: 10
+    measures: "Size ratios, rhythm consistency, font pairing, readability at distance"
+    bright_line_9plus: "Hierarchy weight ratio matches reference ±15%, consistent line-heights per role"
+    slideaudit_flaws:
+      - "Lack of Visual Hierarchy — no clear reading order, all text same weight"
+      - "Inappropriate Font Sizing — text too small/large for its role"
+      - "Inconsistent Text Styling — same role uses different styles across slides"
+      - "Illegible Typeface Usage — decorative fonts at body size, poor distance readability"
+      - "Inappropriate Line Spacing — cramped or floaty text, no rhythm"
+      - "Mixed Font Families — more than 2-3 families without intent"
+    scoring:
+      1-3: "Web-sized text (too small for presentations), no clear hierarchy"
+      4-6: "Readable text, some hierarchy, but inconsistent sizing across slides"
+      7-8: "Clear 3-level hierarchy (display/heading/body), E-PRES-001 compliant"
+      9-10: "Typographic rhythm matches reference, intentional contrast, E-PRES-013 compliant"
+
+  Q4:
+    name: Color & Harmony
+    weight: 10
+    measures: "Palette adherence, contrast ratios, no rogue hues, E-PRES-014 compliance"
+    bright_line_9plus: "≤5 distinct hues, all from extracted token palette, WCAG AA contrast"
+    slideaudit_flaws:
+      - "Low Color Contrast — text-background combinations failing WCAG AA"
+      - "Mismatched Color Combinations — clashing hues that create visual tension"
+      - "Color Overuse — too many distinct hues competing for attention"
+      - "Insufficient Color Consistency — same semantic role uses different colors across slides"
+      - "Poor Text Contrast — text unreadable against its background (E-PRES-002/012)"
+    scoring:
+      1-3: "Random colors, contrast failures, no palette adherence"
+      4-6: "Mostly on-palette, some rogue colors, contrast issues on dark backgrounds"
+      7-8: "All colors from token palette, WCAG AA compliant, ≤5 hues"
+      9-10: "Harmonious palette with intentional accent usage, no E-PRES-002/012 violations"
+
+  Q5:
+    name: Data Presentation
+    weight: 10
+    measures: "Data-ink ratio, direct labeling, chart quality, evidence density"
+    bright_line_9plus: "No chartjunk, every number earns its pixel, direct labeling on all data"
+    scoring:
+      1-3: "Decorative charts, no data labels, chart misleads or is unreadable"
+      4-6: "Data present but could be clearer, some chartjunk, legends instead of labels"
+      7-8: "Clean charts, direct labeling, good data-ink ratio, sourced citations"
+      9-10: "Tufte-compliant data presentation, every assertion backed by data evidence"
+    note: "Score N/A (8/10 default) if deck has no data slides"
+
+  Q6:
+    name: Editability & Fidelity
+    weight: 10
+    measures: "Native shapes vs screenshots, font availability, gradient survival"
+    bright_line_9plus: "100% text editable, ≥90% elements native shapes"
+    mandatory_gate: "Q6 < 8 → max total score capped at 8/10"
+    scoring:
+      1-3: "Screenshot-as-slide, no editable text, fonts missing"
+      4-6: "Mix of native and rasterized, some fonts substituted"
+      7-8: "Mostly native shapes, font fallbacks applied correctly, minor rasterization"
+      9-10: "All text editable, all shapes native, fonts safe or fallback-mapped"
+
+  Q7:
+    name: Professional Polish
+    weight: 10
+    measures: "Alignment consistency, spacing rhythm, slide-to-slide coherence"
+    bright_line_9plus: "No misaligned elements, spacing consistent ±2px, visual weight balanced"
+    slideaudit_flaws:
+      - "Misaligned Elements — elements not snapped to grid or each other"
+      - "Unbalanced Space/Margin — visual weight shifts randomly between slides"
+      - "Cluttered Layout — too many elements without breathing room"
+      - "Inadequate Grouping — related items scattered instead of grouped (Gestalt proximity)"
+      - "Inconsistent Text Styling — same text role styled differently across slides"
+      - "Inappropriate Line Spacing — spacing rhythm breaks between slides"
+    scoring:
+      1-3: "Obvious misalignment, random spacing, each slide looks different"
+      4-6: "Generally aligned but some drift, spacing mostly consistent"
+      7-8: "Clean alignment, consistent spacing, E-PRES-016 compliant"
+      9-10: "Pixel-perfect alignment, spacing rhythm matches reference, E-PRES-015 compliant"
+
+  Q8:
+    name: Visual Evidence
+    weight: 10
+    measures: "Image-assertion alignment, source quality, balance, space allocation, data outputs"
+    bright_line_9plus: "Every assertion backed by visual proof. Eye goes to image first, text supports"
+    slideaudit_flaws:
+      - "Irrelevant/Low-Quality Images — generic stock or failed captures (E-PRES-030)"
+      - "Poor Image Placement — image doesn't sit under the claim it supports"
+      - "Inappropriate Image Sizing — too small to read at presentation distance (E-PRES-026)"
+    scoring:
+      1-3: "No images, or all placeholders/stock photos. No data visualizations"
+      4-6: "Some real images but generic. Image placement decorative, not evidence-driven"
+      7-8: "Real product screenshots, real data. Images prove assertions. Mix of text and image slides"
+      9-10: "Every assertion has visual proof. Images sized 50-70% for visual-led slides. Data from real sources"
+    note: "Score N/A (7/10 default) for pure data/consulting decks that are intentionally text-heavy"
+
+  Q9:
+    name: Vision Adherence
+    weight: 10
+    measures: "North star alignment, audience fit, goal delivery, tone consistency, drift detection"
+    bright_line_9plus: "A stranger reading the vision, then viewing the deck, would say 'this achieves exactly that'"
+    scoring:
+      1-3: "Deck drifts from stated vision. Slides serve the presenter, not the audience"
+      4-6: "Most slides serve the vision but some tangential. Tone inconsistent"
+      7-8: "Clear alignment to vision. Audience would care about every slide. Consistent tone"
+      9-10: "Every slide serves the locked Step 0 vision. No drift. Tone matches agreement"
+
+  Q10:
+    name: Export Fidelity
+    weight: 10
+    measures: "Position accuracy, color preservation, typography match, editability ratio, content completeness vs approved HTML"
+    bright_line_9plus: "Side-by-side screenshot: a viewer cannot tell which is HTML and which is Google Slides render of PPTX"
+    mandatory_gate: "Q10 < 8 → iterate export handlers before declaring done"
+    errata_coverage:
+      - "E-PPTX-001 — Hex color format mismatch"
+      - "E-PPTX-002 — EMU math precision errors"
+      - "E-PPTX-003 — Font embedding and fallback"
+      - "E-PPTX-004 — Gradient and border-radius degradation"
+      - "E-PPTX-005 — Proportional text padding destroys grid alignment"
+      - "E-PPTX-006 — CSS linear-gradient backgrounds lost"
+    scoring:
+      1-3: "Major layout drift, wrong colors, text truncated, >50% rasterized"
+      4-6: "Noticeable position drift, some color/font mismatches, gradient loss"
+      7-8: "Close match, minor spacing differences, font fallbacks applied correctly"
+      9-10: "Indistinguishable at presentation distance, all elements native + editable"
+    note: "Scored by comparing HTML screenshot vs PPTX-in-Google-Slides screenshot (page-level). Only scored after HTML is approved (Q1-Q9 ≥ 80/90)."
+
+anti_patterns:
+  AP1: "Screenshot pasted as slide image (instant Q6 fail)"
+  AP2: "More than 5 distinct hues excluding photos (E-PRES-014)"
+  AP3: "Content islands <40% fill on detail slides (E-PRES-006)"
+  AP4: "Web-sized text on presentation slides (E-PRES-001)"
+  AP5: "Inconsistent line-heights across slides (E-PRES-013)"
+  AP6: "Font substitution without fallback mapping (E-PPTX-003)"
+  AP7: "Generic stock image not proving assertion (E-PRES-020, Q8 fail)"
+  AP8: "Slide that doesn't serve the locked vision (Q9 fail)"
+  AP9: "CSS-only fix for content problem — empty space = missing content, not bad padding"
+  AP10: "Skipping Context Review after screenshots — fixing symptoms not causes"
+  AP11: "Thumbnail strips as evidence — 4+ tiny images ≤130px height (E-PRES-026)"
+
+anchors:
+  gold:
+    file: "WORK/PROJECTS/design-system/references/pptx/mid-model.pptx"
+    expected_score: 9
+    notes: "42 slides, 94% avg fill, Syne + IBM Plex, 33x hierarchy ratio"
+  baseline:
+    file: null  # Set after first chain run
+    expected_score: 6
+    notes: "First AI-generated output — measures starting quality"
+  floor:
+    file: "WORK/PROJECTS/design-system/references/pptx/floor-anchor.pptx"
+    expected_score: 3
+    notes: "3 slides, label titles, 10-14pt text, no palette applied, content islands — ensures rubric discriminates at floor"
+
+convergence:
+  html_first_pass: 80  # 80/100 = 80% on Q1-Q9 (Q10 N/A until PPTX export)
+  html_after_3_rounds: 95  # 95/100 after convergence
+  pptx_q10_target: 9  # Q10 ≥ 9/10 for PPTX export fidelity
+  max_rounds: 3
+  required_consecutive: 3
+  human_ai_gap_max: 0.5
+  engine_comparison_min_runs: 5
+  # Iteration trigger — re-enter loop if ANY condition is true (2026-05-02, research-backed)
+  # Closes dead zone where "any Q<6" let 70% decks pass without iteration
+  iteration_trigger:
+    avg_below_first_pass: true   # iterate if Q1-Q9 avg < html_first_pass (80)
+    any_q_below: 7               # iterate if any single Q < 7
+    gate_violation: true          # iterate if Q2 < 7 or Q6 < 8 (mandatory gates)
+  regression_threshold: 0.5      # reject fix if any Q drops > this many points
+  bottleneck_priority:           # tie-breaking order for one-bottleneck-per-round (TOC)
+    - Q1  # content/narrative
+    - Q8  # visual evidence
+    - Q5  # data presentation
+    - Q2  # canvas utilization
+    - Q9  # vision adherence
+    - Q7  # professional polish
+    - Q3  # typography
+    - Q4  # color
+
+# Font minimums for presentation slides (CSS px at 960×540 viewport)
+font_minimums:
+  title: 48
+  body: 18
+  label: 14
+  source: 10
+  chart_label: 10
+
+# Documentation only — canonical values in TOOLS/lib/design_tokens.py
+font_role_thresholds:
+  display_min_pt: 32    # ≥32pt = display
+  heading_min_pt: 22    # ≥22pt = heading
+  body_min_pt: 13       # ≥13pt = body
+  small_below_pt: 13    # <13pt = small
+
+taxonomy_reference:
+  source: "SlideAudit: Zhang et al., UIST 2025"
+  dataset: "2,400 slides, 17 experts, 27 flaw categories"
+  coverage: "Q2 (8 flaws), Q3 (6 flaws), Q4 (5 flaws), Q7 (7 flaws), Q8 (3 partial)"
+  no_coverage: "Q1 (narrative), Q5 (data), Q6 (editability), Q9 (vision), Q10 (export fidelity) — semantic/engineering dimensions beyond taxonomy"
+  notes: "Drill/99. AI Notes/Learning/Papers/SlideAudit Taxonomy to Q1-Q9 Mapping.md"
+
+verifiable_metrics:
+  source: "AeSlides: Pan et al., arXiv 2604.22840, 2026"
+  insight: "Verifiable metrics outperform VLM scoring (F1 0.47-0.83 vs 0.24-0.73 GPT-5.2)"
+  metrics:
+    excessive_whitespace:
+      dimension: Q2
+      pipeline_step: "4.5 (Canvas Fill Gate)"
+      method: "Pixel-level local-variance on rendered screenshot"
+      threshold: "≥80% content fill"
+      priority: P1
+      f1: 0.80
+    element_collision:
+      dimension: "Q2 + Q7"
+      pipeline_step: "4.5 (Canvas Fill Gate)"
+      method: "DOM bounding-box IoU overlap detection"
+      threshold: "0 overlapping pairs"
+      priority: P2
+      f1: 0.83
+    aspect_ratio:
+      dimension: Q2
+      pipeline_step: "4.5 (Canvas Fill Gate)"
+      method: "Post-render JS viewport measurement (16:9 + overflow:hidden)"
+      threshold: "Binary pass/fail"
+      priority: P3
+      f1: 0.47
+    visual_imbalance:
+      dimension: "Q2 + Q7"
+      pipeline_step: "5 (Convergence Scoring)"
+      method: "Content centroid offset from slide center"
+      threshold: "d > 2.0 caps Q7 at 6/10 without justification"
+      priority: P4
+      f1: 0.63
+  notes: "Drill/99. AI Notes/Learning/Papers/AeSlides Metrics to PPTX Pipeline Mapping.md"
+
+# ── Section 2: STANDARDS (evidence-grounded rules by dimension) ──
+
+# Professional Presentation Design Standards
+# Evidence-grounded reference for Q1-Q7
+# Researched: 2026-04-27, updated 2026-04-28
+# Sources: McKinsey, BCG, Bain, TED, Duarte, Reynolds, Tufte, Alley, Kawasaki, WCAG, Phillips, Kosslyn, Knaflic
+# Purpose: Concrete thresholds and named rules for automated PPTX quality scoring
+
+standards_version: 1
+
+standards_by_dimension:
+
+  Q1_structure:
+    name: "Structure & Narrative"
+    rules:
+      - name: "Action Title Rule"
+        description: "Every slide title is a complete sentence stating the conclusion, not a topic label"
+        threshold: "100% of content slides must have assertion titles"
+        anti_pattern: "Topic titles like 'Q3 Revenue Overview' instead of 'Q3 revenue grew 14% driven by APAC expansion'"
+        source: "McKinsey, BCG, Bain (universal across MBB)"
+
+      - name: "Ghost Deck Test"
+        description: "Reading only slide titles from slide 1 to N produces a cohesive persuasive essay"
+        threshold: "Titles alone must tell the complete story without reading body text"
+        test: "Strip all body content; read titles sequentially — narrative should be complete"
+        source: "McKinsey ghost deck methodology"
+
+      - name: "SCR Arc"
+        description: "Situation-Complication-Resolution narrative structure"
+        threshold: "Deck must have identifiable S, C, and R sections; Resolution should comprise the majority of slides"
+        structure: "Situation (context) → Complication (problem/change) → Resolution (recommendation)"
+        source: "McKinsey SCR Framework (Barbara Minto derivative)"
+
+      - name: "Pyramid Principle"
+        description: "Lead with answer/recommendation, then support with evidence"
+        threshold: "Executive summary or key recommendation appears in first 3 slides"
+        anti_pattern: "Building up to the conclusion at the end (burying the lead)"
+        source: "Barbara Minto, McKinsey"
+
+      - name: "MECE Structure"
+        description: "Mutually Exclusive, Collectively Exhaustive categorization"
+        threshold: "All framework slides must pass MECE test — no overlapping categories, no gaps"
+        source: "McKinsey, BCG, Bain"
+
+      - name: "One Message Per Slide"
+        description: "Each slide communicates exactly one insight"
+        threshold: "If a slide has two independent points, it should be split into two slides"
+        source: "McKinsey, TED, Duarte"
+
+      - name: "Assertion-Evidence Pattern"
+        description: "Headline = sentence assertion; body = visual evidence (not bullet lists)"
+        threshold: "Assertion fits in 1-2 lines; body is chart/diagram/photo, not text bullets"
+        evidence: "Statistically significant comprehension improvement (p < .01) over traditional slides"
+        source: "Michael Alley, Penn State research"
+
+      - name: "60-Second Rule"
+        description: "Each slide should be presentable in 60 seconds or less"
+        threshold: "≤60 seconds per slide; complex data slides may take up to 90 seconds"
+        source: "McKinsey"
+
+  Q2_canvas:
+    name: "Canvas Utilization"
+    rules:
+      - name: "Content Fill Ratio"
+        description: "Percentage of slide canvas occupied by meaningful content"
+        thresholds:
+          detail_slides: "≥75% fill (target ≥80%)"
+          breathing_slides: "Intentional whitespace is acceptable but must be designed, not accidental"
+          minimum_acceptable: "≥40% (below = content islands)"
+        anti_pattern: "Content islands floating in void (<40% fill)"
+        source: "Professional design consensus"
+
+      - name: "Two-Thirds Rule"
+        description: "Balance between content and whitespace"
+        threshold: "~1/3 content, ~2/3 whitespace for text-heavy slides; inverted for data-heavy slides"
+        note: "Focus on whether elements breathe and key message stands out"
+        source: "Design industry guideline"
+
+      - name: "Margin Safe Area"
+        description: "Content must not bleed to slide edges"
+        threshold: "≥0.5 inches (1.27 cm) margin on all four sides"
+        slide_dimensions_16_9: "13.333 × 7.5 inches (914400 EMU per inch)"
+        source: "PowerPoint best practices, python-pptx documentation"
+
+      - name: "Full-Bleed Images"
+        description: "Photo/image slides should fill the entire canvas"
+        threshold: "Image covers 100% of slide area (edge to edge)"
+        source: "Garr Reynolds, Presentation Zen"
+
+      - name: "6-Object Limit Per Slide"
+        description: "Maximum number of distinct visual objects on a single slide"
+        threshold: "≤6 objects per slide (text blocks, images, shapes, charts count as individual objects)"
+        rationale: "Exceeding 6 objects fractures attention; audience processes objects sequentially, not in parallel"
+        source: "David JP Phillips (2014)"
+
+      - name: "Active vs Passive Whitespace"
+        description: "Whitespace must be intentional (active) not accidental (passive)"
+        active: "Asymmetric space around elements to create focus"
+        passive: "Even space between elements for alignment and symmetry"
+        anti_pattern: "Unintentional gaps between poorly positioned elements"
+        source: "Design industry standard"
+
+  Q3_typography:
+    name: "Typography & Hierarchy"
+    rules:
+      - name: "Minimum Font Size — Presentation Context"
+        description: "Smallest readable text at projection distance"
+        thresholds:
+          body_text_minimum: "24pt (absolute floor for projected content)"
+          body_text_recommended: "28-30pt"
+          heading_minimum: "32pt"
+          heading_recommended: "36-44pt"
+          display_title: "≥60pt"
+          footnotes_sources: "18pt minimum (acceptable for reference text only)"
+        source: "Multiple: BrightCarbon, Kawasaki 10/20/30, consulting standards"
+
+      - name: "Kawasaki Font Size Rule"
+        description: "No font smaller than 30 points"
+        threshold: "30pt minimum for all visible text"
+        heuristic: "Oldest audience member age ÷ 2 = minimum font size"
+        source: "Guy Kawasaki, 10/20/30 Rule"
+
+      - name: "3-Level Type Hierarchy"
+        description: "Consistent display/heading/body size system"
+        threshold: "Exactly 3 font size levels (±1 for footnotes/sources)"
+        anti_pattern: "More than 4 distinct font sizes on a single slide"
+        source: "Professional typography standards"
+
+      - name: "Font Size Consistency"
+        description: "Same role = same size across all slides"
+        threshold: "All action titles same font size; all body text same font size across deck"
+        anti_pattern: "Slide-to-slide variation in title or body font sizes"
+        source: "McKinsey (all titles identical size)"
+
+      - name: "Sans-Serif for Projection"
+        description: "Sans-serif fonts are more legible at distance on projected screens"
+        recommended: "Helvetica, Arial, Calibri, Inter, Segoe UI, Verdana"
+        acceptable_serif: "Georgia for display titles only"
+        anti_pattern: "Times New Roman or other serif fonts for body text"
+        source: "TED, McKinsey, general projection guidelines"
+
+      - name: "Line Height"
+        description: "Spacing between lines of text"
+        thresholds:
+          body_text: "1.4-1.5× font size"
+          headings: "1.1-1.2× font size"
+          wcag_minimum: "1.5× font size (WCAG 1.4.12)"
+        source: "WCAG 2.1, Butterick's Practical Typography"
+
+      - name: "Maximum Text Per Slide"
+        description: "Word and line limits per slide"
+        thresholds:
+          max_words: 30
+          max_lines: 6
+          preferred_lines: "1-2 lines of text"
+        source: "Duarte (≤30 words, ≤5 thoughts), TED (max 6 lines, prefer 1-2)"
+
+      - name: "Glance Test"
+        description: "Audience must comprehend the slide's main point in ≤3 seconds"
+        threshold: "3-second comprehension test"
+        test: "Show slide for 3 seconds to naive viewer; they should get the point"
+        source: "Nancy Duarte, slide:ology"
+
+      - name: "Preattentive Attributes Audit"
+        description: "Check where the eye is drawn first — it must be the key message"
+        test: "'Where are your eyes drawn?' — if the answer isn't the main point, fix the visual hierarchy"
+        anti_pattern: "Decorative element or secondary data draws more attention than the key message"
+        source: "Cole Nussbaumer Knaflic, Storytelling with Data"
+
+      - name: "Discriminability at Distance"
+        description: "All elements must be distinguishable at projection distance"
+        threshold: "Elements must be visually distinct at 3m+ viewing distance"
+        anti_pattern: "Similar-sized text blocks, similar colors, or overlapping elements"
+        source: "Stephen Kosslyn, Clear and to the Point"
+
+  Q4_color:
+    name: "Color & Harmony"
+    rules:
+      - name: "Palette Size Limit"
+        description: "Maximum number of distinct hues in the presentation"
+        threshold: "3-5 colors (excluding photographs and neutral grays)"
+        anti_pattern: "More than 5 distinct hues creates visual chaos"
+        example: "Slack reduced 11+ brand colors to 4 for clarity and accessibility"
+        source: "Design consensus, Slack rebrand case study"
+
+      - name: "60-30-10 Color Distribution Rule"
+        description: "Proportion of dominant, secondary, and accent colors"
+        thresholds:
+          dominant: "60% — background, large surfaces (neutral/brand base)"
+          secondary: "30% — supporting elements, section breaks, card backgrounds"
+          accent: "10% — call-to-action, highlights, key data points"
+        source: "Interior/graphic design principle, widely adopted in UI/presentation design"
+
+      - name: "WCAG AA Contrast — Normal Text"
+        description: "Minimum contrast ratio for standard body text"
+        threshold: "4.5:1 contrast ratio"
+        source: "WCAG 2.1 Level AA, SC 1.4.3"
+
+      - name: "WCAG AA Contrast — Large Text"
+        description: "Minimum contrast ratio for text ≥18pt (or ≥14pt bold)"
+        threshold: "3:1 contrast ratio"
+        note: "Most presentation text qualifies as 'large text' at ≥18pt"
+        source: "WCAG 2.1 Level AA, SC 1.4.3"
+
+      - name: "WCAG AAA Contrast (Enhanced)"
+        description: "Enhanced contrast for maximum readability"
+        thresholds:
+          normal_text: "7:1"
+          large_text: "4.5:1"
+        source: "WCAG 2.1 Level AAA"
+
+      - name: "Non-Text Element Contrast"
+        description: "UI components and graphical objects"
+        threshold: "3:1 contrast against adjacent colors"
+        source: "WCAG 2.1, SC 1.4.11"
+
+      - name: "Grayscale Test"
+        description: "Quick accessibility verification"
+        test: "Convert design to grayscale; if elements blend together, contrast is insufficient"
+        source: "WCAG best practice"
+
+      - name: "Consistent Palette Adherence"
+        description: "All colors must come from the defined token palette"
+        threshold: "0 rogue hues (colors not in the defined palette)"
+        anti_pattern: "Random colors not derived from the brand/project palette"
+        source: "Brand design standards"
+
+  Q5_data:
+    name: "Data Presentation"
+    rules:
+      - name: "Data-Ink Ratio"
+        description: "Proportion of ink used to represent data vs total ink on the chart"
+        threshold: "Maximize toward 1.0; remove all non-data-ink that can be erased without data loss"
+        formula: "data-ink ratio = 1 - (proportion of graphic erasable without data-information loss)"
+        source: "Edward Tufte, The Visual Display of Quantitative Information (1983)"
+
+      - name: "Eliminate Chartjunk"
+        description: "Remove decorative non-data elements from charts"
+        elements_to_remove:
+          - "Moiré vibration patterns"
+          - "Heavy gridlines (use light or remove)"
+          - "3D effects on 2D data"
+          - "Decorative fills and gradients"
+          - "Redundant borders and boxes"
+          - "Background images behind charts"
+        source: "Edward Tufte"
+
+      - name: "Direct Labeling Over Legends"
+        description: "Label data directly on the chart instead of using a separate legend"
+        threshold: "All data series labeled directly; no separate legend required"
+        rationale: "Reduces eye movement and cognitive load"
+        source: "Edward Tufte — 'write out explanations of the data on the graphic itself'"
+
+      - name: "Lie Factor"
+        description: "Physical representation must be proportional to data magnitude"
+        threshold: "Lie factor ≈ 1.0 (visual size change / data size change)"
+        anti_pattern: "Truncated y-axes, distorted area charts, misleading scales"
+        source: "Edward Tufte"
+
+      - name: "Source Every Number"
+        description: "All data points must include source attribution"
+        threshold: "100% of quantitative claims have visible source citations"
+        anti_pattern: "Data without sources loses credibility"
+        source: "McKinsey, BCG, Bain (universal consulting standard)"
+
+      - name: "Maximum Data Series Per Chart"
+        description: "Cognitive limit on distinguishable data series"
+        thresholds:
+          maximum: "7 series (Miller's Law upper bound)"
+          recommended: "3-5 series for clear comprehension"
+          color_distinct: "≤5 colors in a single chart"
+        source: "George Miller (1956), cognitive load research"
+
+      - name: "Small Multiples"
+        description: "Use repeated small charts instead of one complex chart"
+        threshold: "When comparing >3 variables, prefer small multiples over single dense chart"
+        rationale: "Enforces local comparisons within eye span"
+        source: "Edward Tufte"
+
+      - name: "So-What Annotation Rule"
+        description: "Every chart must include an explicit takeaway annotation"
+        threshold: "100% of charts have a 'so what?' callout — not just a title"
+        anti_pattern: "Chart with title 'Q3 Revenue' but no annotation explaining why it matters"
+        source: "Cole Nussbaumer Knaflic, Storytelling with Data"
+
+      - name: "Declutter Checklist"
+        description: "Systematic removal of non-data elements from charts"
+        checklist:
+          - "Remove chart borders"
+          - "Remove or lighten gridlines"
+          - "Remove axis lines (keep labels)"
+          - "Remove data markers (unless sparse data)"
+          - "Remove legends (use direct labels)"
+        source: "Cole Nussbaumer Knaflic, Storytelling with Data"
+
+      - name: "Sparklines"
+        description: "Word-sized data-intense graphics embedded in context"
+        use_case: "Inline trend indicators alongside numbers in tables or text"
+        properties: "Data-intense, design-simple, word-sized"
+        source: "Edward Tufte"
+
+  Q6_editability:
+    name: "Editability & Fidelity"
+    rules:
+      - name: "Native Shapes Over Screenshots"
+        description: "All visual elements must be editable PowerPoint objects"
+        threshold: "≥90% of elements are native shapes; 100% of text is editable"
+        anti_pattern: "Screenshots pasted as slide images (instant quality fail)"
+        source: "Professional PPTX standards"
+
+      - name: "Font Availability"
+        description: "All fonts must be available on target systems or have mapped fallbacks"
+        threshold: "Use system-safe fonts or embed fonts; provide explicit fallback chain"
+        safe_fonts: "Arial, Calibri, Helvetica, Segoe UI, Georgia, Verdana"
+        anti_pattern: "Custom fonts without fallback mapping cause substitution on other machines"
+        source: "Microsoft PowerPoint best practices"
+
+      - name: "Master Slide / Layout System"
+        description: "Use slide master for consistent formatting across deck"
+        threshold: "4-6 layouts maximum with descriptive names (e.g., 'Executive Summary', 'Data Comparison')"
+        rules:
+          - "Edit Master Slide before adding content"
+          - "Master controls: logo, colors, fonts, margin guides"
+          - "Layouts control: content structure per slide type"
+        source: "Microsoft PowerPoint documentation"
+
+      - name: "Gradient and Effect Survival"
+        description: "Visual effects must render correctly across PowerPoint versions"
+        threshold: "All gradients, shadows, and effects render in PowerPoint 2016+"
+        anti_pattern: "Effects that degrade or disappear in older PowerPoint versions"
+        source: "Cross-platform compatibility requirements"
+
+      - name: "Minimal Template Approach"
+        description: "Minimal master with invariant elements + duplicable pre-made slides"
+        structure: "Master has logo, fonts, essential colors; library has pre-made slide templates"
+        source: "Modern PPTX agency practice (2025)"
+
+  Q7_polish:
+    name: "Professional Polish"
+    rules:
+      - name: "Grid-Based Alignment"
+        description: "All elements aligned to a consistent grid system"
+        thresholds:
+          recommended_grid: "12-column grid for 16:9 slides"
+          spacing_increment: "8px (or 4px for fine control)"
+          alignment_tolerance: "±2px maximum deviation"
+        source: "Professional design standards, BrightCarbon"
+
+      - name: "Consistent Margins"
+        description: "Uniform margin space on all slides"
+        threshold: "≥0.5 inches on all four sides; consistent across all slides"
+        anti_pattern: "Content touching or exceeding slide edges"
+        source: "McKinsey (use PowerPoint guides for consistent margins)"
+
+      - name: "Spacing Rhythm"
+        description: "Consistent spacing between elements follows a scale"
+        threshold: "Use multiples of base unit (e.g., 8, 16, 24, 32px)"
+        anti_pattern: "Random spacing values between elements"
+        source: "4px/8px grid system standard"
+
+      - name: "Slide-to-Slide Coherence"
+        description: "Visual consistency across all slides in the deck"
+        checks:
+          - "Same title position and size on every slide"
+          - "Same body text position across comparable slides"
+          - "Consistent use of color roles (accent always means emphasis)"
+          - "Consistent element sizing for similar content types"
+        anti_pattern: "Each slide looks like it belongs to a different deck"
+        source: "Consulting firm standards, design system practice"
+
+      - name: "Snap-to-Guide Discipline"
+        description: "Objects should snap to guides for consistent positioning"
+        threshold: "All elements aligned using PowerPoint guides or grid snap"
+        benefit: "Audience retention increases up to 30% with structured layouts"
+        source: "BrightCarbon research"
+
+      - name: "Visual Weight Balance"
+        description: "Elements distributed to create balanced visual composition"
+        threshold: "No single quadrant should be overloaded while others are empty"
+        test: "Squint at slide; visual mass should feel balanced"
+        source: "Graphic design fundamentals"
+
+# ── Standards anti-patterns (cross-cutting, structured by category) ──
+anti_patterns_by_category:
+  structural:
+    - name: "Burying the Lead"
+      description: "Starting with analysis instead of key recommendation"
+      violates: Q1
+      source: "Consulting presentation anti-pattern"
+
+    - name: "Topic Titles"
+      description: "Using labels ('Q3 Revenue') instead of assertions ('Q3 revenue grew 14%')"
+      violates: Q1
+      source: "McKinsey, assertion-evidence research"
+
+    - name: "Bullet Point Walls"
+      description: "Slides filled with hierarchical bullet lists instead of visual evidence"
+      violates: [Q1, Q2, Q5]
+      source: "Tufte (Cognitive Style of PowerPoint), Alley (assertion-evidence)"
+
+  canvas:
+    - name: "Content Islands"
+      description: "Small content block floating in large empty space (<40% fill)"
+      violates: Q2
+      threshold: "Detail slides below 40% fill"
+
+    - name: "Edge Bleeding"
+      description: "Content touching or exceeding slide margins"
+      violates: [Q2, Q7]
+      threshold: "Any element within 0.5 inches of slide edge"
+
+  typography:
+    - name: "Web-Sized Text"
+      description: "Using font sizes appropriate for web (12-16pt) on projected slides"
+      violates: Q3
+      threshold: "Any text below 18pt on a slide"
+
+    - name: "Font Size Salad"
+      description: "Too many different font sizes on a single slide"
+      violates: Q3
+      threshold: ">4 distinct font sizes on one slide"
+
+    - name: "Serif Body Text"
+      description: "Using serif fonts for body text in projected presentations"
+      violates: Q3
+      source: "TED guidelines, projection readability research"
+
+  color:
+    - name: "Rogue Hues"
+      description: "Colors not from the defined palette appearing in the deck"
+      violates: Q4
+      threshold: "Any hue not in the token palette (excluding photographs)"
+
+    - name: "Rainbow Overload"
+      description: "More than 5 distinct hues in the deck"
+      violates: Q4
+      source: "Design consensus, Miller's Law applied to color"
+
+    - name: "Low Contrast Text"
+      description: "Text failing WCAG AA contrast requirements"
+      violates: Q4
+      threshold: "<4.5:1 for normal text, <3:1 for large text"
+
+  data:
+    - name: "Chartjunk"
+      description: "Decorative elements that don't represent data"
+      violates: Q5
+      elements: ["3D effects", "moiré patterns", "heavy gridlines", "decorative fills"]
+      source: "Edward Tufte"
+
+    - name: "Legend Instead of Labels"
+      description: "Using separate legend when direct labeling is possible"
+      violates: Q5
+      source: "Edward Tufte, direct labeling principle"
+
+    - name: "Unsourced Data"
+      description: "Quantitative claims without source citations"
+      violates: Q5
+      source: "MBB consulting standard"
+
+  editability:
+    - name: "Screenshot-as-Slide"
+      description: "Entire slide is a rasterized screenshot image"
+      violates: Q6
+      severity: "instant fail"
+
+    - name: "Missing Font Fallbacks"
+      description: "Custom fonts with no fallback chain defined"
+      violates: Q6
+      source: "Cross-platform PPTX requirements"
+
+  polish:
+    - name: "Misaligned Elements"
+      description: "Elements that are visually out of alignment"
+      violates: Q7
+      threshold: ">2px deviation from grid alignment"
+
+    - name: "Random Spacing"
+      description: "Inconsistent spacing between similar elements"
+      violates: Q7
+      threshold: "Spacing values not from the defined scale (8px multiples)"
+
+# ── Section 3: SOURCES (15 academic/professional references) ──
+
+sources:
+  - name: "Barbara Minto — The Pyramid Principle"
+    type: book
+    year: 1987
+    key_rules:
+      - "Lead with conclusion, support with evidence"
+      - "MECE structure (Mutually Exclusive, Collectively Exhaustive)"
+      - "Every group of ideas must be logically ordered"
+
+  - name: "Nancy Duarte — slide:ology"
+    type: book
+    year: 2008
+    key_rules:
+      - "Glance Test: audience must comprehend slide in ≤3 seconds"
+      - "One idea per slide"
+      - "Signal-to-noise ratio: maximize signal, eliminate noise"
+      - "≤30 words and ≤5 distinct thoughts per slide"
+
+  - name: "Garr Reynolds — Presentation Zen"
+    type: book
+    year: 2008
+    key_rules:
+      - "Restraint, simplicity, naturalness"
+      - "Full-bleed images for maximum visual impact"
+      - "80% rule: eat until 80% full (resist adding 'nice-to-have' slides)"
+      - "Plan analog first (pen and paper before software)"
+
+  - name: "Edward Tufte — The Visual Display of Quantitative Information"
+    type: book
+    year: 1983
+    key_rules:
+      - "Maximize data-ink ratio (data-ink / total ink → 1.0)"
+      - "Eliminate chartjunk (moiré, heavy grids, 3D effects, decorative elements)"
+      - "Direct labeling over legends"
+      - "Small multiples for comparison"
+      - "Lie factor near 1.0 (physical representation ∝ data magnitude)"
+      - "Graphical integrity: no distortion or manipulation"
+
+  - name: "Edward Tufte — The Cognitive Style of PowerPoint"
+    type: book
+    year: 2003
+    key_rules:
+      - "Bullet points flatten information and dilute logical relationships"
+      - "PowerPoint templates weaken verbal and spatial reasoning"
+      - "Prefer high-resolution handouts over low-density slides"
+
+  - name: "Michael Alley — Assertion-Evidence Approach"
+    type: research
+    year: 2005
+    url: "https://www.assertion-evidence.com/"
+    key_rules:
+      - "Slide headline = complete sentence stating the assertion"
+      - "Body = visual evidence (chart, diagram, photo), not bullet lists"
+      - "Assertion fits in 1-2 lines of text"
+      - "One assertion per slide"
+      - "Research: assertion-evidence audiences score significantly better on comprehension (p < .01)"
+
+  - name: "Guy Kawasaki — 10/20/30 Rule"
+    type: guideline
+    year: 2005
+    key_rules:
+      - "10 slides maximum"
+      - "20 minutes maximum"
+      - "30pt minimum font size"
+      - "Heuristic: oldest audience member age ÷ 2 = minimum font size"
+
+  - name: "McKinsey Presentation Standards"
+    type: guideline
+    key_rules:
+      - "Ghost deck (shell/skeleton) before any design work"
+      - "Action titles: complete sentence stating conclusion, not topic label"
+      - "Titles alone must read as a cohesive persuasive essay"
+      - "One message per slide"
+      - "Present each slide in ≤60 seconds"
+      - "Source every data point"
+      - "Consistent margins via PowerPoint guides"
+      - "All titles ≤2 lines, same font size across deck"
+      - "Fonts: Arial body, Georgia titles (2020 template)"
+      - "Action title ~32pt, subheads ~24pt"
+
+  - name: "BCG/Bain Slide Standards"
+    type: guideline
+    key_rules:
+      - "Pyramid Principle structure (answer first, then evidence)"
+      - "MECE categorization for all frameworks"
+      - "Action titles on every slide"
+      - "One insight per slide"
+      - "Source all data"
+
+  - name: "TED Speaker Slide Guidelines"
+    type: guideline
+    url: "https://www.ted.com/pages/create-prepare-slides"
+    key_rules:
+      - "One claim or idea per slide"
+      - "Maximum 6 lines of text per slide (prefer 1-2 lines)"
+      - "Sans-serif fonts (Helvetica, Verdana)"
+      - "Black slide background when possible"
+      - "High-resolution images only"
+      - "No bullet-point slides"
+      - "No unnecessary animations"
+      - "Use blank/black slides as visual breathing room"
+      - "Keynote preferred (TED's go-to app)"
+
+  - name: "WCAG 2.1 (W3C)"
+    type: standard
+    url: "https://www.w3.org/WAI/WCAG21/"
+    key_rules:
+      - "AA minimum: 4.5:1 contrast for normal text"
+      - "AA minimum: 3:1 contrast for large text (≥18pt or ≥14pt bold)"
+      - "AAA enhanced: 7:1 contrast for normal text"
+      - "AAA enhanced: 4.5:1 contrast for large text"
+      - "Non-text elements: 3:1 contrast against adjacent colors"
+      - "Line height ≥1.5× font size (WCAG 1.4.12)"
+
+  - name: "David JP Phillips — Death by PowerPoint"
+    type: talk
+    year: 2014
+    key_rules:
+      - "Maximum 6 objects per slide (distinct from Miller's chunks — objects = visual elements)"
+      - "Size = importance: largest element must be the key message, not decoration"
+      - "Dark backgrounds increase audience focus"
+      - "No sub-bullets ever — flatten or split"
+
+  - name: "Stephen Kosslyn — Clear and to the Point"
+    type: book
+    year: 2007
+    key_rules:
+      - "Discriminability: can audience distinguish all elements at viewing distance?"
+      - "Informative changes: every visual change (color, size, position) must carry meaning"
+      - "8 cognitive principles for effective presentations"
+
+  - name: "Cole Nussbaumer Knaflic — Storytelling with Data"
+    type: book
+    year: 2015
+    key_rules:
+      - "'Where are your eyes drawn?' — preattentive attributes audit (color, size, position)"
+      - "Declutter checklist: remove chart borders, gridlines, axis lines, data markers unless justified"
+      - "'So what?' annotation rule: every chart needs an explicit takeaway callout"
+      - "Colorblind-safe palettes as data-viz requirement beyond WCAG text contrast"
+
+  - name: "George Miller — The Magical Number Seven"
+    type: research
+    year: 1956
+    key_rules:
+      - "Working memory capacity: 7 ± 2 items"
+      - "Practical limit for chart series/categories: 5-7 distinct elements"
+      - "Conservative threshold for data visualization: 3-5 colors per chart"
+
+# ── Measurement units reference ──
+measurement_reference:
+  emu_per_inch: 914400
+  emu_per_cm: 360000
+  emu_per_pt: 12700
+  slide_16_9:
+    width_inches: 13.333
+    height_inches: 7.5
+    width_emu: 12192000
+    height_emu: 6858000
+  safe_margin_inches: 0.5
+  safe_margin_emu: 457200
+
+# ── Grid system (extracted from convergence R2-R4 inline CSS) ──
+grid_system:
+  columns: 12
+  margin_x: "4%"
+  gutter: "1.5vw"
+  base_unit_px: 8
+  alignment_tolerance_px: 2
+  slide_template:
+    rows: "6px auto 1fr auto"
+    title_zone_padding: "2% var(--margin-x) 0"
+    content_zone_padding: "clamp(10px, 1.2vw, 20px) var(--margin-x)"
+    footer_padding: "6px var(--margin-x)"
+  css_variables:
+    "--margin-x": "4%"
+    "--gutter": "1.5vw"
+  debug_overlay:
+    enabled: false
+    description: "Toggle via --debug-grid flag or CSS class .show-grid on .slide"
+    css: |
+      .slide.show-grid .content-zone {
+        background-image: repeating-linear-gradient(
+          to right,
+          rgba(255,0,0,0.08) 0,
+          rgba(255,0,0,0.08) calc((100% - 11 * var(--gutter)) / 12),
+          transparent calc((100% - 11 * var(--gutter)) / 12),
+          transparent calc((100% - 11 * var(--gutter)) / 12 + var(--gutter))
+        );
+      }
+
+# ── Section 4: PPTX CSS SAFETY (HTML→PPTX translation capability map) ──
+pptx_css_safety:
+  native: [solid_fill, linear_gradient_2stop, border_radius_under_40pct, transform_rotate, box_shadow_simple]
+  rasterize: [inline_svg, radial_gradient, border_radius_50pct, clip_path, backdrop_filter, conic_gradient]
+  avoid: [css_animation, transition, filter_blur]

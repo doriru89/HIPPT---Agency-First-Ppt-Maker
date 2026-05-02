@@ -1,0 +1,34 @@
+code: L-TITLE-001
+name: Hero Title
+source: smart-tickets-r2-s1
+slide_type: title
+background: dark
+density: low
+max_regions: 3
+tags: []
+supports:
+- accent-bar
+- text-body
+- text-heading
+regions:
+- role: headline
+  element_type: text
+  box: {x: 32.2%, y: 36.6%, w: 35.5%, h: 10.3%}
+- role: subtitle
+  element_type: text
+  box: {x: 36.9%, y: 48.8%, w: 26.1%, h: 14.6%}
+- role: divider
+  element_type: shape
+  box: {x: 46.9%, y: 56.6%, w: 6.2%, h: 0.6%}
+- role: slide_counter
+  element_type: text
+  box: {x: 92.3%, y: 94.4%, w: 2.7%, h: 2.6%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

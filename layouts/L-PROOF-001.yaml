@@ -1,0 +1,54 @@
+code: L-PROOF-001
+name: Two-Column Proof Points
+source: smart-tickets-r2-s10
+slide_type: comparison
+background: light
+density: high
+max_regions: 7
+tags:
+- three-column
+- stat-cards
+supports:
+- accent-bar
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 88.7%, y: 2.6%, w: 6.3%, h: 2.6%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 12.3%}
+- role: section_heading
+  element_type: text
+  box: {x: 7.8%, y: 25.8%, w: 38.4%, h: 26.8%}
+- role: section_heading
+  element_type: text
+  box: {x: 53.8%, y: 25.8%, w: 38.4%, h: 42.2%}
+- role: stat_value
+  element_type: text
+  box: {x: 7.0%, y: 86.5%, w: 25.0%, h: 17.7%}
+- role: stat_value
+  element_type: text
+  box: {x: 37.5%, y: 86.5%, w: 25.0%, h: 17.7%}
+- role: stat_value
+  element_type: text
+  box: {x: 68.0%, y: 86.5%, w: 25.0%, h: 14.6%}
+- role: slide_counter
+  element_type: text
+  box: {x: 91.6%, y: 94.4%, w: 3.4%, h: 2.6%}
+- role: stat_value
+  element_type: text
+  box: {x: 7.0%, y: 113.3%, w: 86.0%, h: 11.1%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

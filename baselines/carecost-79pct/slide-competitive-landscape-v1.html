@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>CareCost Competitive Landscape - The Empty Quadrant</title>
+    
+    
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #FFFAF8;
+            overflow: hidden;
+        }
+
+        body {
+            width: 1920px;
+            height: 1080px;
+            overflow: hidden;
+            margin: 0;
+            background: #FFFAF8;
+            font-family: Calibri, 'Segoe UI', sans-serif;
+            color: #1A1F36;
+            position: relative;
+            transform-origin: top left;
+        }
+
+        .pink-bar {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 6px;
+            background: #A84C6A;
+        }
+
+        .container {
+            padding: 80px 100px 80px 120px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #A84C6A;
+            margin-bottom: 24px;
+        }
+
+        .headline {
+            font-size: 38px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 60px;
+            max-width: 1400px;
+        }
+
+        .quadrant-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .quadrant-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            gap: 2px;
+            width: 900px;
+            height: 500px;
+            position: relative;
+        }
+
+        .axis-label {
+            position: absolute;
+            font-size: 16px;
+            font-weight: 500;
+            color: #475569;
+        }
+
+        .axis-label.y-top {
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-label.y-bottom {
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-label.x-left {
+            left: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            rotate: 180deg;
+        }
+
+        .axis-label.x-right {
+            right: -180px;
+            top: 50%;
+            transform: translateY(-50%);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            rotate: 180deg;
+        }
+
+        .quadrant {
+            background: #fff;
+            border: 1px solid #E8DCD4;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quadrant.top-left {
+            background: #FDF2F4;
+            border: 2px solid #A84C6A;
+            box-shadow: 0 4px 20px hsla(345, 50%, 50%, 0.15);
+        }
+
+        .quadrant-winner {
+            font-size: 50px;
+            font-weight: 700;
+            color: #A84C6A;
+            letter-spacing: 0.02em;
+            
+        }
+
+        .competitor-chip {
+            background: #F8F4F2;
+            border: 1px solid #E8DCD4;
+            padding: 6px 14px;
+            border-radius: 2px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            display: inline-block;
+            margin: 4px;
+        }
+
+        .quadrant.bottom-right .competitor-chip {
+            opacity: 0.6;
+        }
+
+        .bottom-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #E8DCD4;
+            padding: 24px;
+            border-radius: 2px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #A84C6A;
+            margin-bottom: 12px;
+        }
+
+        .card-body {
+            font-size: 15px;
+            line-height: 1.5;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="pink-bar"></div>
+    <div class="container">
+        <div class="eyebrow">Competitive Landscape</div>
+        <div class="headline">$3.7B in funding. Nobody in the top-left box.</div>
+
+        <div class="quadrant-container">
+            <div class="quadrant-grid">
+                <div class="axis-label y-top">Knows what it costs</div>
+                <div class="axis-label y-bottom">No cost data</div>
+                <div class="axis-label x-left">Knows what you need</div>
+                <div class="axis-label x-right">Doesn't know what you need</div>
+
+                <div class="quadrant top-left">
+                    <div class="quadrant-winner">CareCost</div>
+                </div>
+
+                <div class="quadrant top-right">
+                    <div class="competitor-chip">Turquoise ($95M)</div>
+                    <div class="competitor-chip">FAIR Health</div>
+                    <div class="competitor-chip">MDsave ($29M)</div>
+                    <div class="competitor-chip">GoodRx</div>
+                    <div class="competitor-chip">Sesame ($75M)</div>
+                    <div class="competitor-chip">Insurer estimators</div>
+                </div>
+
+                <div class="quadrant bottom-left">
+                    <div class="competitor-chip">Ada Health ($167M)</div>
+                    <div class="competitor-chip">K Health ($441M)</div>
+                    <div class="competitor-chip">Infermedica</div>
+                    <div class="competitor-chip">Buoy</div>
+                </div>
+
+                <div class="quadrant bottom-right">
+                    <div class="competitor-chip">Transcarent ($940M)</div>
+                    <div class="competitor-chip">Included Health</div>
+                    <div class="competitor-chip">Rightway</div>
+                    <div class="competitor-chip">Nayya</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bottom-cards">
+            <div class="card">
+                <div class="card-title">Navigation platforms can't</div>
+                <div class="card-body">Employer-locked. Showing prices conflicts with "we handle everything" brand positioning.</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Data infrastructure can't</div>
+                <div class="card-body">B2B DNA. Consumer layer threatens enterprise value—the Bloomberg Terminal problem.</div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Insurers can't</div>
+                <div class="card-body">Walled gardens. Will never show competitor rates or out-of-network transparency.</div>
+            </div>
+        </div>
+    </div>
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

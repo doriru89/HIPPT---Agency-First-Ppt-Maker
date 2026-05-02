@@ -1,0 +1,33 @@
+code: L-TITLE-001
+name: Title (PPTX s1)
+source: produce-review-s1
+slide_type: title
+background: dark
+density: low
+max_regions: 1
+tags: []
+supports:
+- accent-bar
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.0%, y: 1.5%, w: 9.0%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 14.2%, y: 1.5%, w: 16.8%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 88.6%, y: 1.5%, w: 10.4%, h: 2.2%}
+- role: headline
+  element_type: shape
+  box: {x: 1.0%, y: 4.6%, w: 98.0%, h: 93.6%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

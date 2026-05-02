@@ -1,0 +1,127 @@
+name: editorial
+description: "Magazine-style storytelling with strong typography and real imagery. Pull quotes, narrative arc, atmosphere."
+icon: "newspaper"
+
+structure:
+  framework: narrative_arc
+  arc: hook_tension_resolution
+  slide_vocabulary:
+    - title
+    - content
+    - full-bleed-image
+    - quote
+    - before-after
+    - timeline
+    - section-break
+    - evidence-cascade
+    - hero-stat
+  forbidden_slide_types:
+    - data-annotation  # too analytical for editorial
+    - argument-flow
+  density_limits:
+    max_bullets_per_slide: 4
+    max_words_per_slide: 80
+    max_items_in_grid: 4
+    min_visual_ratio: 0.4  # 40% of slide area must be visual
+  ghost_deck_criteria:
+    evaluate: [clarity, narrative_arc, emotional_beat, density, surprise]
+    min_score: 18
+    forbidden_patterns:
+      - bullet_list_only  # must have visual elements
+      - label_titles
+      - data_without_story  # every number needs context
+  required_slides:
+    - title
+    - synthesis
+  exec_summary_rule: null  # editorial doesn't need exec summary — it builds toward revelation
+
+aesthetic_guidance: minimal
+# "Use editorial preset as starting point. Explore freely.
+#  Typography IS the design. Real photos over illustrations.
+#  One memorable visual per deck — a full-bleed image, an oversized quote, a dramatic type moment."
+
+preset_ref: editorial
+
+asset_guidance:
+  photo: required  # at least 2 real photos (Unsplash or provided)
+  data_viz: optional
+  shader: forbidden
+  lottie: forbidden
+  brand: required_if_mentioned
+
+learned_patterns:
+  - source: mid-model.pptx
+    analyzed: 2026-04-23
+    metrics:
+      slide_count: 42
+      dimensions: {width_in: 10.0, height_in: 5.625, px: [960, 540]}
+      avg_canvas_fill: 0.94
+      median_canvas_fill: 0.98
+      title_font_pt: [21.4, 498.8]  # upper extreme is decorative oversized type
+      body_font_pt: [8.6, 21.4]
+      padding_pct: {top: 1.5, right: 1.6, bottom: 1.1, left: 1.8}
+      shape_counts: {image: 41, auto_shape: 366}
+      dominant_colors: ["#000000", "#92DAFF", "#FFF856", "#F9BBCB", "#B7B12A"]
+    patterns:
+      - "Full-bleed dominant (94% avg fill) — content extends to edges on most slides"
+      - "Row + column compositions on every slide; dense multi-element layouts"
+      - "High typographic contrast (8.6pt body to 498.8pt display); type IS the design"
+      - "Symmetric padding (~1.5% all sides); near-zero whitespace margins"
+      - "Black-dominant palette with vivid accent pops (sky blue, yellow, pink)"
+
+  - source: agency.pptx
+    analyzed: 2026-04-23
+    metrics:
+      slide_count: 14
+      dimensions: {width_in: 10.0, height_in: 5.625, px: [960, 540]}
+      avg_canvas_fill: 0.69
+      median_canvas_fill: 0.79
+      title_font_pt: [23.2, 172.8]
+      body_font_pt: [7.1, 23.2]
+      padding_pct: {top: 7.0, right: 6.4, bottom: 17.5, left: 5.2}
+      shape_counts: {image: 19, auto_shape: 124}
+      dominant_colors: ["#000000", "#DED8CB", "#FF6A3B", "#15857A", "#C04277"]
+    patterns:
+      - "High fill (69% avg) with more breathing room than full-bleed decks"
+      - "Vertical asymmetry — 17.5% bottom padding vs 7% top (content sits high)"
+      - "High typographic contrast (7.1pt to 172.8pt); large display type as hero element"
+      - "Warm neutral base (#DED8CB) with bold accent colors (orange, teal, magenta)"
+      - "Row-based compositions dominant (side-by-side image + text)"
+
+  - source: produce-review.pptx
+    analyzed: 2026-04-23
+    metrics:
+      slide_count: 51
+      dimensions: {width_in: 10.0, height_in: 5.625, px: [960, 540]}
+      avg_canvas_fill: 0.95
+      median_canvas_fill: 0.95
+      title_font_pt: [14.2, 249.4]
+      body_font_pt: [7.8, 14.2]
+      padding_pct: {top: 1.8, right: 1.0, bottom: 1.9, left: 1.0}
+      shape_counts: {image: 79, auto_shape: 631}
+      dominant_colors: ["#000000", "#F5F1E9", "#FBF4BD"]
+      image_ratio: 0.11  # 79 images / 710 total shapes
+    patterns:
+      - "Near-total canvas coverage (95% avg fill, min 92%); no slide has empty margins"
+      - "Row + column grids on 98% of slides; highly structured grid compositions"
+      - "Tight body type scale (7.8–14.2pt) with large display jumps (up to 249pt)"
+      - "Minimal 3-color palette: black, warm cream (#F5F1E9), pale yellow accent"
+      - "Symmetric 1% padding; content fills virtually the entire canvas"
+
+  # Cross-file aggregate patterns (107 slides across 3 files)
+  - source: _aggregate
+    analyzed: 2026-04-23
+    metrics:
+      total_slides: 107
+      avg_canvas_fill: 0.91
+      median_canvas_fill: 0.95
+      font_range_pt: [7.1, 498.8]
+      median_font_pt: 10.0
+      avg_padding_pct: {top: 2.4, right: 2.0, bottom: 3.6, left: 1.8}
+    patterns:
+      - "Editorial decks fill 91–95% of canvas on average; full-bleed is the norm"
+      - "Body text clusters at 8–14pt; display type jumps to 100pt+ for drama"
+      - "Black is overwhelmingly dominant text color; warm neutrals for backgrounds"
+      - "Grid layouts (row+column) appear on nearly every slide; free-form is rare"
+      - "Padding is minimal (1–4%) and roughly symmetric; bottom is slightly larger"
+      - "High typographic contrast ratio (30:1+ between body and display sizes)"

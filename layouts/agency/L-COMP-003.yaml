@@ -1,0 +1,38 @@
+code: L-COMP-003
+name: Comparison (PPTX s3)
+source: agency-s3
+slide_type: comparison
+background: light
+density: low
+max_regions: 3
+tags:
+- three-column
+- evidence-images
+supports:
+- composite-region
+- text-body
+regions:
+- role: evidence_image
+  element_type: composite
+  box: {x: 3.6%, y: 3.7%, w: 29.5%, h: 80.7%}
+- role: section_label
+  element_type: text
+  box: {x: 66.9%, y: 4.3%, w: 15.1%, h: 2.1%}
+- role: section_label
+  element_type: text
+  box: {x: 92.4%, y: 4.3%, w: 4.0%, h: 2.1%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 35.3%, y: 25.2%, w: 29.5%, h: 62.1%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 66.8%, y: 25.2%, w: 29.5%, h: 62.1%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

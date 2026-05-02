@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CareCost — Business Model</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#FFFAF8;overflow:hidden;}
+body{width:1920px;height:1080px;overflow:hidden;margin:0;font-family:Calibri,'Segoe UI',sans-serif;background:#FFFAF8;color:#1A1F36;position:relative;transform-origin:top left;}
+
+.top-bar{position:absolute;top:0;left:0;width:100%;height:8px;background:#A84C6A;}
+.slide{padding:50px 72px 40px;}
+
+.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A84C6A;margin-bottom:14px;}
+.headline{font-size:38px;font-weight:700;color:#1A1F36;line-height:1.25;margin-bottom:10px;}
+.subhead{font-size:17px;color:#475569;line-height:1.5;margin-bottom:32px;max-width:900px;}
+
+/* Revenue cards */
+.revenue-row{display:flex;gap:20px;margin-bottom:28px;}
+.rev-card{flex:1;background:#fff;border:1px solid #E8DCD4;border-radius:10px;padding:24px 26px;position:relative;overflow:hidden;}
+.rev-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:4px;background:#A84C6A;opacity:0.5;}
+.rev-card.primary::before{opacity:1;}
+.rev-num{font-size:13px;font-weight:700;color:#A84C6A;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px;}
+.rev-title{font-size:20px;font-weight:700;color:#1A1F36;margin-bottom:8px;}
+.rev-desc{font-size:14px;color:#475569;line-height:1.5;margin-bottom:10px;}
+.rev-metric{font-size:13px;color:#A84C6A;font-weight:600;}
+
+/* Scale bar */
+.scale-row{display:flex;gap:20px;margin-bottom:28px;}
+.scale-card{flex:1;background:#fff;border:1px solid #E8DCD4;border-radius:8px;padding:18px 22px;text-align:center;}
+.scale-phase{font-size:12px;font-weight:700;color:#A84C6A;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:6px;}
+.scale-label{font-size:16px;font-weight:700;color:#1A1F36;margin-bottom:4px;}
+.scale-detail{font-size:13px;color:#475569;line-height:1.4;}
+.scale-arrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:#A84C6A;width:40px;flex-shrink:0;}
+
+/* Moat foundation */
+.moat-bar{background:#1A1F36;border-radius:10px;padding:22px 32px;display:flex;align-items:center;gap:32px;}
+.moat-label{font-size:13px;font-weight:700;color:#A84C6A;text-transform:uppercase;letter-spacing:2px;white-space:nowrap;}
+.moat-items{display:flex;gap:28px;flex:1;}
+.moat-item{display:flex;align-items:flex-start;gap:10px;}
+.moat-icon{width:8px;height:8px;border-radius:50%;background:#A84C6A;margin-top:5px;flex-shrink:0;}
+.moat-text{font-size:14px;color:#CBD5E1;line-height:1.4;}
+.moat-text strong{color:#fff;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="slide">
+
+<div class="eyebrow">BUSINESS MODEL</div>
+<h1 class="headline">Free government data. Near-zero marginal cost. Four revenue streams.</h1>
+<p class="subhead">GoodRx built $797M/yr on free prescription data with ~90% gross margins. CareCost applies the same structural model to 100+ TB of mandated procedure pricing -- a 10x larger market.</p>
+
+<!-- Revenue Cards -->
+<div class="revenue-row">
+  <div class="rev-card primary">
+    <div class="rev-num">Revenue 1 -- B2B Provider</div>
+    <div class="rev-title">Compliance-as-a-Service</div>
+    <div class="rev-desc">Automated Good Faith Estimates and CMS compliance documentation. Providers face $2M/yr fines for non-compliance starting April 2026.</div>
+    <div class="rev-metric">$4-15 PMPM or per-estimate pricing</div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-num">Revenue 2 -- Consumer DTC</div>
+    <div class="rev-title">Free Tier + Premium</div>
+    <div class="rev-desc">Free cost search for everyone. Premium tier adds personalized out-of-pocket estimates with insurance-specific calculations.</div>
+    <div class="rev-metric">Freemium conversion on high-intent users</div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-num">Revenue 3 -- Data/API</div>
+    <div class="rev-title">Infrastructure Licensing</div>
+    <div class="rev-desc">Cleaned, structured pricing data via API for navigation platforms, employer benefits tools, and health plan comparisons.</div>
+    <div class="rev-metric">Per-query or annual license</div>
+  </div>
+</div>
+
+<!-- Scale Path -->
+<div class="scale-row">
+  <div class="scale-card">
+    <div class="scale-phase">Now</div>
+    <div class="scale-label">Yale University</div>
+    <div class="scale-detail">Free tool for students + staff. First provider partner.</div>
+  </div>
+  <div class="scale-arrow">&rarr;</div>
+  <div class="scale-card">
+    <div class="scale-phase">Year 1</div>
+    <div class="scale-label">327 R1+R2 Universities</div>
+    <div class="scale-detail">Campus-by-campus expansion. Student health as wedge.</div>
+  </div>
+  <div class="scale-arrow">&rarr;</div>
+  <div class="scale-card">
+    <div class="scale-phase">Year 2</div>
+    <div class="scale-label">Employer Channel</div>
+    <div class="scale-detail">Self-service HR dashboards. Cost transparency for benefits teams.</div>
+  </div>
+  <div class="scale-arrow">&rarr;</div>
+  <div class="scale-card">
+    <div class="scale-phase">Year 3+</div>
+    <div class="scale-label">Data Infrastructure</div>
+    <div class="scale-detail">API layer for the healthcare cost ecosystem.</div>
+  </div>
+</div>
+
+<!-- Moat Bar -->
+<div class="moat-bar">
+  <div class="moat-label">Defensible Moat</div>
+  <div class="moat-items">
+    <div class="moat-item">
+      <div class="moat-icon"></div>
+      <div class="moat-text"><strong>Bad data IS the moat.</strong> 21% hospital compliance, 65% non-standard formats. If it were clean, Google would own this.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-icon"></div>
+      <div class="moat-text"><strong>Dual flywheel.</strong> Consumer feedback improves data quality. Better data improves B2B product. More providers improve consumer product.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-icon"></div>
+      <div class="moat-text"><strong>Regulatory tailwind.</strong> April 2026 CMS enforcement: $2M/yr fines. Compliance drives both data supply and provider demand.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

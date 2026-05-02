@@ -1,0 +1,104 @@
+schema_version: 1
+extracted: '2026-04-30'
+source: smart-tickets-r2
+pptx_sources:
+- dir: agency
+  origin: pptx
+  calibration_status: partial
+  layouts: 14
+  approved: 1
+  rejected: 13
+  types: [title]
+  theme_fonts: [Calibri Light, Calibri]
+  reviewed: '2026-05-01'
+- dir: floor-anchor
+  origin: pptx
+  calibration_status: candidate
+  layouts: 3
+  types: [title, editorial, close]
+  theme_fonts: [Calibri, Calibri]
+- dir: mid-model
+  origin: pptx
+  calibration_status: candidate
+  layouts: 42
+  types: [title, data, comparison, editorial, close]
+  theme_fonts: [Calibri Light, Calibri]
+- dir: produce-review
+  origin: pptx
+  calibration_status: candidate
+  layouts: 51
+  types: [title, data, comparison, editorial, close]
+  theme_fonts: [Calibri Light, Calibri]
+layouts:
+- code: L-TITLE-001
+  name: Hero Title
+  type: title
+  source: smart-tickets-r2-s1
+  origin: html
+  regions: 3
+- code: L-EXEC-001
+  name: Executive Summary Three-Pillar
+  type: editorial
+  source: smart-tickets-r2-s2
+  origin: html
+  regions: 5
+- code: L-DATA-001
+  name: Four-Stat Dashboard
+  type: data
+  source: smart-tickets-r2-s3
+  origin: html
+  regions: 6
+- code: L-NEWS-001
+  name: News Editorial Two-Column
+  type: editorial
+  source: smart-tickets-r2-s4
+  origin: html
+  regions: 8
+- code: L-STAT-001
+  name: Big Number Comparison
+  type: data
+  source: smart-tickets-r2-s5
+  origin: html
+  regions: 6
+- code: L-TABLE-001
+  name: Comparison Table
+  type: data
+  source: smart-tickets-r2-s6
+  origin: html
+  regions: 3
+- code: L-GRID-001
+  name: 2x2 Deliverables Grid
+  type: comparison
+  source: smart-tickets-r2-s7
+  origin: html
+  regions: 6
+- code: L-ERA-001
+  name: Three-Era Timeline
+  type: timeline
+  source: smart-tickets-r2-s8
+  origin: html
+  regions: 5
+- code: L-RADIAL-001
+  name: Radial Hub-and-Spoke
+  type: radial
+  source: smart-tickets-r2-s9
+  origin: html
+  regions: 8
+- code: L-PROOF-001
+  name: Two-Column Proof Points
+  type: comparison
+  source: smart-tickets-r2-s10
+  origin: html
+  regions: 7
+- code: L-VISION-001
+  name: Revenue Transformation
+  type: editorial
+  source: smart-tickets-r2-s11
+  origin: html
+  regions: 8
+- code: L-CLOSE-001
+  name: Closing Recommendation
+  type: close
+  source: smart-tickets-r2-s12
+  origin: html
+  regions: 4

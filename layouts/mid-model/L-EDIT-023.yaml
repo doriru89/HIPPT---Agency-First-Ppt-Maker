@@ -1,0 +1,34 @@
+code: L-EDIT-023
+name: Editorial (PPTX s23)
+source: mid-model-s23
+slide_type: editorial
+background: light
+density: low
+max_regions: 1
+tags:
+- three-column
+supports:
+- accent-bar
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 44.8%, y: 3.3%, w: 10.4%, h: 1.7%}
+- role: headline
+  element_type: shape
+  box: {x: 10%, y: 15.6%, w: 80%, h: 74.3%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

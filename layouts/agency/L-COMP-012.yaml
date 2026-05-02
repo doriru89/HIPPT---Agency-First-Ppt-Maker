@@ -1,0 +1,39 @@
+code: L-COMP-012
+name: Comparison (PPTX s12)
+source: agency-s12
+slide_type: comparison
+background: dark
+density: low
+max_regions: 3
+tags:
+- three-column
+- evidence-images
+supports:
+- composite-region
+- image-proof
+- text-body
+regions:
+- role: evidence_image
+  element_type: composite
+  box: {x: 3.6%, y: 3.7%, w: 29.6%, h: 91.6%}
+- role: section_label
+  element_type: text
+  box: {x: 66.9%, y: 4.3%, w: 15.1%, h: 2.1%}
+- role: section_label
+  element_type: text
+  box: {x: 92.4%, y: 4.3%, w: 4.0%, h: 2.1%}
+- role: evidence_image
+  element_type: image
+  box: {x: 35.4%, y: 18.5%, w: 29.5%, h: 76.9%}
+- role: evidence_image
+  element_type: image
+  box: {x: 66.9%, y: 18.5%, w: 29.7%, h: 76.7%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

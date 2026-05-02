@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Structural Locks - Part 1</title>
+
+
+
+<style>
+html {
+  background: #FFFAF8;
+  overflow: hidden;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  margin: 0;
+  font-family: Calibri, 'Segoe UI', sans-serif;
+  background: #FFFAF8;
+  color: #1A1F36;
+  transform-origin: top left;
+  position: relative;
+}
+.accent-bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: #A84C6A;
+}
+.container {
+  padding: 80px 100px 80px 120px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.eyebrow {
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #A84C6A;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.headline {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1A1F36;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+.subtitle {
+  font-size: 20px;
+  color: #475569;
+  margin-bottom: 60px;
+  line-height: 1.4;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  flex: 1;
+}
+.card {
+  background: hsl(345, 25%, 16%);
+  border: 1px solid hsl(345, 20%, 25%);
+  border-radius: 2px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.card-number {
+  font-size: 36px;
+  font-weight: 700;
+  color: #A84C6A;
+}
+.card-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: #1A1F36;
+  flex: 1;
+}
+.card-market {
+  font-size: 13px;
+  color: hsl(345, 30%, 70%);
+  margin-top: -4px;
+}
+.players {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  background: hsl(345, 20%, 22%);
+  color: #475569;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-size: 12px;
+  font-weight: 500;
+}
+.lock-reason {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #475569;
+  flex: 1;
+}
+.verdict {
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.verdict-red {
+  background: hsl(0, 60%, 25%);
+  color: hsl(0, 70%, 90%);
+}
+.verdict-yellow {
+  background: hsl(45, 60%, 30%);
+  color: hsl(45, 80%, 90%);
+}
+.verdict-blue {
+  background: hsl(200, 50%, 28%);
+  color: hsl(200, 80%, 90%);
+}
+.verdict-green {
+  background: hsl(150, 45%, 25%);
+  color: hsl(150, 70%, 90%);
+}
+</style>
+</head>
+<body>
+<div class="accent-bar"></div>
+<div class="container">
+  <div class="eyebrow">Competitive Landscape</div>
+  <div class="headline">Eight categories. Eight structural locks.</div>
+  <div class="subtitle">Why $3.7B in combined funding can't follow us into the empty quadrant.</div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">1</div>
+        <div>
+          <div class="card-title">Navigation Platforms</div>
+          <div class="card-market">$11.9B market</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">Transcarent ($940M)</span>
+        <span class="chip">Included Health</span>
+        <span class="chip">Rightway</span>
+        <span class="chip">Accolade</span>
+      </div>
+      <div class="lock-reason">
+        Employer pays $4-15 PMPM. Consumer product would cannibalize revenue. 3-13% utilization proves the model is broken.
+      </div>
+      <div class="verdict verdict-red">Structurally Locked</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">2</div>
+        <div>
+          <div class="card-title">Enterprise Data Infrastructure</div>
+          <div class="card-market">Bloomberg Terminal Problem</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">Turquoise ($95M)</span>
+        <span class="chip">Serif Health</span>
+        <span class="chip">FAIR Health</span>
+      </div>
+      <div class="lock-reason">
+        Consumer layer would democratize enterprise intelligence. Turquoise's own docs say SSPs "aren't easily read by patients."
+      </div>
+      <div class="verdict verdict-yellow">Closest — Watch</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">3</div>
+        <div>
+          <div class="card-title">Insurer Cost Estimators</div>
+          <div class="card-market">Walled Garden</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">UHC "Avery"</span>
+        <span class="chip">Cigna</span>
+        <span class="chip">Aetna</span>
+        <span class="chip">BCBS</span>
+      </div>
+      <div class="lock-reason">
+        Will never show competitor rates. Locked behind login walls. One opaque number, no decomposition, no sources.
+      </div>
+      <div class="verdict verdict-blue">Validates Concept</div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="card-number">4</div>
+        <div>
+          <div class="card-title">Cash-Pay Marketplaces</div>
+          <div class="card-market">Adjacent, Not Competing</div>
+        </div>
+      </div>
+      <div class="players">
+        <span class="chip">GoodRx ($797M rev)</span>
+        <span class="chip">Sesame ($75M)</span>
+        <span class="chip">MDsave</span>
+        <span class="chip">Sidecar ($426M)</span>
+      </div>
+      <div class="lock-reason">
+        They bypass insurance. CareCost translates it. GoodRx stalling (0.6% YoY). MDsave acquired. Different market.
+      </div>
+      <div class="verdict verdict-green">Partner Opportunity</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

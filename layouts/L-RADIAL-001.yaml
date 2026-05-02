@@ -1,0 +1,58 @@
+code: L-RADIAL-001
+name: Radial Hub-and-Spoke
+source: smart-tickets-r2-s9
+slide_type: radial
+background: light
+density: high
+max_regions: 8
+tags:
+- three-column
+- radial
+- hub-and-spoke
+supports:
+- accent-bar
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 90.6%, y: 2.6%, w: 4.4%, h: 2.6%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 12.3%}
+- role: spoke_item
+  element_type: text
+  box: {x: 43.5%, y: 25.7%, w: 13.0%, h: 5.6%}
+- role: radial_hub
+  element_type: text
+  box: {x: 44.3%, y: 43.4%, w: 11.5%, h: 20.4%}
+- role: spoke_item
+  element_type: text
+  box: {x: 9.3%, y: 47.7%, w: 15.1%, h: 5.6%}
+- role: spoke_item
+  element_type: text
+  box: {x: 76.2%, y: 47.7%, w: 14.6%, h: 5.6%}
+- role: spoke_item
+  element_type: text
+  box: {x: 13.8%, y: 74.0%, w: 14.6%, h: 5.6%}
+- role: spoke_item
+  element_type: text
+  box: {x: 66.4%, y: 74.0%, w: 16.3%, h: 5.6%}
+- role: verdict_bar
+  element_type: text
+  box: {x: 5%, y: 89.9%, w: 90%, h: 3.9%}
+- role: slide_counter
+  element_type: text
+  box: {x: 92.1%, y: 94.4%, w: 2.9%, h: 2.6%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

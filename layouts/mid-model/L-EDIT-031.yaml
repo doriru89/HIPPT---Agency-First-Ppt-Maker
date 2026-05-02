@@ -1,0 +1,36 @@
+code: L-EDIT-031
+name: Editorial (PPTX s31)
+source: mid-model-s31
+slide_type: editorial
+background: light
+density: low
+max_regions: 2
+tags:
+- two-column
+- evidence-images
+supports:
+- accent-bar
+- composite-region
+- text-body
+regions:
+- role: evidence_image
+  element_type: composite
+  box: {x: 50%, y: -0.5%, w: 50%, h: 100.5%}
+- role: section_label
+  element_type: text
+  box: {x: 19.0%, y: 3.3%, w: 12.1%, h: 1.7%}
+- role: body_text
+  element_type: shape
+  box: {x: 1.8%, y: 15.6%, w: 46.5%, h: 22.2%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

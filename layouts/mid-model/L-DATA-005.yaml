@@ -1,0 +1,47 @@
+code: L-DATA-005
+name: Data (PPTX s5)
+source: mid-model-s5
+slide_type: data
+background: light
+density: medium
+max_regions: 4
+tags:
+- three-column
+- stat-cards
+supports:
+- accent-bar
+- text-body
+regions:
+- role: headline
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 33.3%}
+- role: stat_value
+  element_type: shape
+  box: {x: 83.9%, y: 5.5%, w: 13.6%, h: 89.0%}
+- role: headline
+  element_type: shape
+  box: {x: 0%, y: 33.3%, w: 100%, h: 33.3%}
+- role: headline
+  element_type: shape
+  box: {x: 0%, y: 66.6%, w: 100%, h: 33.3%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 50%, y: 95.1%, w: 6.2%, h: 1.7%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 17.5%, y: 95.2%, w: 15.2%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

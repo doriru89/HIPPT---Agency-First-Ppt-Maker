@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CareCost — Business Model</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#FFFAF8;overflow:hidden;}
+body{width:1920px;height:1080px;overflow:hidden;margin:0;font-family:Calibri,'Segoe UI',sans-serif;background:#FFFAF8;color:#1A1F36;position:relative;transform-origin:top left;}
+
+.top-bar{position:absolute;top:0;left:0;width:100%;height:8px;background:#A84C6A;}
+.slide{padding:48px 72px 36px;display:flex;flex-direction:column;height:100%;}
+
+.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A84C6A;margin-bottom:12px;}
+.headline{font-size:40px;font-weight:700;color:#1A1F36;line-height:1.2;margin-bottom:28px;}
+
+/* Hero parallel */
+.hero{background:#fff;border:2px solid #A84C6A;border-radius:12px;padding:24px 36px;margin-bottom:28px;display:flex;align-items:center;gap:48px;}
+.hero-left{flex:0 0 auto;}
+.hero-company{font-size:14px;font-weight:700;color:#A84C6A;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px;}
+.hero-rev{font-size:48px;font-weight:700;color:#1A1F36;line-height:1;}
+.hero-rev-sub{font-size:15px;color:#475569;margin-top:4px;}
+.hero-divider{width:2px;height:72px;background:#E8DCD4;flex-shrink:0;}
+.hero-right{flex:1;}
+.hero-insight{font-size:18px;color:#1A1F36;line-height:1.55;font-weight:500;}
+.hero-insight strong{color:#A84C6A;font-weight:700;}
+.hero-badge{display:inline-block;background:#A84C6A;color:#fff;font-size:12px;font-weight:700;padding:4px 14px;border-radius:20px;margin-left:12px;vertical-align:middle;letter-spacing:0.5px;}
+
+/* Revenue cards */
+.rev-row{display:flex;gap:18px;margin-bottom:auto;}
+.rev-card{flex:1;background:#fff;border:1px solid #E8DCD4;border-radius:10px;padding:22px 24px;display:flex;flex-direction:column;}
+.rev-icon{font-size:28px;margin-bottom:10px;}
+.rev-title{font-size:18px;font-weight:700;color:#1A1F36;margin-bottom:6px;}
+.rev-desc{font-size:13.5px;color:#475569;line-height:1.5;flex:1;}
+.rev-bottom{margin-top:12px;padding-top:10px;border-top:1px solid #E8DCD4;}
+.rev-metric{font-size:13px;font-weight:600;color:#A84C6A;}
+.rev-timing{font-size:12px;color:#94A3B8;margin-top:2px;}
+
+/* Moat foundation */
+.moat-bar{background:#1A1F36;border-radius:10px;padding:20px 32px;display:flex;align-items:center;gap:28px;margin-top:24px;}
+.moat-label{font-size:13px;font-weight:700;color:#A84C6A;text-transform:uppercase;letter-spacing:2px;white-space:nowrap;min-width:100px;}
+.moat-items{display:flex;gap:24px;flex:1;}
+.moat-item{display:flex;align-items:flex-start;gap:8px;flex:1;}
+.moat-dot{width:7px;height:7px;border-radius:50%;background:#A84C6A;margin-top:5px;flex-shrink:0;}
+.moat-text{font-size:13.5px;color:#CBD5E1;line-height:1.45;}
+.moat-text strong{color:#fff;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="slide">
+
+<div class="eyebrow">BUSINESS MODEL</div>
+<h1 class="headline">The GoodRx playbook, applied to procedures.</h1>
+
+<!-- Hero: GoodRx Parallel -->
+<div class="hero">
+  <div class="hero-left">
+    <div class="hero-company">GoodRx Precedent</div>
+    <div class="hero-rev">$797M</div>
+    <div class="hero-rev-sub">annual revenue, ~90% gross margin</div>
+  </div>
+  <div class="hero-divider"></div>
+  <div class="hero-right">
+    <div class="hero-insight">
+      GoodRx monetized <strong>free government prescription data</strong> that nobody else could organize.
+      CareCost does the same with <strong>100+ TB of mandated procedure pricing</strong> -- a far larger, messier, higher-stakes dataset.
+      <span class="hero-badge">Same structure, 10x market</span>
+    </div>
+  </div>
+</div>
+
+<!-- Revenue Cards -->
+<div class="rev-row">
+  <div class="rev-card">
+    <div class="rev-icon">&#9881;</div>
+    <div class="rev-title">Provider Compliance</div>
+    <div class="rev-desc">Automated Good Faith Estimates and CMS compliance docs. Providers face $2M/yr fines for non-compliance -- this is mandatory spend, not discretionary.</div>
+    <div class="rev-bottom">
+      <div class="rev-metric">$4-15 PMPM or per-estimate</div>
+      <div class="rev-timing">Revenue from Day 1</div>
+    </div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-icon">&#128269;</div>
+    <div class="rev-title">Consumer Search</div>
+    <div class="rev-desc">Free cost search drives adoption. Premium tier adds personalized OOP estimates. Consumer volume feeds the flywheel that makes every other product better.</div>
+    <div class="rev-bottom">
+      <div class="rev-metric">Freemium + premium conversion</div>
+      <div class="rev-timing">Acquisition engine, then monetize</div>
+    </div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-icon">&#128279;</div>
+    <div class="rev-title">Data & API</div>
+    <div class="rev-desc">Cleaned, normalized pricing data via API. Navigation platforms, employer HR tools, and health plan comparisons need this infrastructure layer.</div>
+    <div class="rev-bottom">
+      <div class="rev-metric">Per-query or annual license</div>
+      <div class="rev-timing">Year 2+ as dataset matures</div>
+    </div>
+  </div>
+  <div class="rev-card">
+    <div class="rev-icon">&#127970;</div>
+    <div class="rev-title">Employer Channel</div>
+    <div class="rev-desc">Self-service dashboards for HR and benefits teams. Cost transparency as an employee benefit -- employers save on claims when employees shop on price.</div>
+    <div class="rev-bottom">
+      <div class="rev-metric">Per-employee or enterprise seat</div>
+      <div class="rev-timing">Year 2+ via B2B expansion</div>
+    </div>
+  </div>
+</div>
+
+<!-- Moat Bar -->
+<div class="moat-bar">
+  <div class="moat-label">Why Us,<br>Not Google</div>
+  <div class="moat-items">
+    <div class="moat-item">
+      <div class="moat-dot"></div>
+      <div class="moat-text"><strong>Bad data IS the moat.</strong> 21% compliance, 65% non-standard formats. Cleaning this data is the hard, unglamorous work no big tech will do.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-dot"></div>
+      <div class="moat-text"><strong>Dual flywheel compounds.</strong> Consumer feedback corrects data. Better data attracts providers. More providers improve consumer estimates.</div>
+    </div>
+    <div class="moat-item">
+      <div class="moat-dot"></div>
+      <div class="moat-text"><strong>Enforcement is accelerating.</strong> April 2026 CMS fines ($2M/yr) drive both data supply and provider demand for our compliance tools.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

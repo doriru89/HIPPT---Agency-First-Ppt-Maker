@@ -1,0 +1,43 @@
+code: L-COMP-041
+name: Comparison (PPTX s41)
+source: mid-model-s41
+slide_type: comparison
+background: light
+density: low
+max_regions: 3
+tags:
+- two-column
+- evidence-images
+supports:
+- accent-bar
+- composite-region
+- image-proof
+- text-body
+regions:
+- role: evidence_image
+  element_type: composite
+  box: {x: 49.8%, y: 0%, w: 50.2%, h: 100%}
+- role: section_label
+  element_type: text
+  box: {x: 20.2%, y: 3.3%, w: 9.7%, h: 1.7%}
+- role: body_text
+  element_type: shape
+  box: {x: 1.8%, y: 15.6%, w: 46.5%, h: 22.2%}
+- role: evidence_image
+  element_type: image
+  box: {x: 0%, y: 61.9%, w: 50%, h: 38.1%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

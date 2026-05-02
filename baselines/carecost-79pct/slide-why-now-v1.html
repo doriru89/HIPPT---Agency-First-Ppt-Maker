@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CareCost — Market + Solution</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#FFFAF8;overflow:hidden;}
+body{width:1920px;height:1080px;overflow:hidden;margin:0;font-family:Calibri,'Segoe UI',sans-serif;background:#FFFAF8;color:#1A1F36;position:relative;transform-origin:top left;}
+
+.top-bar{position:absolute;top:0;left:0;width:100%;height:8px;background:#A84C6A;}
+.slide{padding:50px 72px 40px;}
+
+.eyebrow{font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A84C6A;margin-bottom:16px;}
+.headline{font-size:36px;font-weight:700;color:#1A1F36;line-height:1.3;margin-bottom:32px;}
+
+/* STAT CARDS */
+.stats-row{display:flex;gap:18px;margin-bottom:36px;}
+.stat-card{flex:1;background:#fff;border:1px solid #E8DCD4;border-radius:10px;padding:22px 24px;}
+.stat-value{font-size:36px;font-weight:700;margin-bottom:6px;}
+.stat-value.c1{color:#D4959D;}
+.stat-value.c2{color:#C14545;}
+.stat-value.c3{color:#B8893D;}
+.stat-value.c4{color:#2F4C8C;}
+.stat-desc{font-size:14px;color:#1A1F36;line-height:1.4;margin-bottom:4px;}
+.stat-source{font-size:11px;color:#64748B;font-style:italic;}
+
+/* SECTION HEADING */
+.section-heading{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.section-bar{width:5px;height:24px;background:#A84C6A;border-radius:1px;}
+.section-heading h2{font-size:18px;font-weight:700;color:#1A1F36;}
+
+/* WHY CARDS */
+.why-cards{display:flex;gap:18px;margin-bottom:36px;}
+.why-card{flex:1;background:#fff;border:1px solid #E8DCD4;border-radius:6px;padding:22px 24px;}
+.why-card-title{font-size:15px;font-weight:700;color:#1A1F36;margin-bottom:10px;}
+.why-card-text{font-size:13px;color:#475569;line-height:1.55;}
+
+/* TIMELINE */
+.timeline-row{display:flex;align-items:flex-start;justify-content:space-between;position:relative;padding:0 16px;}
+.timeline-line{position:absolute;top:10px;left:80px;right:80px;height:3px;background:#CBD5E1;z-index:0;}
+.milestone{display:flex;flex-direction:column;align-items:center;position:relative;z-index:1;width:150px;}
+.milestone .dot{width:14px;height:14px;border-radius:50%;background:#2F4C8C;margin-bottom:12px;}
+.milestone.highlight .dot{background:#A84C6A;width:16px;height:16px;opacity:0.6;}
+.milestone .date{font-size:11px;color:#64748B;margin-bottom:4px;}
+.milestone .name{font-size:13px;font-weight:700;color:#2F4C8C;margin-bottom:2px;text-align:center;}
+.milestone.highlight .name{color:#A84C6A;}
+.milestone .desc{font-size:11px;color:#64748B;text-align:center;line-height:1.35;}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="slide">
+
+<div class="eyebrow">MARKET + SOLUTION</div>
+<h1 class="headline">The data is finally real. The market has no solution. We have both.</h1>
+
+<div class="stats-row">
+  <div class="stat-card">
+    <div class="stat-value c1">$556.6B</div>
+    <div class="stat-desc">US out-of-pocket healthcare spend</div>
+    <div class="stat-source">CMS NHE Fact Sheet 2024</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value c2">16%</div>
+    <div class="stat-desc">hospitals fully compliant with price transparency</div>
+    <div class="stat-source">PRA Interim Report, Sept 2025</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value c3">2–13%</div>
+    <div class="stat-desc">of consumers use cost estimator tools</div>
+    <div class="stat-source">JAMA, Health Affairs, PMC11129567</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-value c4">91%</div>
+    <div class="stat-desc">of consumers distrust healthcare pricing tools</div>
+    <div class="stat-source">JIMR 2020</div>
+  </div>
+</div>
+
+<div class="section-heading">
+  <div class="section-bar"></div>
+  <h2>Why This Problem Exists Now</h2>
+</div>
+
+<div class="why-cards">
+  <div class="why-card">
+    <div class="why-card-title">📋 The Regulatory Gap</div>
+    <div class="why-card-text">CMS April 2026 enforcement arrived. Hospitals face up to $2M/year in fines for inaccurate price files. This turns compliance data into a real source we can build on.</div>
+  </div>
+  <div class="why-card">
+    <div class="why-card-title">💊 The Hidden Bills</div>
+    <div class="why-card-text">A colonoscopy isn't one bill; it's four: physician fee, facility fee, anesthesia, and pathology. Every existing player lives on one track, but none bridge them all.</div>
+  </div>
+  <div class="why-card">
+    <div class="why-card-title">🤖 The AI Gap</div>
+    <div class="why-card-text">AI symptom checkers (Ada Health, K Health) route to appointments but show no costs. We bridge the clinical and financial data domains to solve the trust deficit.</div>
+  </div>
+</div>
+
+<div class="section-heading">
+  <div class="section-bar"></div>
+  <h2>Regulatory Milestones</h2>
+</div>
+
+<div style="position:relative;margin-top:8px;">
+  <div class="timeline-row">
+    <div class="timeline-line"></div>
+    <div class="milestone">
+      <div class="dot"></div>
+      <div class="date">Jan 2021</div>
+      <div class="name">HPT Rule</div>
+      <div class="desc">Hospitals must post MRFs</div>
+    </div>
+    <div class="milestone">
+      <div class="dot"></div>
+      <div class="date">Jul 2022</div>
+      <div class="name">TiC Rule</div>
+      <div class="desc">Insurers must post rates</div>
+    </div>
+    <div class="milestone">
+      <div class="dot"></div>
+      <div class="date">Jan 2024</div>
+      <div class="name">Estimator Mandate</div>
+      <div class="desc">Every insurer must offer</div>
+    </div>
+    <div class="milestone">
+      <div class="dot"></div>
+      <div class="date">Feb 2025</div>
+      <div class="name">Trump EO</div>
+      <div class="desc">"Actual prices, not est."</div>
+    </div>
+    <div class="milestone">
+      <div class="dot"></div>
+      <div class="date">Apr 2026</div>
+      <div class="name">MRF v2.0</div>
+      <div class="desc">Dollar-and-cents rates</div>
+    </div>
+    <div class="milestone highlight">
+      <div class="dot"></div>
+      <div class="date">Apr 2026</div>
+      <div class="name">CareCost</div>
+      <div class="desc">Enters at inflection point</div>
+    </div>
+  </div>
+</div>
+
+</div>
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

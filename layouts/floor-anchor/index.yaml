@@ -1,0 +1,22 @@
+schema_version: 1
+extracted: '2026-04-30'
+source: floor-anchor
+layouts:
+- code: L-TITLE-001
+  name: Title (PPTX s1)
+  type: title
+  source: floor-anchor-s1
+  origin: pptx
+  regions: 1
+- code: L-EDIT-002
+  name: Editorial (PPTX s2)
+  type: editorial
+  source: floor-anchor-s2
+  origin: pptx
+  regions: 1
+- code: L-CLOSE-003
+  name: Close (PPTX s3)
+  type: close
+  source: floor-anchor-s3
+  origin: pptx
+  regions: 1

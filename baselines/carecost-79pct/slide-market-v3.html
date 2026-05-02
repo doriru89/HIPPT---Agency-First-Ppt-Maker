@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareCost - Market Size (Three Columns)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 1920px;
+            height: 1080px;
+            background: #FFFAF8;
+            font-family: Calibri, 'Segoe UI', sans-serif;
+            transform-origin: top left;
+            overflow: hidden;
+            position: relative;
+        }
+        .accent-bar {
+            width: 100%;
+            height: 8px;
+            background: #A84C6A;
+        }
+        .slide-content {
+            padding: 70px 80px;
+        }
+        .eyebrow {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #A84C6A;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .headline {
+            font-size: 54px;
+            font-weight: bold;
+            color: #1A1F36;
+            margin-bottom: 70px;
+            line-height: 1.2;
+        }
+        .three-column-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 50px;
+            height: 700px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+        }
+        .column-title {
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            color: #A84C6A;
+            margin-bottom: 36px;
+            text-transform: uppercase;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #A84C6A;
+        }
+        .market-bars {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .market-bar {
+            background: #FFFFFF;
+            border: 2px solid #E8DCD4;
+            border-left: 6px solid #A84C6A;
+            border-radius: 8px;
+            padding: 28px 32px;
+            display: flex;
+            flex-direction: column;
+        }
+        .market-bar.tam {
+            border-left-color: #D4959D;
+        }
+        .market-bar.sam {
+            border-left-color: #A84C6A;
+        }
+        .market-bar.som {
+            border-left-color: #C14545;
+        }
+        .bar-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #A84C6A;
+            margin-bottom: 8px;
+        }
+        .bar-label {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1A1F36;
+            margin-bottom: 4px;
+        }
+        .bar-desc {
+            font-size: 17px;
+            color: #475569;
+        }
+        .gap-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .gap-stat {
+            display: flex;
+            flex-direction: column;
+        }
+        .gap-value {
+            font-size: 44px;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .gap-stat:nth-child(1) .gap-value { color: #D4959D; }
+        .gap-stat:nth-child(2) .gap-value { color: #C14545; }
+        .gap-stat:nth-child(3) .gap-value { color: #B8893D; }
+        .gap-stat:nth-child(4) .gap-value { color: #2F4C8C; }
+        .gap-desc {
+            font-size: 16px;
+            color: #1A1F36;
+            font-weight: 500;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+        .gap-source {
+            font-size: 14px;
+            color: #64748B;
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .opportunity-content {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+        }
+        .opportunity-callout {
+            background: linear-gradient(135deg, rgba(168, 76, 106, 0.1), rgba(212, 149, 157, 0.1));
+            border: 2px solid #A84C6A;
+            border-radius: 12px;
+            padding: 36px 32px;
+        }
+        .callout-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1A1F36;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .callout-highlight {
+            color: #A84C6A;
+        }
+        .positioning-mini {
+            background: #FFFFFF;
+            border: 2px solid #E8DCD4;
+            border-radius: 10px;
+            padding: 24px 28px;
+        }
+        .positioning-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #A84C6A;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .positioning-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            font-size: 14px;
+        }
+        .positioning-label {
+            color: #475569;
+            font-weight: 500;
+        }
+        .positioning-value {
+            color: #1A1F36;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="accent-bar"></div>
+    <div class="slide-content">
+        <div class="eyebrow">MARKET</div>
+        <h1 class="headline">The market is massive and waits for a credible tool.</h1>
+
+        <div class="three-column-layout">
+            <div class="column">
+                <div class="column-title">The Market</div>
+                <div class="market-bars">
+                    <div class="market-bar tam">
+                        <div class="bar-value">$557B</div>
+                        <div class="bar-label">TAM</div>
+                        <div class="bar-desc">US consumer OOP spend</div>
+                    </div>
+                    <div class="market-bar sam">
+                        <div class="bar-value">$67–200B</div>
+                        <div class="bar-label">SAM</div>
+                        <div class="bar-desc">Shoppable services</div>
+                    </div>
+                    <div class="market-bar som">
+                        <div class="bar-value">$2–4B</div>
+                        <div class="bar-label">SOM</div>
+                        <div class="bar-desc">Year 1 target</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="column-title">The Gap</div>
+                <div class="gap-stats">
+                    <div class="gap-stat">
+                        <div class="gap-value">$2.0B</div>
+                        <div class="gap-desc">Price transparency software market (2025)</div>
+                        <div class="gap-source">Growing at 17.2% CAGR → $3.77B by 2029</div>
+                    </div>
+                    <div class="gap-stat">
+                        <div class="gap-value">$11.9B</div>
+                        <div class="gap-desc">Health navigation platform market (2025)</div>
+                        <div class="gap-source">37% employer adoption · only 22% fully trusted</div>
+                    </div>
+                    <div class="gap-stat">
+                        <div class="gap-value">$18,500</div>
+                        <div class="gap-desc">Average employer healthcare cost per employee</div>
+                        <div class="gap-source">10% projected increase for 2026 — 15-year high</div>
+                    </div>
+                    <div class="gap-stat">
+                        <div class="gap-value">6,000+</div>
+                        <div class="gap-desc">Ambulatory surgical centers in US</div>
+                        <div class="gap-source">All subject to April 2026 CMS enforcement</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="column-title">The Opportunity</div>
+                <div class="opportunity-content">
+                    <div class="opportunity-callout">
+                        <div class="callout-text">
+                            <span class="callout-highlight">89%</span> want to shop, <span class="callout-highlight">3%</span> can.
+                        </div>
+                        <div class="callout-text">
+                            <span class="callout-highlight">$557B</span> market, zero credible consumer tools.
+                        </div>
+                    </div>
+
+                    <div class="positioning-mini">
+                        <div class="positioning-title">Competitive Positioning</div>
+                        <div class="positioning-grid">
+                            <div class="positioning-label">Consumer trust:</div>
+                            <div class="positioning-value">22% (avg platform)</div>
+                            <div class="positioning-label">Market growth:</div>
+                            <div class="positioning-value">17.2% CAGR</div>
+                            <div class="positioning-label">Employer adoption:</div>
+                            <div class="positioning-value">37% (rising)</div>
+                            <div class="positioning-label">CMS enforcement:</div>
+                            <div class="positioning-value">April 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+    window.addEventListener('resize',scaleSlide);scaleSlide();
+    </script>
+</body>
+</html>

@@ -1,0 +1,88 @@
+schema_version: 1
+extracted: '2026-04-30'
+source: agency
+layouts:
+- code: L-TITLE-001
+  name: Title (PPTX s1)
+  type: title
+  source: agency-s1
+  origin: pptx
+  regions: 2
+- code: L-DATA-002
+  name: Data (PPTX s2)
+  type: data
+  source: agency-s2
+  origin: pptx
+  regions: 5
+- code: L-COMP-003
+  name: Comparison (PPTX s3)
+  type: comparison
+  source: agency-s3
+  origin: pptx
+  regions: 3
+- code: L-COMP-004
+  name: Comparison (PPTX s4)
+  type: comparison
+  source: agency-s4
+  origin: pptx
+  regions: 6
+- code: L-EDIT-005
+  name: Editorial (PPTX s5)
+  type: editorial
+  source: agency-s5
+  origin: pptx
+  regions: 1
+- code: L-EDIT-006
+  name: Editorial (PPTX s6)
+  type: editorial
+  source: agency-s6
+  origin: pptx
+  regions: 2
+- code: L-EDIT-007
+  name: Editorial (PPTX s7)
+  type: editorial
+  source: agency-s7
+  origin: pptx
+  regions: 6
+- code: L-DATA-008
+  name: Data (PPTX s8)
+  type: data
+  source: agency-s8
+  origin: pptx
+  regions: 5
+- code: L-EDIT-009
+  name: Editorial (PPTX s9)
+  type: editorial
+  source: agency-s9
+  origin: pptx
+  regions: 5
+- code: L-EDIT-010
+  name: Editorial (PPTX s10)
+  type: editorial
+  source: agency-s10
+  origin: pptx
+  regions: 1
+- code: L-EDIT-011
+  name: Editorial (PPTX s11)
+  type: editorial
+  source: agency-s11
+  origin: pptx
+  regions: 1
+- code: L-COMP-012
+  name: Comparison (PPTX s12)
+  type: comparison
+  source: agency-s12
+  origin: pptx
+  regions: 3
+- code: L-EDIT-013
+  name: Editorial (PPTX s13)
+  type: editorial
+  source: agency-s13
+  origin: pptx
+  regions: 4
+- code: L-CLOSE-014
+  name: Close (PPTX s14)
+  type: close
+  source: agency-s14
+  origin: pptx
+  regions: 1

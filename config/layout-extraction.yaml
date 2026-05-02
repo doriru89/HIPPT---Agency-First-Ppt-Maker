@@ -1,0 +1,165 @@
+# Layout Extraction Config — v1
+# Drives extract_layouts.py role classification + grouping behavior.
+# Add new selector→role mappings here when processing new decks.
+
+# --- Slide layout codes (keyed by slide index) ---
+# New decks: extend or override via --slide-map flag
+slide_layouts:
+  0: {code: L-TITLE-001, name: Hero Title, type: title}
+  1: {code: L-EXEC-001, name: Executive Summary Three-Pillar, type: editorial}
+  2: {code: L-DATA-001, name: Four-Stat Dashboard, type: data}
+  3: {code: L-NEWS-001, name: News Editorial Two-Column, type: editorial}
+  4: {code: L-STAT-001, name: Big Number Comparison, type: data}
+  5: {code: L-TABLE-001, name: Comparison Table, type: data}
+  6: {code: L-GRID-001, name: 2x2 Deliverables Grid, type: comparison}
+  7: {code: L-ERA-001, name: Three-Era Timeline, type: timeline}
+  8: {code: L-RADIAL-001, name: Radial Hub-and-Spoke, type: radial}
+  9: {code: L-PROOF-001, name: Two-Column Proof Points, type: comparison}
+  10: {code: L-VISION-001, name: Revenue Transformation, type: editorial}
+  11: {code: L-CLOSE-001, name: Closing Recommendation, type: close}
+
+# --- Selector → Role mapping (first match wins, order matters) ---
+# Each entry: selector substrings → role name
+# To add a new deck's selectors: append entries or create a deck-specific override file
+selector_roles:
+  - selectors: [progress-fill, progress-remain]
+    role: progress_bar
+  - selectors: [slide-counter]
+    role: slide_counter
+  - selectors: [section-label]
+    role: section_label
+  - selectors: [masthead]
+    role: masthead
+  - selectors: [headline, slide-title, hero-title, close-title, vision-quote]
+    role: headline
+  - selectors: [slide-subtitle, hero-sub, subhead]
+    role: subtitle
+  - selectors: [verdict-bar, takeaway, hook, tagline, platform-hook,
+                close-cta, close-quote, solution-hook, auth-line]
+    role: verdict_bar
+  - selectors: [slide-footer]
+    role: footer
+  - selectors: [radial-hub]
+    role: radial_hub
+  - selectors: [spoke-icon, spoke-label, spoke-stat]
+    role: spoke_item
+  - selectors: [era-year, era-label, era-arrow, era-desc, tl-line]
+    role: era_marker
+  - selectors: [stat-val, big-val, metric-val, proof-num, rev-val,
+                vision-amount, bridge-stat]
+    role: stat_value
+  - selectors: [pillar-label, deliver-title, deliver-icon, proof-col-title,
+                news-col-head, rev-name, vision-label]
+    role: section_heading
+  - selectors: [compare-table]
+    role: data_table
+
+# Font-size fallback thresholds are sourced from TOOLS/lib/design_tokens.py
+# (DISPLAY_MIN_PT, HEADING_MIN_PT, BODY_MIN_PT).
+# The cascade logic lives in layout_utils.py:classify_role_html().
+
+# --- Text pattern rules (after decorative, before font fallbacks) ---
+text_patterns:
+  - pattern: "^[A-Z]{3}\\s+\\d{4}$"
+    role: era_marker
+
+# --- Grouping thresholds ---
+thresholds:
+  x_proximity_pct: 3        # % of viewport width for x-clustering
+  y_band_split_pct: 10      # % of viewport height for y-band splitting
+  generic_max_dist_pct: 40   # % of viewport height for generic assignment
+  x_overlap_margin_pct: 5    # % of viewport width for x-overlap check
+  min_elements_for_split: 5  # only y-band split groups with more elements than this
+
+# --- Roles treated as structural (separate, not grouped) ---
+structural_roles: [progress_bar, section_label, slide_counter, footer, masthead]
+
+# --- Generic passthrough roles (go to proximity-based assignment) ---
+# Elements with these roles AND no selector family become generics
+generic_passthrough_roles: [body_text, detail_text, headline, section_heading, evidence_image]
+
+# --- Role priority for dominant role selection ---
+role_priority:
+  - headline
+  - subtitle
+  - radial_hub
+  - section_heading
+  - stat_value
+  - spoke_item
+  - era_marker
+  - data_table
+  - evidence_image
+  - verdict_bar
+  - masthead
+  - footer
+
+# --- Post-merge rules ---
+# Roles whose regions should be merged slide-wide into a single bar
+merge_roles:
+  era_marker: timeline_bar
+
+# --- PPTX-specific role classification (Phase 4) ---
+pptx_roles:
+  placeholder_map:
+    0: headline
+    1: headline
+    2: body_text
+    3: headline
+    4: subtitle
+    10: subtitle
+    12: data_table
+    13: slide_counter
+    15: footer
+    16: footer
+    18: evidence_image
+
+  position_rules:
+    footer_y_min_pct: 88
+    section_label_y_max_pct: 5
+    progress_bar_y_max_pct: 2
+    progress_bar_min_width_pct: 50
+
+  text_patterns_pptx:
+    - pattern: "^\\$[\\d,.]+[BMKTbmkt]?(/yr)?$"
+      role: stat_value
+    - pattern: "^\\d+(\\.\\d+)?%$"
+      role: stat_value
+    - pattern: "^\\d+$"
+      conditions: {min_font_pt: 20}
+      role: stat_value
+
+  font_thresholds:
+    display_min_pt: 32
+    heading_min_pt: 22
+    body_min_pt: 13
+
+  style_grouping:
+    font_size_bucket_pt: 2
+    isolated_roles: [headline, subtitle, radial_hub]
+
+# --- Phase 7: Layout selection scoring (config-driven, no magic numbers) ---
+selection:
+  layer1:
+    density_exact: 1.0
+    density_adjacent: 0.5
+    background_match: 1.0
+    tag_jaccard_weight: 2.0
+    supports_jaccard_weight: 1.0
+  layer2:
+    role_overlap_weight: 3.0
+    count_fit_weight: 1.0
+    type_compat_weight: 1.0
+  blend_ratio: 0.6
+  min_score_threshold: 0.35
+  top_k_layer1: 8
+  min_match_ratio: 0.6
+  shape:
+    max_content_slots: 16
+    shape_weight: 0.0
+    min_content_regions: 2
+
+role_compatibility:
+  section_heading: [headline, subtitle]
+  subtitle: [headline]
+  detail_text: [body_text]
+  verdict_bar: [body_text]

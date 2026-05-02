@@ -1,0 +1,86 @@
+# Extraction JSON Schema — v1
+# Output of html_to_pptx.py --debug
+# Written to OUTPUT/debug/layout-classified.json
+
+schema_version: 1
+
+# Top-level structure
+root:
+  viewport: { w: 960, h: 540 }     # Canonical viewport (E-PRES-036: 96 DPI native)
+  slides:                            # Array of slide data
+    - index: 0                       # Zero-based slide index
+      background: "rgb(0, 53, 107)" # Computed CSS background color
+      bbox: { x: 0, y: 0, w: 960, h: 540 }
+      elements: []                   # Array of extracted elements
+
+# Element structure (all types)
+element:
+  type: text                         # text | image | shape | table
+  render: native                     # native | rasterize | skip (Phase 2 classification)
+  bbox:                              # Bounding box relative to slide container
+    x: 96                            # pixels from left of slide
+    y: 54                            # pixels from top of slide
+    w: 1728                          # width in pixels
+    h: 55                            # height in pixels
+  style:                             # Resolved CSS (getComputedStyle values)
+    fontFamily: "'Playfair Display', Georgia, serif"
+    fontSize: "36px"
+    fontWeight: "700"
+    fontStyle: "normal"
+    color: "rgb(0, 53, 107)"
+    textAlign: "left"
+    backgroundColor: "rgba(0, 0, 0, 0)"  # transparent
+    borderRadius: "8px"
+    borderWidth: "1px"
+    borderColor: "rgb(229, 226, 220)"
+    opacity: "1"
+    lineHeight: "46.8px"
+    paddingLeft: "0px"
+    paddingTop: "0px"
+    paddingRight: "0px"
+    paddingBottom: "0px"
+    textDecoration: "none"
+  selector: "div.slide-title"        # CSS selector (for rasterize targeting)
+
+# Text-specific fields
+text_element:
+  text: "Full flattened text content" # All text nodes concatenated
+  runs:                               # Per-node text with individual styling
+    - text: "At stake: "
+      style:
+        fontWeight: "400"
+        fontStyle: "normal"
+        color: "rgb(71, 85, 105)"
+        fontSize: "14px"
+        fontFamily: "'Inter', system-ui, sans-serif"
+        textDecoration: "none"
+    - text: "$740M/year"
+      style:
+        fontWeight: "700"
+        color: "rgb(0, 168, 150)"
+  overflow: false                     # scrollHeight > clientHeight detection
+  isDecorative: false
+
+# Image-specific fields
+image_element:
+  src: "data:image/png;base64,..."   # base64 data URI, file path, or URL
+  naturalWidth: 800                   # Original image dimensions
+  naturalHeight: 600
+
+# Table-specific fields
+table_element:
+  rows:                               # 2D array of cells
+    - - text: "Dimension"
+        style: { fontWeight: "700", color: "rgb(0, 53, 107)" }
+        colspan: 1
+        rowspan: 1
+        isHeader: true
+
+# Shape-specific fields
+shape_element:
+  isDecorative: true                  # No text, has background → pure shape
+
+# Failure taxonomy applied during extraction + build:
+#   FATAL:    Playwright crash, no slides found, save failure → raise + exit
+#   RECOVER:  Zero-size element, corrupt base64, parse error → log + skip
+#   DEGRADE:  SVG, complex CSS (gradients, clip-path) → rasterize via screenshot

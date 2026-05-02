@@ -1,0 +1,23 @@
+code: L-CLOSE-003
+name: Close (PPTX s3)
+source: floor-anchor-s3
+slide_type: close
+background: light
+density: low
+max_regions: 1
+tags: []
+supports:
+- text-body
+regions:
+- role: body_text
+  element_type: text
+  box: {x: 40%, y: 44.4%, w: 20%, h: 17.8%}
+origin: pptx
+slide_master: Blank
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

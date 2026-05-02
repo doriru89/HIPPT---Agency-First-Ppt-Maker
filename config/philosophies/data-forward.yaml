@@ -1,0 +1,54 @@
+name: data-forward
+description: "Tufte-maximalist information density. Every pixel carries data. Direct labeling, small multiples, sparklines."
+icon: "chart"
+
+structure:
+  framework: evidence_first
+  arc: finding_evidence_implication
+  slide_vocabulary:
+    - title
+    - data-annotation
+    - evidence-cascade
+    - comparison-grid
+    - hero-stat
+    - before-after
+    - data-table  # clean Tufte-style, no chrome
+    - section-break
+    - content
+  forbidden_slide_types:
+    - full-bleed-image  # wastes data-ink
+    - storyboard
+    - quote  # anecdotes < data
+  density_limits:
+    max_bullets_per_slide: 6
+    max_words_per_slide: 60
+    max_items_in_grid: 8
+    min_data_ink_ratio: 0.6  # strict — 60% of visual must be information
+  ghost_deck_criteria:
+    evaluate: [data_ink_ratio, direct_labeling, small_multiples, assertion_quality, insight_density]
+    min_score: 18
+    forbidden_patterns:
+      - label_titles
+      - chartjunk  # decorative borders, 3D effects, gradient fills
+      - legend_instead_of_labels  # always label directly
+      - decoration_without_data  # every visual element must encode information
+  required_slides:
+    - title
+    - synthesis
+  exec_summary_rule: "Slide 2 must contain the key finding + 3 evidence points with numbers."
+
+aesthetic_guidance: minimal
+# "Maximize information density. White/light backgrounds preferred for readability.
+#  Monospace accents for data. Serif for narrative text.
+#  No decoration that doesn't encode data. Tufte is the north star."
+
+preset_ref: data-forward
+
+asset_guidance:
+  photo: forbidden  # photos waste data-ink
+  data_viz: required  # at least 4 data visualizations
+  shader: forbidden
+  lottie: forbidden
+  brand: optional
+
+learned_patterns: []

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareCost - Market Size (Concentric Circles)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            width: 1920px;
+            height: 1080px;
+            background: #FFFAF8;
+            font-family: Calibri, 'Segoe UI', sans-serif;
+            transform-origin: top left;
+            overflow: hidden;
+            position: relative;
+        }
+        .accent-bar {
+            width: 100%;
+            height: 8px;
+            background: #A84C6A;
+        }
+        .slide-content {
+            padding: 80px 100px;
+        }
+        .eyebrow {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #A84C6A;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+        .headline {
+            font-size: 56px;
+            font-weight: bold;
+            color: #1A1F36;
+            margin-bottom: 80px;
+            line-height: 1.2;
+            max-width: 1400px;
+        }
+        .main-layout {
+            display: flex;
+            gap: 120px;
+            align-items: center;
+        }
+        .circles-container {
+            flex: 1;
+            position: relative;
+            height: 680px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+        }
+        .circle-tam {
+            width: 620px;
+            height: 620px;
+            background: rgba(212, 149, 157, 0.12);
+            border: 2px solid rgba(212, 149, 157, 0.35);
+        }
+        .circle-sam {
+            width: 440px;
+            height: 440px;
+            background: rgba(212, 149, 157, 0.2);
+            border: 2px solid rgba(212, 149, 157, 0.55);
+        }
+        .circle-som {
+            width: 260px;
+            height: 260px;
+            background: rgba(168, 76, 106, 0.12);
+            border: 3px dashed rgba(168, 76, 106, 0.6);
+        }
+        /* Labels positioned absolutely to avoid overlap */
+        .circle-text {
+            position: absolute;
+            text-align: center;
+            z-index: 10;
+        }
+        .circle-text.tam-text {
+            top: 45px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .circle-text.sam-text {
+            top: 50%;
+            left: 90px;
+            transform: translateY(-50%);
+        }
+        .circle-text.som-text {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .circle-label {
+            font-size: 16px;
+            font-weight: 700;
+            color: #A84C6A;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .circle-value {
+            font-size: 42px;
+            font-weight: 700;
+            color: #A84C6A;
+            margin-bottom: 4px;
+        }
+        .circle-text.tam-text .circle-value { color: #1A1F36; font-size: 38px; }
+        .circle-text.sam-text .circle-value { color: #C14545; font-size: 34px; }
+        .circle-text.som-text .circle-value { color: #A84C6A; font-size: 32px; }
+        .circle-desc {
+            font-size: 14px;
+            color: #475569;
+            line-height: 1.3;
+        }
+        .stats-sidebar {
+            width: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .stat-card {
+            background: #FFFFFF;
+            border: 2px solid #E8DCD4;
+            border-radius: 12px;
+            padding: 28px 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 6px;
+        }
+        .stat-card.pink::before { background: #D4959D; }
+        .stat-card.red::before { background: #C14545; }
+        .stat-card.gold::before { background: #B8893D; }
+        .stat-card.blue::before { background: #2F4C8C; }
+        .stat-value {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .stat-card.pink .stat-value { color: #D4959D; }
+        .stat-card.red .stat-value { color: #C14545; }
+        .stat-card.gold .stat-value { color: #B8893D; }
+        .stat-card.blue .stat-value { color: #2F4C8C; }
+        .stat-title {
+            font-size: 19px;
+            font-weight: 600;
+            color: #1A1F36;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .stat-source {
+            font-size: 15px;
+            color: #64748B;
+            font-style: italic;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="accent-bar"></div>
+    <div class="slide-content">
+        <div class="eyebrow">MARKET</div>
+        <h1 class="headline">The market is massive and waits for a credible tool.</h1>
+
+        <div class="main-layout">
+            <div class="circles-container">
+                <div class="circle circle-tam"></div>
+                <div class="circle circle-sam"></div>
+                <div class="circle circle-som"></div>
+                <div class="circle-text tam-text">
+                    <div class="circle-label">TAM</div>
+                    <div class="circle-value">$557B</div>
+                    <div class="circle-desc">US consumer OOP spend</div>
+                </div>
+                <div class="circle-text sam-text">
+                    <div class="circle-label">SAM</div>
+                    <div class="circle-value">$67–200B</div>
+                    <div class="circle-desc">Shoppable services</div>
+                </div>
+                <div class="circle-text som-text">
+                    <div class="circle-label">SOM</div>
+                    <div class="circle-value">$2–4B</div>
+                    <div class="circle-desc">Year 1 target</div>
+                </div>
+            </div>
+
+            <div class="stats-sidebar">
+                <div class="stat-card pink">
+                    <div class="stat-value">$2.0B</div>
+                    <div class="stat-title">Price transparency software market (2025)</div>
+                    <div class="stat-source">Growing at 17.2% CAGR → $3.77B by 2029</div>
+                </div>
+
+                <div class="stat-card red">
+                    <div class="stat-value">$11.9B</div>
+                    <div class="stat-title">Health navigation platform market (2025)</div>
+                    <div class="stat-source">37% employer adoption · only 22% fully trusted</div>
+                </div>
+
+                <div class="stat-card gold">
+                    <div class="stat-value">$18,500</div>
+                    <div class="stat-title">Average employer healthcare cost per employee</div>
+                    <div class="stat-source">10% projected increase for 2026 — 15-year high</div>
+                </div>
+
+                <div class="stat-card blue">
+                    <div class="stat-value">6,000+</div>
+                    <div class="stat-title">Ambulatory surgical centers in US</div>
+                    <div class="stat-source">All subject to April 2026 CMS enforcement</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+    window.addEventListener('resize',scaleSlide);scaleSlide();
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+code: L-EDIT-010
+name: Editorial (PPTX s10)
+source: agency-s10
+slide_type: editorial
+background: light
+density: low
+max_regions: 1
+tags: []
+supports:
+- composite-region
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 66.9%, y: 4.3%, w: 15.1%, h: 2.1%}
+- role: section_label
+  element_type: text
+  box: {x: 92.4%, y: 4.3%, w: 4.0%, h: 2.1%}
+- role: section_heading
+  element_type: composite
+  box: {x: 3.6%, y: 9.4%, w: 92.7%, h: 85.9%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

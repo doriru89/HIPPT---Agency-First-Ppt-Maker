@@ -1,0 +1,64 @@
+code: L-EDIT-021
+name: Editorial (PPTX s21)
+source: mid-model-s21
+slide_type: editorial
+background: light
+density: high
+max_regions: 11
+tags:
+- three-column
+supports:
+- accent-bar
+- text-body
+regions:
+- role: body_text
+  element_type: shape
+  box: {x: 0%, y: -0.2%, w: 33.3%, h: 68.5%}
+- role: body_text
+  element_type: shape
+  box: {x: 66.7%, y: -0.2%, w: 33.3%, h: 60.9%}
+- role: section_label
+  element_type: text
+  box: {x: 45.0%, y: 3.3%, w: 10.1%, h: 1.7%}
+- role: body_text
+  element_type: shape
+  box: {x: 15.9%, y: 9.6%, w: 1.4%, h: 51.1%}
+- role: body_text
+  element_type: shape
+  box: {x: 35.5%, y: 9.6%, w: 29.0%, h: 58.7%}
+- role: body_text
+  element_type: shape
+  box: {x: 49.3%, y: 9.6%, w: 1.4%, h: 51.1%}
+- role: body_text
+  element_type: shape
+  box: {x: 2.1%, y: 15.6%, w: 29.0%, h: 52.8%}
+- role: body_text
+  element_type: shape
+  box: {x: 35.5%, y: 15.6%, w: 29.0%, h: 52.8%}
+- role: body_text
+  element_type: shape
+  box: {x: 68.8%, y: 15.6%, w: 29.0%, h: 52.8%}
+- role: body_text
+  element_type: shape
+  box: {x: -0.1%, y: 27.8%, w: 33.3%, h: 72.4%}
+- role: body_text
+  element_type: shape
+  box: {x: 33.3%, y: 27.8%, w: 33.3%, h: 72.4%}
+- role: body_text
+  element_type: shape
+  box: {x: 66.7%, y: 27.8%, w: 33.3%, h: 72.4%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

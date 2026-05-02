@@ -1,0 +1,23 @@
+code: L-CLOSE-014
+name: Close (PPTX s14)
+source: agency-s14
+slide_type: close
+background: light
+density: low
+max_regions: 1
+tags: []
+supports:
+- composite-region
+regions:
+- role: headline
+  element_type: composite
+  box: {x: 3.6%, y: 4.6%, w: 92.7%, h: 90.7%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

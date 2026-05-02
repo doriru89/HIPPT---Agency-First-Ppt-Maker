@@ -1,0 +1,54 @@
+name: cinematic
+description: "Emotional storytelling with atmosphere. Full-bleed imagery, dramatic typography, film-like pacing."
+icon: "film"
+
+structure:
+  framework: emotional_arc
+  arc: wonder_tension_revelation
+  slide_vocabulary:
+    - title
+    - full-bleed-image
+    - quote
+    - hero-stat
+    - timeline
+    - storyboard
+    - section-break
+    - content
+    - before-after
+  forbidden_slide_types:
+    - data-table  # too clinical
+    - evidence-cascade  # too dense
+    - argument-flow  # too logical
+  density_limits:
+    max_bullets_per_slide: 3
+    max_words_per_slide: 40
+    max_items_in_grid: 4
+    min_visual_ratio: 0.6  # 60% of slide area must be visual/atmospheric
+  ghost_deck_criteria:
+    evaluate: [emotional_arc, visual_pacing, breathing_room, surprise, atmosphere]
+    min_score: 18
+    forbidden_patterns:
+      - bullet_list_only
+      - dense_grids  # cinematic = breathing room
+      - label_titles
+      - more_than_one_idea_per_slide
+  required_slides:
+    - title
+    - synthesis
+  exec_summary_rule: null  # cinematic builds suspense — no spoilers
+
+aesthetic_guidance: minimal
+# "Think film title sequence, not slide deck. Atmosphere IS the message.
+#  Full-bleed photos. Oversized typography. Dramatic negative space.
+#  Shaders and 3D welcome for background atmosphere. One 'holy shit' moment per deck."
+
+preset_ref: narrative
+
+asset_guidance:
+  photo: required  # at least 3 full-bleed photos
+  data_viz: optional  # only if emotionally relevant
+  shader: encouraged  # background atmosphere
+  lottie: optional  # subtle motion
+  brand: required_if_mentioned
+
+learned_patterns: []

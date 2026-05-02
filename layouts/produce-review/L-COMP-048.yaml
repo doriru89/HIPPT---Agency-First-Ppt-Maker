@@ -1,0 +1,31 @@
+code: L-COMP-048
+name: Comparison (PPTX s48)
+source: produce-review-s48
+slide_type: comparison
+background: light
+density: low
+max_regions: 3
+tags:
+- two-column
+- evidence-images
+supports:
+- composite-region
+regions:
+- role: headline
+  element_type: composite
+  box: {x: 1.0%, y: 4.6%, w: 98.0%, h: 93.6%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 38.2%, y: 35.6%, w: 23.6%, h: 43.1%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 72.2%, y: 35.6%, w: 23.6%, h: 43.1%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

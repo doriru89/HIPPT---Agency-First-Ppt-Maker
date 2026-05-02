@@ -1,0 +1,41 @@
+code: L-COMP-037
+name: Comparison (PPTX s37)
+source: produce-review-s37
+slide_type: comparison
+background: light
+density: low
+max_regions: 3
+tags:
+- three-column
+- evidence-images
+supports:
+- image-proof
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.0%, y: 1.5%, w: 9.0%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 14.2%, y: 1.5%, w: 16.8%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 88.6%, y: 1.5%, w: 10.4%, h: 2.2%}
+- role: evidence_image
+  element_type: image
+  box: {x: 2.1%, y: 7.6%, w: 31.2%, h: 87.7%}
+- role: evidence_image
+  element_type: image
+  box: {x: 34.4%, y: 7.6%, w: 31.2%, h: 87.7%}
+- role: evidence_image
+  element_type: image
+  box: {x: 66.7%, y: 7.6%, w: 31.2%, h: 87.7%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

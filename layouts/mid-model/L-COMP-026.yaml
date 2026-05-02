@@ -1,0 +1,44 @@
+code: L-COMP-026
+name: Comparison (PPTX s26)
+source: mid-model-s26
+slide_type: comparison
+background: light
+density: medium
+max_regions: 4
+tags:
+- three-column
+- evidence-images
+supports:
+- composite-region
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 43.9%, y: 3.3%, w: 12.3%, h: 1.7%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 1.8%, y: 13.3%, w: 96.3%, h: 41.3%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 45.6%, y: 13.3%, w: 32.1%, h: 32.6%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 66.1%, y: 53.9%, w: 32.2%, h: 34.4%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 25%, y: 54.0%, w: 32.1%, h: 34.4%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

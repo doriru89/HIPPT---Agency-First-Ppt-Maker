@@ -1,0 +1,256 @@
+schema_version: 1
+extracted: '2026-04-30'
+source: mid-model
+layouts:
+- code: L-TITLE-001
+  name: Title (PPTX s1)
+  type: title
+  source: mid-model-s1
+  origin: pptx
+  regions: 1
+- code: L-EDIT-002
+  name: Editorial (PPTX s2)
+  type: editorial
+  source: mid-model-s2
+  origin: pptx
+  regions: 2
+- code: L-EDIT-003
+  name: Editorial (PPTX s3)
+  type: editorial
+  source: mid-model-s3
+  origin: pptx
+  regions: 1
+- code: L-EDIT-004
+  name: Editorial (PPTX s4)
+  type: editorial
+  source: mid-model-s4
+  origin: pptx
+  regions: 3
+- code: L-DATA-005
+  name: Data (PPTX s5)
+  type: data
+  source: mid-model-s5
+  origin: pptx
+  regions: 4
+- code: L-DATA-006
+  name: Data (PPTX s6)
+  type: data
+  source: mid-model-s6
+  origin: pptx
+  regions: 4
+- code: L-DATA-007
+  name: Data (PPTX s7)
+  type: data
+  source: mid-model-s7
+  origin: pptx
+  regions: 2
+- code: L-DATA-008
+  name: Data (PPTX s8)
+  type: data
+  source: mid-model-s8
+  origin: pptx
+  regions: 2
+- code: L-DATA-009
+  name: Data (PPTX s9)
+  type: data
+  source: mid-model-s9
+  origin: pptx
+  regions: 2
+- code: L-DATA-010
+  name: Data (PPTX s10)
+  type: data
+  source: mid-model-s10
+  origin: pptx
+  regions: 2
+- code: L-EDIT-011
+  name: Editorial (PPTX s11)
+  type: editorial
+  source: mid-model-s11
+  origin: pptx
+  regions: 2
+- code: L-EDIT-012
+  name: Editorial (PPTX s12)
+  type: editorial
+  source: mid-model-s12
+  origin: pptx
+  regions: 2
+- code: L-EDIT-013
+  name: Editorial (PPTX s13)
+  type: editorial
+  source: mid-model-s13
+  origin: pptx
+  regions: 2
+- code: L-EDIT-014
+  name: Editorial (PPTX s14)
+  type: editorial
+  source: mid-model-s14
+  origin: pptx
+  regions: 2
+- code: L-EDIT-015
+  name: Editorial (PPTX s15)
+  type: editorial
+  source: mid-model-s15
+  origin: pptx
+  regions: 5
+- code: L-EDIT-016
+  name: Editorial (PPTX s16)
+  type: editorial
+  source: mid-model-s16
+  origin: pptx
+  regions: 5
+- code: L-EDIT-017
+  name: Editorial (PPTX s17)
+  type: editorial
+  source: mid-model-s17
+  origin: pptx
+  regions: 5
+- code: L-EDIT-018
+  name: Editorial (PPTX s18)
+  type: editorial
+  source: mid-model-s18
+  origin: pptx
+  regions: 5
+- code: L-EDIT-019
+  name: Editorial (PPTX s19)
+  type: editorial
+  source: mid-model-s19
+  origin: pptx
+  regions: 3
+- code: L-EDIT-020
+  name: Editorial (PPTX s20)
+  type: editorial
+  source: mid-model-s20
+  origin: pptx
+  regions: 3
+- code: L-EDIT-021
+  name: Editorial (PPTX s21)
+  type: editorial
+  source: mid-model-s21
+  origin: pptx
+  regions: 11
+- code: L-EDIT-022
+  name: Editorial (PPTX s22)
+  type: editorial
+  source: mid-model-s22
+  origin: pptx
+  regions: 1
+- code: L-EDIT-023
+  name: Editorial (PPTX s23)
+  type: editorial
+  source: mid-model-s23
+  origin: pptx
+  regions: 1
+- code: L-EDIT-024
+  name: Editorial (PPTX s24)
+  type: editorial
+  source: mid-model-s24
+  origin: pptx
+  regions: 3
+- code: L-DATA-025
+  name: Data (PPTX s25)
+  type: data
+  source: mid-model-s25
+  origin: pptx
+  regions: 4
+- code: L-COMP-026
+  name: Comparison (PPTX s26)
+  type: comparison
+  source: mid-model-s26
+  origin: pptx
+  regions: 4
+- code: L-COMP-027
+  name: Comparison (PPTX s27)
+  type: comparison
+  source: mid-model-s27
+  origin: pptx
+  regions: 3
+- code: L-COMP-028
+  name: Comparison (PPTX s28)
+  type: comparison
+  source: mid-model-s28
+  origin: pptx
+  regions: 3
+- code: L-COMP-029
+  name: Comparison (PPTX s29)
+  type: comparison
+  source: mid-model-s29
+  origin: pptx
+  regions: 3
+- code: L-EDIT-030
+  name: Editorial (PPTX s30)
+  type: editorial
+  source: mid-model-s30
+  origin: pptx
+  regions: 2
+- code: L-EDIT-031
+  name: Editorial (PPTX s31)
+  type: editorial
+  source: mid-model-s31
+  origin: pptx
+  regions: 2
+- code: L-EDIT-032
+  name: Editorial (PPTX s32)
+  type: editorial
+  source: mid-model-s32
+  origin: pptx
+  regions: 2
+- code: L-EDIT-033
+  name: Editorial (PPTX s33)
+  type: editorial
+  source: mid-model-s33
+  origin: pptx
+  regions: 2
+- code: L-EDIT-034
+  name: Editorial (PPTX s34)
+  type: editorial
+  source: mid-model-s34
+  origin: pptx
+  regions: 2
+- code: L-EDIT-035
+  name: Editorial (PPTX s35)
+  type: editorial
+  source: mid-model-s35
+  origin: pptx
+  regions: 1
+- code: L-EDIT-036
+  name: Editorial (PPTX s36)
+  type: editorial
+  source: mid-model-s36
+  origin: pptx
+  regions: 2
+- code: L-EDIT-037
+  name: Editorial (PPTX s37)
+  type: editorial
+  source: mid-model-s37
+  origin: pptx
+  regions: 3
+- code: L-EDIT-038
+  name: Editorial (PPTX s38)
+  type: editorial
+  source: mid-model-s38
+  origin: pptx
+  regions: 2
+- code: L-EDIT-039
+  name: Editorial (PPTX s39)
+  type: editorial
+  source: mid-model-s39
+  origin: pptx
+  regions: 2
+- code: L-EDIT-040
+  name: Editorial (PPTX s40)
+  type: editorial
+  source: mid-model-s40
+  origin: pptx
+  regions: 2
+- code: L-COMP-041
+  name: Comparison (PPTX s41)
+  type: comparison
+  source: mid-model-s41
+  origin: pptx
+  regions: 3
+- code: L-CLOSE-042
+  name: Close (PPTX s42)
+  type: close
+  source: mid-model-s42
+  origin: pptx
+  regions: 2

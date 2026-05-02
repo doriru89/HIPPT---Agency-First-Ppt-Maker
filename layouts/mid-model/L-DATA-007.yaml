@@ -1,0 +1,36 @@
+code: L-DATA-007
+name: Data (PPTX s7)
+source: mid-model-s7
+slide_type: data
+background: light
+density: low
+max_regions: 2
+tags:
+- two-column
+- stat-cards
+supports:
+- accent-bar
+- composite-region
+- text-body
+regions:
+- role: headline
+  element_type: composite
+  box: {x: 0%, y: 0%, w: 50%, h: 100%}
+- role: stat_value
+  element_type: shape
+  box: {x: 49.2%, y: 7.9%, w: 51.7%, h: 84.3%}
+- role: footer
+  element_type: text
+  box: {x: 19.7%, y: 95.1%, w: 10.6%, h: 1.5%}
+- role: footer
+  element_type: text
+  box: {x: 69.8%, y: 95.1%, w: 10.4%, h: 1.5%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

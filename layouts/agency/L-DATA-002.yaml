@@ -1,0 +1,37 @@
+code: L-DATA-002
+name: Data (PPTX s2)
+source: agency-s2
+slide_type: data
+background: dark
+density: medium
+max_regions: 5
+tags:
+- three-column
+- stat-cards
+supports:
+- accent-bar
+regions:
+- role: body_text
+  element_type: shape
+  box: {x: 3.6%, y: 3.7%, w: 9.4%, h: 6.3%}
+- role: stat_value
+  element_type: shape
+  box: {x: 21.1%, y: 24.2%, w: 19.1%, h: 27.2%}
+- role: stat_value
+  element_type: shape
+  box: {x: 50.4%, y: 24.2%, w: 24.5%, h: 27.2%}
+- role: stat_value
+  element_type: shape
+  box: {x: 30.5%, y: 61.3%, w: 21.5%, h: 29.3%}
+- role: stat_value
+  element_type: shape
+  box: {x: 63.5%, y: 61.3%, w: 16.0%, h: 29.3%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: rejected

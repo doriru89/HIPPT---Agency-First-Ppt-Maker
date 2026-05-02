@@ -1,0 +1,79 @@
+{
+  "metadata": {
+    "title": "Why Remote Work Increases Productivity",
+    "author": "HIPPT Demo",
+    "date": "2026-05-02"
+  },
+  "slides": [
+    {
+      "type": "title",
+      "title": "Why Remote Work Increases Productivity",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Evidence from 3 years of post-pandemic data",
+          "x": 0.5,
+          "y": 3.0,
+          "w": 9,
+          "h": 0.6,
+          "font_size": 24,
+          "color": "475569"
+        }
+      ],
+      "background": {"type": "solid", "color": "F8FAFC"}
+    },
+    {
+      "type": "content",
+      "title": "Remote workers produce 13% more output per hour",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Stanford study (Bloom et al., 2023) tracked 16,000 workers over 9 months. Remote workers completed 13.5% more calls per shift, with fewer breaks and sick days.",
+          "x": 0.5,
+          "y": 1.2,
+          "w": 9,
+          "h": 1.5,
+          "font_size": 18,
+          "color": "334155"
+        },
+        {
+          "type": "text",
+          "content": "Source: Bloom, N. et al. (2023). Does Working from Home Work? Quarterly Journal of Economics.",
+          "x": 0.5,
+          "y": 4.8,
+          "w": 9,
+          "h": 0.3,
+          "font_size": 10,
+          "color": "94A3B8"
+        }
+      ],
+      "background": {"type": "solid", "color": "FFFFFF"}
+    },
+    {
+      "type": "content",
+      "title": "The productivity gain compounds with reduced commute stress",
+      "elements": [
+        {
+          "type": "text",
+          "content": "Average commute: 54 minutes/day (US Census Bureau, 2023). Remote workers reinvest 40% of saved commute time into work tasks. The remaining 60% goes to sleep and exercise, reducing burnout by 23%.",
+          "x": 0.5,
+          "y": 1.2,
+          "w": 9,
+          "h": 2.0,
+          "font_size": 18,
+          "color": "334155"
+        },
+        {
+          "type": "shape",
+          "shape": "rectangle",
+          "x": 0,
+          "y": 0,
+          "w": 10,
+          "h": 0.06,
+          "fill": "3B82F6"
+        }
+      ],
+      "background": {"type": "solid", "color": "FFFFFF"}
+    }
+  ]
+}

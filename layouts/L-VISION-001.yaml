@@ -1,0 +1,59 @@
+code: L-VISION-001
+name: Revenue Transformation
+source: smart-tickets-r2-s11
+slide_type: editorial
+background: light
+density: high
+max_regions: 8
+tags:
+- three-column
+- evidence-images
+- stat-cards
+supports:
+- accent-bar
+- composite-region
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 90.6%, y: 2.6%, w: 4.4%, h: 2.6%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 12.3%}
+- role: stat_value
+  element_type: text
+  box: {x: 75.3%, y: 22.4%, w: 18.2%, h: 47.1%}
+- role: section_heading
+  element_type: text
+  box: {x: 23.6%, y: 23.0%, w: 50.2%, h: 54.9%}
+- role: section_heading
+  element_type: text
+  box: {x: 11.0%, y: 26.0%, w: 16.9%, h: 40%}
+- role: body_text
+  element_type: text
+  box: {x: 18.9%, y: 30.8%, w: 1.2%, h: 5.2%}
+- role: body_text
+  element_type: text
+  box: {x: 5%, y: 37.8%, w: 29.0%, h: 11.9%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 50.9%, y: 85.0%, w: 44.0%, h: 37.8%}
+- role: stat_value
+  element_type: text
+  box: {x: 7.0%, y: 88.3%, w: 40.3%, h: 17.7%}
+- role: slide_counter
+  element_type: text
+  box: {x: 91.8%, y: 94.4%, w: 3.2%, h: 2.6%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

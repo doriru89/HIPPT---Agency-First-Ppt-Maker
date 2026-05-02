@@ -1,0 +1,27 @@
+code: L-TITLE-001
+name: Title (PPTX s1)
+source: agency-s1
+slide_type: title
+background: light
+density: low
+max_regions: 2
+tags: []
+supports:
+- accent-bar
+- composite-region
+regions:
+- role: headline
+  element_type: composite
+  box: {x: 3.6%, y: 4.6%, w: 92.7%, h: 90.7%}
+- role: headline
+  element_type: shape
+  box: {x: 11.6%, y: 53.5%, w: 75.8%, h: 35.2%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: 'opening slide, presentation title, deck opener'
+anti_patterns: 'not for content-heavy slides, not for data'
+created: '2026-04-30'
+verified_in: agency.pptx
+calibration_status: approved

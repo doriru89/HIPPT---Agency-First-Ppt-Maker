@@ -1,0 +1,310 @@
+schema_version: 1
+extracted: '2026-04-30'
+source: produce-review
+layouts:
+- code: L-TITLE-001
+  name: Title (PPTX s1)
+  type: title
+  source: produce-review-s1
+  origin: pptx
+  regions: 1
+- code: L-EDIT-002
+  name: Editorial (PPTX s2)
+  type: editorial
+  source: produce-review-s2
+  origin: pptx
+  regions: 1
+- code: L-EDIT-003
+  name: Editorial (PPTX s3)
+  type: editorial
+  source: produce-review-s3
+  origin: pptx
+  regions: 1
+- code: L-EDIT-004
+  name: Editorial (PPTX s4)
+  type: editorial
+  source: produce-review-s4
+  origin: pptx
+  regions: 1
+- code: L-EDIT-005
+  name: Editorial (PPTX s5)
+  type: editorial
+  source: produce-review-s5
+  origin: pptx
+  regions: 1
+- code: L-EDIT-006
+  name: Editorial (PPTX s6)
+  type: editorial
+  source: produce-review-s6
+  origin: pptx
+  regions: 1
+- code: L-EDIT-007
+  name: Editorial (PPTX s7)
+  type: editorial
+  source: produce-review-s7
+  origin: pptx
+  regions: 1
+- code: L-EDIT-008
+  name: Editorial (PPTX s8)
+  type: editorial
+  source: produce-review-s8
+  origin: pptx
+  regions: 1
+- code: L-EDIT-009
+  name: Editorial (PPTX s9)
+  type: editorial
+  source: produce-review-s9
+  origin: pptx
+  regions: 4
+- code: L-EDIT-010
+  name: Editorial (PPTX s10)
+  type: editorial
+  source: produce-review-s10
+  origin: pptx
+  regions: 6
+- code: L-EDIT-011
+  name: Editorial (PPTX s11)
+  type: editorial
+  source: produce-review-s11
+  origin: pptx
+  regions: 6
+- code: L-EDIT-012
+  name: Editorial (PPTX s12)
+  type: editorial
+  source: produce-review-s12
+  origin: pptx
+  regions: 6
+- code: L-EDIT-013
+  name: Editorial (PPTX s13)
+  type: editorial
+  source: produce-review-s13
+  origin: pptx
+  regions: 14
+- code: L-EDIT-014
+  name: Editorial (PPTX s14)
+  type: editorial
+  source: produce-review-s14
+  origin: pptx
+  regions: 15
+- code: L-EDIT-015
+  name: Editorial (PPTX s15)
+  type: editorial
+  source: produce-review-s15
+  origin: pptx
+  regions: 15
+- code: L-EDIT-016
+  name: Editorial (PPTX s16)
+  type: editorial
+  source: produce-review-s16
+  origin: pptx
+  regions: 15
+- code: L-EDIT-017
+  name: Editorial (PPTX s17)
+  type: editorial
+  source: produce-review-s17
+  origin: pptx
+  regions: 7
+- code: L-EDIT-018
+  name: Editorial (PPTX s18)
+  type: editorial
+  source: produce-review-s18
+  origin: pptx
+  regions: 8
+- code: L-EDIT-019
+  name: Editorial (PPTX s19)
+  type: editorial
+  source: produce-review-s19
+  origin: pptx
+  regions: 8
+- code: L-EDIT-020
+  name: Editorial (PPTX s20)
+  type: editorial
+  source: produce-review-s20
+  origin: pptx
+  regions: 8
+- code: L-COMP-021
+  name: Comparison (PPTX s21)
+  type: comparison
+  source: produce-review-s21
+  origin: pptx
+  regions: 6
+- code: L-COMP-022
+  name: Comparison (PPTX s22)
+  type: comparison
+  source: produce-review-s22
+  origin: pptx
+  regions: 7
+- code: L-EDIT-023
+  name: Editorial (PPTX s23)
+  type: editorial
+  source: produce-review-s23
+  origin: pptx
+  regions: 2
+- code: L-EDIT-024
+  name: Editorial (PPTX s24)
+  type: editorial
+  source: produce-review-s24
+  origin: pptx
+  regions: 2
+- code: L-COMP-025
+  name: Comparison (PPTX s25)
+  type: comparison
+  source: produce-review-s25
+  origin: pptx
+  regions: 4
+- code: L-EDIT-026
+  name: Editorial (PPTX s26)
+  type: editorial
+  source: produce-review-s26
+  origin: pptx
+  regions: 4
+- code: L-EDIT-027
+  name: Editorial (PPTX s27)
+  type: editorial
+  source: produce-review-s27
+  origin: pptx
+  regions: 2
+- code: L-EDIT-028
+  name: Editorial (PPTX s28)
+  type: editorial
+  source: produce-review-s28
+  origin: pptx
+  regions: 4
+- code: L-EDIT-029
+  name: Editorial (PPTX s29)
+  type: editorial
+  source: produce-review-s29
+  origin: pptx
+  regions: 1
+- code: L-COMP-030
+  name: Comparison (PPTX s30)
+  type: comparison
+  source: produce-review-s30
+  origin: pptx
+  regions: 3
+- code: L-EDIT-031
+  name: Editorial (PPTX s31)
+  type: editorial
+  source: produce-review-s31
+  origin: pptx
+  regions: 1
+- code: L-EDIT-032
+  name: Editorial (PPTX s32)
+  type: editorial
+  source: produce-review-s32
+  origin: pptx
+  regions: 1
+- code: L-EDIT-033
+  name: Editorial (PPTX s33)
+  type: editorial
+  source: produce-review-s33
+  origin: pptx
+  regions: 1
+- code: L-EDIT-034
+  name: Editorial (PPTX s34)
+  type: editorial
+  source: produce-review-s34
+  origin: pptx
+  regions: 1
+- code: L-EDIT-035
+  name: Editorial (PPTX s35)
+  type: editorial
+  source: produce-review-s35
+  origin: pptx
+  regions: 1
+- code: L-EDIT-036
+  name: Editorial (PPTX s36)
+  type: editorial
+  source: produce-review-s36
+  origin: pptx
+  regions: 1
+- code: L-COMP-037
+  name: Comparison (PPTX s37)
+  type: comparison
+  source: produce-review-s37
+  origin: pptx
+  regions: 3
+- code: L-COMP-038
+  name: Comparison (PPTX s38)
+  type: comparison
+  source: produce-review-s38
+  origin: pptx
+  regions: 3
+- code: L-EDIT-039
+  name: Editorial (PPTX s39)
+  type: editorial
+  source: produce-review-s39
+  origin: pptx
+  regions: 1
+- code: L-EDIT-040
+  name: Editorial (PPTX s40)
+  type: editorial
+  source: produce-review-s40
+  origin: pptx
+  regions: 1
+- code: L-EDIT-041
+  name: Editorial (PPTX s41)
+  type: editorial
+  source: produce-review-s41
+  origin: pptx
+  regions: 1
+- code: L-EDIT-042
+  name: Editorial (PPTX s42)
+  type: editorial
+  source: produce-review-s42
+  origin: pptx
+  regions: 1
+- code: L-COMP-043
+  name: Comparison (PPTX s43)
+  type: comparison
+  source: produce-review-s43
+  origin: pptx
+  regions: 3
+- code: L-COMP-044
+  name: Comparison (PPTX s44)
+  type: comparison
+  source: produce-review-s44
+  origin: pptx
+  regions: 3
+- code: L-COMP-045
+  name: Comparison (PPTX s45)
+  type: comparison
+  source: produce-review-s45
+  origin: pptx
+  regions: 3
+- code: L-EDIT-046
+  name: Editorial (PPTX s46)
+  type: editorial
+  source: produce-review-s46
+  origin: pptx
+  regions: 2
+- code: L-EDIT-047
+  name: Editorial (PPTX s47)
+  type: editorial
+  source: produce-review-s47
+  origin: pptx
+  regions: 2
+- code: L-COMP-048
+  name: Comparison (PPTX s48)
+  type: comparison
+  source: produce-review-s48
+  origin: pptx
+  regions: 3
+- code: L-COMP-049
+  name: Comparison (PPTX s49)
+  type: comparison
+  source: produce-review-s49
+  origin: pptx
+  regions: 3
+- code: L-EDIT-050
+  name: Editorial (PPTX s50)
+  type: editorial
+  source: produce-review-s50
+  origin: pptx
+  regions: 1
+- code: L-CLOSE-051
+  name: Close (PPTX s51)
+  type: close
+  source: produce-review-s51
+  origin: pptx
+  regions: 1

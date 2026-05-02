@@ -1,0 +1,62 @@
+code: L-NEWS-001
+name: News Editorial Two-Column
+source: smart-tickets-r2-s4
+slide_type: editorial
+background: light
+density: high
+max_regions: 8
+tags:
+- three-column
+- evidence-images
+- timeline
+supports:
+- accent-bar
+- composite-region
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 85.3%, y: 2.6%, w: 9.7%, h: 2.6%}
+- role: masthead
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 3.9%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 10.7%, w: 90%, h: 6.3%}
+- role: subtitle
+  element_type: text
+  box: {x: 5%, y: 18.1%, w: 90%, h: 5.4%}
+- role: section_heading
+  element_type: text
+  box: {x: 5%, y: 25.3%, w: 43.1%, h: 59.6%}
+- role: section_heading
+  element_type: text
+  box: {x: 51.9%, y: 25.3%, w: 43.1%, h: 60.2%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 5.1%, y: 85.7%, w: 44.0%, h: 37.8%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 50.9%, y: 85.7%, w: 44.0%, h: 35.2%}
+- role: slide_counter
+  element_type: text
+  box: {x: 92.0%, y: 94.4%, w: 3.0%, h: 2.6%}
+- role: timeline_bar
+  element_type: composite
+  box: {x: 5%, y: 126.3%, w: 90%, h: 4.2%}
+- role: verdict_bar
+  element_type: text
+  box: {x: 5%, y: 136.6%, w: 90%, h: 7.8%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

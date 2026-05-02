@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CareCost — The Empty Quadrant (Crosshair)</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{background:#FFFAF8;overflow:hidden;}
+body{width:1920px;height:1080px;overflow:hidden;margin:0;font-family:Calibri,'Segoe UI',sans-serif;background:#FFFAF8;color:#1A1F36;position:relative;transform-origin:top left;}
+
+.top-bar{position:absolute;top:0;left:0;width:100%;height:8px;background:#A84C6A;}
+.container{padding:55px 80px 40px 100px;height:100%;display:flex;flex-direction:column;}
+
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#A84C6A;margin-bottom:16px;}
+.headline{font-size:38px;font-weight:700;color:#1A1F36;line-height:1.2;margin-bottom:8px;}
+.subtitle{font-size:18px;color:#475569;line-height:1.5;margin-bottom:28px;}
+
+.chart-wrapper{flex:1;position:relative;margin:0 20px;}
+
+/* The plot area — centered crosshair */
+.plot{position:absolute;top:10px;bottom:60px;left:120px;right:120px;}
+
+/* Crosshair axes */
+.axis-h{position:absolute;top:50%;left:0;right:0;height:2.5px;background:#1A1F36;transform:translateY(-50%);}
+.axis-v{position:absolute;left:50%;top:0;bottom:0;width:2.5px;background:#1A1F36;transform:translateX(-50%);}
+
+/* Axis arrows */
+.arrow-right{position:absolute;top:50%;right:-6px;transform:translateY(-50%);width:0;height:0;border-top:6px solid transparent;border-bottom:6px solid transparent;border-left:10px solid #1A1F36;}
+.arrow-up{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:10px solid #1A1F36;}
+
+/* Axis labels */
+.axis-title{position:absolute;font-size:14px;font-weight:700;color:#1A1F36;letter-spacing:0.5px;}
+.axis-title.x-label{bottom:-45px;left:50%;transform:translateX(-50%);}
+.axis-title.y-label{top:-10px;left:50%;transform:translateX(-50%) translateX(20px);white-space:nowrap;}
+
+.axis-end{position:absolute;font-size:12px;font-weight:600;color:#64748B;letter-spacing:1px;}
+.axis-end.x-low{bottom:-28px;left:0;}
+.axis-end.x-high{bottom:-28px;right:0;}
+.axis-end.y-low{left:-55px;bottom:0;}
+.axis-end.y-high{left:-55px;top:0;}
+
+/* Quadrant background labels */
+.q-label{position:absolute;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:rgba(100,116,139,0.35);}
+.q-label.tl{top:12px;left:12px;}
+.q-label.tr{top:12px;right:12px;text-align:right;}
+.q-label.bl{bottom:12px;left:12px;}
+.q-label.br{bottom:12px;right:12px;text-align:right;}
+
+/* Target zone highlight — top-right quadrant */
+.target-zone{
+  position:absolute;
+  top:0;right:0;
+  width:calc(50% - 1.25px);
+  height:calc(50% - 1.25px);
+  border:2px dashed rgba(168,76,106,0.3);
+  background:rgba(168,76,106,0.04);
+  border-radius:4px;
+}
+.target-tag{
+  position:absolute;top:8px;right:12px;
+  font-size:12px;font-weight:700;color:#A84C6A;letter-spacing:1px;opacity:0.6;
+}
+
+/* Player dots — positioned with % relative to plot area */
+.player{position:absolute;display:flex;flex-direction:column;align-items:center;transform:translate(-50%,-50%);z-index:5;}
+.player .dot{border-radius:50%;flex-shrink:0;cursor:default;}
+.player .label{margin-top:5px;text-align:center;line-height:1.25;}
+.player .name{font-size:12px;font-weight:600;white-space:nowrap;}
+.player .funding{font-size:10px;color:#64748B;white-space:nowrap;}
+
+.player.carecost .dot{box-shadow:0 0 0 4px rgba(168,76,106,0.2);}
+.player.carecost .name{color:#A84C6A;font-size:14px;font-weight:700;}
+</style>
+</head>
+<body>
+<div class="top-bar"></div>
+<div class="container">
+
+<div class="eyebrow">COMPETITION & MARKET</div>
+<h1 class="headline">The top-right quadrant is empty.</h1>
+<p class="subtitle">No product combines high explainability with broad distribution. $3.7B in funding sits outside the target zone.</p>
+
+<div class="chart-wrapper">
+<div class="plot">
+  <!-- Crosshair axes -->
+  <div class="axis-h"><div class="arrow-right"></div></div>
+  <div class="axis-v"><div class="arrow-up"></div></div>
+
+  <!-- Axis titles -->
+  <div class="axis-title x-label">Distribution / Reach</div>
+  <div class="axis-title y-label">Explainability / Provenance</div>
+
+  <!-- Axis endpoints -->
+  <div class="axis-end x-low">LOW</div>
+  <div class="axis-end x-high">HIGH</div>
+  <div class="axis-end y-low">LOW</div>
+  <div class="axis-end y-high">HIGH</div>
+
+  <!-- Quadrant background labels -->
+  <div class="q-label tl">Niche experts</div>
+  <div class="q-label tr">The goal</div>
+  <div class="q-label bl">Cash-pay / Alternative</div>
+  <div class="q-label br">Opaque scale</div>
+
+  <!-- Target zone -->
+  <div class="target-zone"></div>
+  <div class="target-tag">TARGET</div>
+
+  <!-- ═══ TOP-RIGHT: CareCost (alone) ═══ -->
+  <div class="player carecost" style="left:82%;top:12%;">
+    <div class="dot" style="width:48px;height:48px;background:#A84C6A;"></div>
+    <div class="label">
+      <div class="name">CareCost</div>
+      <div class="funding" style="color:#A84C6A;font-weight:600;">Consumer + B2B</div>
+    </div>
+  </div>
+
+  <!-- ═══ TOP-LEFT: High Explainability, Low Distribution ═══ -->
+  <div class="player" style="left:18%;top:12%;">
+    <div class="dot" style="width:32px;height:32px;background:#6B8CC7;"></div>
+    <div class="label">
+      <div class="name" style="color:#2F4C8C;">FAIR Health</div>
+      <div class="funding">Benchmarks</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:28%;top:22%;">
+    <div class="dot" style="width:38px;height:38px;background:#5B7DB8;"></div>
+    <div class="label">
+      <div class="name" style="color:#2F4C8C;">Turquoise</div>
+      <div class="funding">$95M · B2B</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:15%;top:32%;">
+    <div class="dot" style="width:22px;height:22px;background:#7A9FD4;"></div>
+    <div class="label">
+      <div class="name" style="color:#2F4C8C;">Serif Health</div>
+      <div class="funding">B2B · 300+ clients</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:8%;top:42%;">
+    <div class="dot" style="width:16px;height:16px;background:#94B4DE;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">MD Clarity</div>
+      <div class="funding">B2B only</div>
+    </div>
+  </div>
+
+  <!-- ═══ BOTTOM-LEFT: Low Explainability, Low Distribution ═══ -->
+  <div class="player" style="left:22%;top:62%;">
+    <div class="dot" style="width:36px;height:36px;background:#475569;"></div>
+    <div class="label">
+      <div class="name" style="color:#475569;">GoodRx</div>
+      <div class="funding">$797M rev · Rx only</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:10%;top:72%;">
+    <div class="dot" style="width:20px;height:20px;background:#7A8A9A;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">MDsave</div>
+      <div class="funding">$29M · acquired</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:18%;top:82%;">
+    <div class="dot" style="width:22px;height:22px;background:#6B8C7A;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">Sesame</div>
+      <div class="funding">$75M · cash-pay</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:38%;top:88%;">
+    <div class="dot" style="width:24px;height:24px;background:#6BAA6B;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">Sheer Health</div>
+      <div class="funding">concierge</div>
+    </div>
+  </div>
+
+  <!-- ═══ BOTTOM-RIGHT: Low Explainability, High Distribution ═══ -->
+  <div class="player" style="left:65%;top:60%;">
+    <div class="dot" style="width:40px;height:40px;background:#D4955D;"></div>
+    <div class="label">
+      <div class="name" style="color:#B8893D;">Insurer Estimators</div>
+      <div class="funding">UHC · Cigna · Aetna · BCBS</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:78%;top:68%;">
+    <div class="dot" style="width:34px;height:34px;background:#6B7A8C;"></div>
+    <div class="label">
+      <div class="name" style="color:#475569;">Transcarent</div>
+      <div class="funding">$940M</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:68%;top:80%;">
+    <div class="dot" style="width:30px;height:30px;background:#7A8A9A;"></div>
+    <div class="label">
+      <div class="name" style="color:#475569;">Included Health</div>
+      <div class="funding">$344M</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:88%;top:75%;">
+    <div class="dot" style="width:24px;height:24px;background:#8A9AAA;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">Accolade</div>
+      <div class="funding">Public · nav</div>
+    </div>
+  </div>
+
+  <!-- Symptom checkers — middle area, below axis -->
+  <div class="player" style="left:52%;top:56%;">
+    <div class="dot" style="width:28px;height:28px;background:#9B7AB8;"></div>
+    <div class="label">
+      <div class="name" style="color:#7A5A9A;">Ada Health</div>
+      <div class="funding">$167M · triage only</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:58%;top:68%;">
+    <div class="dot" style="width:32px;height:32px;background:#8A6AAA;"></div>
+    <div class="label">
+      <div class="name" style="color:#7A5A9A;">K Health</div>
+      <div class="funding">$441M · no cost data</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:85%;top:62%;">
+    <div class="dot" style="width:18px;height:18px;background:#AA7A6A;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">Nayya</div>
+      <div class="funding">benefits AI</div>
+    </div>
+  </div>
+
+  <div class="player" style="left:92%;top:85%;">
+    <div class="dot" style="width:18px;height:18px;background:#9AAABB;"></div>
+    <div class="label">
+      <div class="name" style="color:#64748B;">Rightway</div>
+      <div class="funding">$130M</div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>
+
+<script>
+function scaleSlide(){var s=Math.min(window.innerWidth/1920,window.innerHeight/1080);document.body.style.transform='scale('+s+')';}
+window.addEventListener('resize',scaleSlide);scaleSlide();
+</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+code: L-STAT-001
+name: Big Number Comparison
+source: smart-tickets-r2-s5
+slide_type: data
+background: light
+density: medium
+max_regions: 6
+tags:
+- three-column
+- stat-cards
+supports:
+- accent-bar
+- text-body
+- text-heading
+regions:
+- role: progress_bar
+  element_type: shape
+  box: {x: 0%, y: 0%, w: 100%, h: 0.7%}
+- role: section_label
+  element_type: text
+  box: {x: 85.3%, y: 2.6%, w: 9.7%, h: 2.6%}
+- role: headline
+  element_type: text
+  box: {x: 5%, y: 5%, w: 90%, h: 7.2%}
+- role: stat_value
+  element_type: text
+  box: {x: 52.7%, y: 25.5%, w: 17.6%, h: 26.5%}
+- role: stat_value
+  element_type: text
+  box: {x: 75.5%, y: 25.5%, w: 17.6%, h: 26.5%}
+- role: stat_value
+  element_type: text
+  box: {x: 29.8%, y: 27.2%, w: 17.6%, h: 23.1%}
+- role: stat_value
+  element_type: text
+  box: {x: 6.9%, y: 28.9%, w: 17.6%, h: 19.7%}
+- role: verdict_bar
+  element_type: text
+  box: {x: 5%, y: 63.2%, w: 90%, h: 19.4%}
+- role: footer
+  element_type: text
+  box: {x: 5%, y: 89.5%, w: 90%, h: 4.5%}
+- role: slide_counter
+  element_type: text
+  box: {x: 92.1%, y: 94.4%, w: 2.9%, h: 2.6%}
+origin: html
+slide_master: null
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate

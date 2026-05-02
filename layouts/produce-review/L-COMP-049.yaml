@@ -1,0 +1,41 @@
+code: L-COMP-049
+name: Comparison (PPTX s49)
+source: produce-review-s49
+slide_type: comparison
+background: dark
+density: low
+max_regions: 3
+tags:
+- two-column
+- evidence-images
+supports:
+- composite-region
+- text-body
+regions:
+- role: section_label
+  element_type: text
+  box: {x: 1.0%, y: 1.5%, w: 9.0%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 14.2%, y: 1.5%, w: 16.8%, h: 2.2%}
+- role: section_label
+  element_type: text
+  box: {x: 88.6%, y: 1.5%, w: 10.4%, h: 2.2%}
+- role: headline
+  element_type: composite
+  box: {x: 1.0%, y: 4.6%, w: 98.0%, h: 93.6%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 38.2%, y: 35.6%, w: 23.6%, h: 43.1%}
+- role: evidence_image
+  element_type: composite
+  box: {x: 72.2%, y: 35.6%, w: 23.6%, h: 43.1%}
+origin: pptx
+slide_master: DEFAULT
+aspect_ratio: '16:9'
+thumbnail: null
+context: ''
+anti_patterns: ''
+created: '2026-04-30'
+verified_in: pending
+calibration_status: candidate
