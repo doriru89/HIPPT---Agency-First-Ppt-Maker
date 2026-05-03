@@ -32,9 +32,9 @@ uv run hippt-draft examples/sample-slides.json
 open output/pptx/*.pptx
 ```
 
-### Optional: DOM Engine (Playwright)
+### Optional: Fidelity Validation + Backup Engine (Playwright)
 
-For the HTML-to-PPTX extraction engine:
+For the visual fidelity gate (Step 6.5) and the backup DOM engine:
 ```bash
 uv sync --extra export
 uv run playwright install chromium
@@ -63,12 +63,19 @@ Claude will walk you through:
 
 ## Architecture
 
-Two PPTX engines:
+Per-slide co-authoring pipeline (79% quality baseline):
 
-| Engine | Command | Input | Best For |
-|--------|---------|-------|----------|
-| **Semantic** (primary) | `hippt-draft` | Sidecar JSON | General decks, fast iteration |
-| **DOM** (refinement) | `hippt-export` | HTML file | Pixel-accurate positioning |
+```
+Per-slide HTML (960x540) + co-authored JSON (granular primitives)
+    ↓
+hippt-assemble → combined sidecar JSON
+    ↓
+hippt-draft → editable PPTX
+    ↓
+Fidelity gate (HTML vs PPTX comparison)
+```
+
+The semantic engine (`hippt-draft`) is the primary path. The DOM engine (`hippt-export`) is available as a backup for pixel-accurate positioning.
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for full data flow.
 

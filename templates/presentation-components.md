@@ -4,6 +4,8 @@
 
 All sizing uses fixed px in the 960×540 coordinate space. All slides: `width: 960px; height: 540px; overflow: hidden;`.
 
+**IMPORTANT — JSON Sidecar Rule**: These components define HTML structure only. When co-authoring the per-slide JSON sidecar, decompose each component into **granular primitives** (text, shape, image). Never emit abstract types like `stat_card`, `hero_stat`, `timeline`, or `evidence_cascade` in JSON. Example: a `hero-stat` HTML component → JSON with `rounded_rectangle` (bg) + `text` (number, 72px) + `text` (context, 16px). See SKILL.md Per-Slide JSON Contract for the canonical format.
+
 ## Component Index
 
 | # | Type | When to Use | Max Content |

@@ -6,17 +6,33 @@ HIPPT is a standalone presentation pipeline. It takes an idea through research, 
 
 ## Skills
 
-Three skills power the pipeline:
+Four skills power the pipeline:
 - `/presentation --mode deck|visual-aid|export` — full pipeline (Steps 0-7)
 - `/design-rubric` — Q1-Q10 scoring critique
 - `/reference-extract <url>` — extract visual tokens from a website
+- `/pptx-fidelity` — visual comparison: HTML screenshots vs PPTX output
+
+## How It Works (Per-Slide Co-Authoring)
+
+The pipeline generates **one HTML + one JSON per slide**, co-authored simultaneously. This is how the 79% quality baseline was achieved — no extraction step, no drift.
+
+```
+Per-slide HTML (960x540) + co-authored JSON
+    ↓ (Step 6a)
+hippt-assemble → combined sidecar JSON
+    ↓ (Step 6b)
+hippt-draft → editable PPTX
+```
+
+The DOM engine (`hippt-export`) is available as a backup for pixel-accurate positioning but is NOT part of the primary flow.
 
 ## Tools
 
 | Command | Purpose |
 |---------|---------|
 | `hippt-draft <slides.json>` | Sidecar JSON → editable PPTX (primary engine) |
-| `hippt-export <file.html>` | HTML → PPTX via Playwright (refinement engine) |
+| `hippt-assemble <dir>` | Assemble per-slide JSONs into combined sidecar |
+| `hippt-export <file.html>` | HTML → PPTX via Playwright (backup, not primary flow) |
 | `hippt-tokens <ref.pptx> --slug <name>` | Extract design tokens from reference PPTX |
 | `hippt-layouts <ref.pptx> --out <dir>` | Extract layouts from reference PPTX |
 | `hippt-analyze <file.pptx>` | Analyze PPTX (fill %, fonts, colors) |
@@ -32,7 +48,7 @@ Three skills power the pipeline:
 ## Key Constraints (non-negotiable)
 
 1. **960x540 viewport** — no clamp(), no vw/vh. Match PPTX 96 DPI native. (E-PRES-036)
-2. **HTML is SSOT** — iterate and approve HTML before any PPTX work
+2. **Per-slide HTML+JSON co-authoring** — generate HTML and sidecar JSON simultaneously per slide. No extraction step.
 3. **Canvas fill >= 80%** — size elements to ZONE not CONTENT (E-PRES-006)
 4. **Errata is a hard gate** — read `errata/presentation_design.md` BEFORE building any HTML
 5. **One bottleneck per round** — fix ONE Q dimension per convergence iteration
@@ -46,7 +62,7 @@ Three skills power the pipeline:
 
 ## Directory Layout
 
-- `hippt/` — Python package (11 modules)
+- `hippt/` — Python package (13 modules)
 - `config/` — YAML configs (rubric, layouts, philosophies)
 - `templates/` — slide component specs
 - `errata/` — failure patterns

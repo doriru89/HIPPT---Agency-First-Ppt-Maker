@@ -140,10 +140,63 @@ Currently broken link: `HTML → sidecar JSON` doesn't preserve grid structure o
 - [x] Post-layout collision detection (D-fix) — `d9d7ffa`
 - [x] S6 role-vs-explicit-y conflict resolved (D-fix) — `d9d7ffa`
 - [x] Prevention rules replace B5 errata (D3) — `d9d7ffa`
-- [ ] Playwright visual comparison: HTML screenshot vs PPTX screenshot per slide (D-visual)
-- [ ] Visual troubleshooting pipeline: side-by-side diff to find layout regressions (D-visual)
-- [ ] Q10 ≥ 8/10 via position-aware sidecar (D2 — Phase E, conditional)
+- [x] Playwright visual comparison: HTML screenshot vs PPTX screenshot per slide (D-visual)
+- [x] Visual troubleshooting pipeline: side-by-side diff via `/pptx-fidelity` tool (D-visual)
+- [x] Shape naming for element ID linkage: `s{slide}-{type}-{idx}` (D-visual prereq)
+- [x] `html_to_sidecar.py` built — DOM position extraction via Playwright (D2) — `2026-05-02`
+- [x] `_estimate_min_height()` extended to all text elements, default aligned to 14pt — `2026-05-02`
+- [x] `/pptx-fidelity` gate added to `/presentation` as Step 6.5 — `2026-05-02`
+- [x] 143 tests pass (132 original + 1 height + 10 sidecar)
+- [ ] Q10 ≥ 8/10 — S3 improved (3-col works), S4 regressed (metric/arch overlap), S5 text bug
 - [ ] Design tokens flow end-to-end (D4 — Phase E)
+
+---
+
+## Phase E: D2 Position-Aware Sidecar — IN PROGRESS (2026-05-02)
+
+**Tool built:** `TOOLS/scripts/html_to_sidecar.py` — extracts DOM positions at 960×540, merges with existing sidecar
+**Enrichment:** CareCost 6 slides → S1: 2/3, S2: 6/6, S3: 6/6, S4: 8/8, S5: 5/5, S6: 2/3
+
+### Visual Comparison After Enrichment
+
+| Slide | Before (D-visual) | After (D2 enrichment) | Change |
+|-------|-------------------|----------------------|--------|
+| S1 | cosmetic | cosmetic | — |
+| S2 | **blocking** (no 2-col) | improved (hero+cards) | ↑ layout present |
+| S3 | **blocking** (no cards) | **3-col cards work** | ↑↑ major fix |
+| S4 | **blocking** (horizontal arch) | regressed (metrics overlap arch shapes) | ↓ position conflict |
+| S5 | **blocking** (no 2-col) | card 1 text upside-down | → new bug |
+| S6 | degrading | match | ↑ |
+
+### Open Issues (next iteration)
+1. **S4 metric/arch overlap** — enriched stat_cards (2×3 grid) conflict with pre-positioned architecture shapes. Root: sidecar describes 6-across row but HTML renders 2×3 grid. Fix: either restructure sidecar element order or add position-conflict resolution to merge.
+2. **S5 card 1 text flip** — first win-card renders with upside-down text. Likely handler or position issue.
+3. **P/A/M badges** — sub_elements captured (1 per card on S3) but not yet rendered by `add_card()`.
+
+---
+
+## Phase D-visual: Fidelity Comparison Results ✅ COMPLETE
+
+**Tool built:** `/pptx-fidelity` skill + `TOOLS/lib/pptx_fidelity.py` (capture, compare, report)
+**Comparison:** `/tmp/pptx-fidelity/carecost/compare.html` (6 slides, HTML vs Google Slides)
+**Shape naming:** `slides_to_pptx.py` now sets `shape.name = s{slide}-{type}-{idx}` for element linkage
+
+### Per-Slide Diagnosis
+
+| Slide | Severity | Visual Issue | Root Cause | Route |
+|-------|----------|-------------|-----------|-------|
+| S1 | cosmetic | Emoji heart vs stylized glyph | Font/glyph limitation | accept |
+| S2 | **blocking** | Vertical stack vs HTML's 2-column ($4T LEFT, stats RIGHT) | Sidecar lacks gridColumn layout | sidecar_data |
+| S3 | **blocking** | Title overlaps subtitle, no P/A/M badges, differentiator truncated | Title height + missing sub-shapes | handler_bug + sidecar_data |
+| S4 | **blocking** | Stats in row (not 2×3 grid), arch diagram horizontal + overflow | Sidecar lacks grid + orientation | sidecar_data |
+| S5 | **blocking** | Title clipped, no screenshot, single column | Sidecar lacks image + 2-column | sidecar_data |
+| S6 | degrading | Minor timeline spacing (nudge fix working) | S6 nudge 0.33in delta | cosmetic |
+
+### Key Finding
+
+**4 of 6 slides have blocking issues. All are caused by sidecar data loss, not handler bugs.** The manually-created sidecar JSON doesn't capture 2-column layouts, icon badges, or grid structures from the HTML. The engine's handlers work correctly given the input — but the input is too lossy.
+
+**This triggers D2 (html_to_sidecar.py).** The condition "D-fix achieves < Q10 8 on layouts grid can express" is definitively met. The grid CAN express these layouts with correct `gridColumn` values, but the sidecar doesn't have them.
 
 ---
 

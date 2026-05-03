@@ -14,6 +14,7 @@
 | F8 | Decorative evidence | E-PRES-032 | E-PRES-020 |
 | F9 | Missing so-what | E-PRES-048 | Ghost deck |
 | F10 | Inconsistent line-heights | E-PRES-013 | — |
+| F11 | Multi-slide sidecar drift | E-PRES-049 | E-PRES-028 |
 
 ## E-PRES-001: Text-to-canvas ratio too low
 **Pattern:** AI generates text at web-appropriate sizes (0.85rem body, 1.2rem titles) but presentations are viewed at distance. Text appears tiny relative to full-viewport slides.
@@ -56,7 +57,7 @@
 ## E-PRES-007: Reference PPTX analysis ~~pending~~ RESOLVED
 **Pattern:** Three reference PPTXs (`mid-model.pptx`, `agency.pptx`, `produce-review.pptx`) were provided as gold-standard examples but never analyzed for space utilization patterns.
 **Resolution:** Analyzed via `hippt-analyze` on 2026-04-23. Key findings: 91% avg canvas fill across 107 slides, body text 8-14pt, display type up to 499pt, minimal padding (1-4%). Results populated into `config/philosophies/editorial.yaml` → `learned_patterns` (4 entries: 3 per-file + 1 aggregate).
-**Files:** Your reference PPTX files in `input/`
+**Files:** `input/{mid-model,agency,produce-review}.pptx`
 **Source:** 2026-04-23 Austin feedback → resolved 2026-04-23 S3
 
 ## E-PRES-008: Content swap doesn't fix geometry
@@ -121,8 +122,8 @@
 **Fix:** Add a **Visual Plan** step between Ghost Deck and Build. For each slide:
 1. **Context review** — read the whole deck's narrative arc. What is this slide's role in the story?
 2. **Image reasoning** — what visual BEST proves this assertion? Candidates from:
-   - Project files or web search (e.g., relevant product screenshots, data visualizations)
-   - Product screenshots (Playwright captures from `.playwright-mcp/`)
+   - Austin's memory/projects (project files or web search — e.g., Artopath DNA graph for "unified knowledge")
+   - Product screenshots (Playwright captures)
    - Online sources (platform screenshots, reference images)
    - Data outputs (Python-generated charts, research paper figures)
    - Animations/diagrams (SVG, CSS animation)
@@ -139,7 +140,7 @@
 1. What data source? (research paper, project metrics, course assignment output)
 2. What chart type? (bar, line, scatter, table, metric callout)
 3. Generate via Python (matplotlib, plotly) or inline SVG
-4. Store in `output/assets/<slug>/`
+4. Store in `output/html/assets/<slug>/`
 **Source:** 2026-04-28 — Austin referenced HW3 AI for Business Decisions as example of data-driven slides
 
 ## E-PRES-017: Screenshot-before-score hard gate
@@ -248,10 +249,10 @@ Failed images must be re-captured or replaced before build. Base64 conversion ha
 **Rule:** During design iteration, reference images by file path (`/images/smart-tickets/foo.png`). Convert to base64 only as the very last step after PPTX is generated and all iteration is complete. The base64 version is for sharing/archival only.
 **Root cause:** Base64 was applied early to make the file "self-contained" for review, but review happens locally where file paths work fine.
 
-### E-PRES-035 — PPTX review in native renderer, not PDF conversion
+### E-PRES-035 — PPTX review via Google Slides, not PDF conversion
 **Pattern:** AI generates PPTX, converts to PDF via LibreOffice, reviews PDF screenshots, declares success. LibreOffice rendering differs from PowerPoint/Keynote — font substitution, layout shifts, spacing errors are invisible in the PDF.
-**Rule:** Review PPTX in PowerPoint, Keynote, or LibreOffice Impress. Never declare PPTX done without visual inspection in a native renderer. Never review via PDF.
-**Pipeline:** Generate PPTX → open in PowerPoint/Keynote/LibreOffice Impress → screenshot each slide → compare vs HTML → fix handlers → repeat until delta is acceptable.
+**Rule:** After generating PPTX, upload to Google Drive, open in Google Slides via Playwright, screenshot each slide. Compare vs HTML screenshots to catch handler bugs. Never declare PPTX done without visual review.
+**Pipeline:** Generate PPTX → upload to Google Drive (AI PPT folder) → Playwright opens Google Slides URL → screenshot each slide → compare vs HTML → fix handlers → repeat until delta is acceptable.
 
 ### E-PRES-036 — Render at slide-native DPI to avoid coordinate system split
 **Pattern:** HTML→PPTX conversion renders at 1920×1080 but a 10"×5.625" PPTX at 96 DPI is only 960×540 pixels. This creates a 2x mismatch: positions scale at 0.5x (1920→960) but CSS font px→pt (×0.75) stays at 1x. Result: fonts are 2x too large for their boxes and overflow into neighbors.
@@ -356,14 +357,20 @@ Failed images must be re-captured or replaced before build. Base64 conversion ha
 
 ## E-PRES-047: Procedure says 1920×1080 but SSOT says 960×540
 **Pattern:** Step 5a in SKILL.md said "screenshot at 1920×1080" but E-PRES-036 CTO ruling established 960×540 as the authoritative rendering resolution. The LLM followed the procedure's explicit instruction over the principle, even when both were loaded in context. This is a shadow policy: the old procedure overrides the newer, correct ruling.
-**Root cause:** Step 5a was written before E-PRES-036 was discovered. When the CTO ruling was added, Step 5a was never updated. The `docs/MEGAPLAN.md` had both the old and new values simultaneously — self-contradictory SSOT.
-**Fix:** All Playwright screenshot steps in procedures MUST specify 960×540. Fixed in SKILL.md Step 5a and `docs/MEGAPLAN.md` Step 5a on 2026-05-02. Prevention: when a CTO ruling changes a parameter, grep ALL procedure steps for the old value and update them — don't just add the ruling as a principle.
+**Root cause:** Step 5a was written before E-PRES-036 was discovered. When the CTO ruling was added, Step 5a was never updated. The MEGAPLAN had both the old and new values simultaneously — self-contradictory SSOT.
+**Fix:** All Playwright screenshot steps in procedures MUST specify 960×540. Fixed in SKILL.md Step 5a and MEGAPLAN Step 5a on 2026-05-02. Prevention: when a CTO ruling changes a parameter, grep ALL procedure steps for the old value and update them — don't just add the ruling as a principle.
 **Source:** 2026-05-02 convergence validation session — LLM defaulted to 1920×1080 despite knowing the 960×540 rule
 
 ## E-PRES-048: Missing so-what on slide (F9)
 **Pattern:** Slide title is a label ("Market Overview", "Our Team", "Technology") instead of an assertive claim. The audience can't extract the message without reading the body. This is the most basic ghost deck violation — every title must be a complete sentence that states a position.
 **Fix:** At ghost deck stage (Step 2), validate: can you read ONLY the titles in sequence and understand the full argument? If any title is a noun phrase instead of a claim, rewrite it. "Market Overview" → "The healthcare transparency market will reach $1.2B by 2028."
 **Source:** 2026-05-02 SSOT audit — F9 was the only F-table entry without an E-PRES code
+
+## E-PRES-049: Multi-slide HTML loses sidecar layout context
+**Pattern:** Generating a single multi-slide HTML deck then extracting per-slide sidecar JSON produces incorrect element positions. The CSS cascade and shared grid context are implicit in the HTML DOM but lost during decomposition into per-slide JSON arrays.
+**Root cause:** The sidecar must decompose a single DOM into per-slide element arrays — a lossy transformation. Spatial relationships that CSS establishes implicitly (flex/grid flow, cascaded font sizes, relative positioning) cannot be reconstructed by the extractor.
+**Fix:** Generate per-slide HTML + co-authored sidecar JSON at Step 4. Each slide is one standalone HTML file (960×540) + one JSON file. The LLM writes both simultaneously, ensuring positions match. Assembly into combined sidecar at Step 6a is mechanical concatenation. DOM enrichment (`html_to_sidecar.py`) becomes optional polish, not critical path.
+**Source:** 2026-05-02 root cause analysis — golden 79% baseline used per-slide HTML + co-authored sidecar; current pipeline's quality gap traced to multi-slide extraction
 
 ## E-PRES-044: Source/footnote line doesn't span full width
 **Pattern:** Footnotes/source citations rendered as short text in the bottom-left, leaving 2/3 of the bottom edge empty. Creates an asymmetric bottom margin.

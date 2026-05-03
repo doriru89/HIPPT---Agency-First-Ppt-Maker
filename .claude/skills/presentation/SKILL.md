@@ -12,7 +12,7 @@ supersedes: [slide-deck, visual-aid]
 
 # /presentation — Philosophy-Driven Presentation Generator
 
-Three modes, one skill. **Presentations flow through a quality-gated pipeline** (philosophy gate → ghost deck → direction → assets → build → critique → capture).
+Three modes, one skill. **Presentations flow through the design-pipeline** (philosophy gate → ghost deck → direction → assets → build → critique → capture).
 
 | Mode | Use Case | Output |
 |------|----------|--------|
@@ -31,17 +31,19 @@ Detailed aesthetic prompts make AI output MORE generic. Instead:
 - **Loosely constrain** visual style (provide palette + typography as starting point, explore freely)
 - **Never constrain** creative expression within individual slides
 
-## Pipeline Overview (deck mode)
+## Pipeline Integration (deck mode)
 
-For `--mode deck`, this skill runs the full pipeline:
+For `--mode deck`, this skill is invoked as part of the design-pipeline:
 
-1. **Philosophy Gate** — the user selects from `config/philosophies/` (mckinsey, editorial, data-forward, cinematic)
-2. **Ghost Deck** (Step 1-2) — structural skeleton with auto-block gate
-3. **Direction** — visual direction approval
-4. **Assets** — real photos via Playwright capture or WebSearch (Unsplash). Save to `output/html/assets/<slug>/`
-5. **Build** (Steps 3-4) — generate HTML/PPTX using philosophy constraints
-6. **Critique** — 10-dim Q1-Q10 scoring (Structure, Canvas, Typography, Color, Data, Editability, Polish, Visual Evidence, Vision Adherence, Export Fidelity), target 90/100. Q10 post-export only
-7. **Archive** — archive final outputs to `output/archive/<slug>/`. Write `capture.yaml` with scores and errata encountered
+1. **Philosophy Gate** (design-pipeline Step 1.5) — the user selects from `config/philosophies/` via live playground
+2. **Ghost Deck** (this skill Step 1) — structural skeleton with auto-block gate
+3. **Direction** (design-pipeline Step 5) — visual direction approval
+4. **Assets** (design-pipeline Step 5.5) — real photos, shaders via `/fetch-assets`
+5. **Build** (this skill Steps 2-4) — generate HTML/PPTX using philosophy constraints
+6. **Critique** (design-pipeline Step 7) — 10-dim Q1-Q10 scoring (Structure, Canvas, Typography, Color, Data, Editability, Polish, Visual Evidence, Vision Adherence, Export Fidelity), target 90/100. Q10 post-export only
+7. **Capture** (design-pipeline Step 9) — non-optional learning capture
+
+When invoked standalone (not through design-pipeline), run Steps 1-4 below with philosophy inferred from content.
 
 ## Mode: deck
 
@@ -152,7 +154,7 @@ Before building HTML, reason about visuals for EACH slide:
 1. **Grid decision** — choose column layout from tokens (12-col default, `grid-template-columns: repeat(12, 1fr)`). Define margin, gutter, and row zones (title/body/footer).
 2. **Per-slide visual reasoning:**
    - What image BEST proves this slide's assertion? (not generic — specific to the claim)
-   - Sources: project files in `input/`, product screenshots, online (via WebSearch), Python-generated data charts, animations
+   - Sources: project files (project files), product screenshots (``), online, Python-generated data charts, animations
    - Space allocation: what % of slide should the image occupy?
    - Does this slide need a data output? (chart, metric, table from Python/research)
 3. **Present visual plan to the user** — describe each image candidate, layout sketch (which grid columns), and space allocation. STOP and wait for feedback.
@@ -164,14 +166,10 @@ Example: "Cultural knowledge scatters" → DNA graph (proves unification) not he
 
 Before building HTML, enrich every assertion slide with sourced evidence. Ghost deck + visual plan give structure; this step fills it with substance.
 
-**Tools for enrichment:**
-- Search `input/` and `output/research/` for prior materials and source documents
-- Read `errata/presentation_design.md` for known failure patterns
-- Use WebSearch to verify factual claims — save sources to `output/research/<slug>-sources.md`
-- Direct file reads of source materials (briefs, research outputs, notes in `input/`)
+**AIOS tools for enrichment:**
+- Direct file reads of source materials (briefs, research outputs, class notes)
 
 **Process:**
-1. **Per-slide evidence gathering** — for each slide, batch searches by theme (hardest-to-source first). Use WebSearch for factual claims needing verification. Search `input/` for local source materials.
 2. **Iterative reflection** — after each research round, assess whether findings change the thesis. Reframe arguments if needed. Use new understanding to sharpen the next search. Research is not a checklist; each round informs the next.
 3. **Per-slide evidence brief** — for each assertion slide, produce: claim → source → exact figure → citation. Every assertion slide must have ≥1 sourced claim.
 4. **SCAC audit (content gate)** — for each slide, verify 6 gates:
@@ -221,9 +219,40 @@ Capture evidence images via Playwright at ≥1200px width. Then VIEW each image 
 Failed captures block build. Base64 conversion happens after audit passes.
 Each image on exactly one slide — no reuse (E-PRES-033).
 
-### Step 4: Generate HTML
+### Step 4: Generate HTML + Sidecar JSON (PER SLIDE)
 
-Write to `output/html/presentation-<slug>-<YYYY-MM-DD>.html`.
+Create a slide directory: `output/html/<slug>/`
+
+For EACH slide in the ghost deck (from Step 2), generate TWO files simultaneously:
+1. `output/html/<slug>/s{NN}-<title-slug>.html` — standalone 960×540 HTML (one slide)
+2. `output/html/<slug>/s{NN}-<title-slug>.json` — co-authored sidecar JSON (same slide)
+
+Where `{NN}` is zero-padded slide number (s01, s02, ...) and `<title-slug>` is the assertive title slugified.
+
+Write shared design tokens ONCE to `output/html/<slug>/design-tokens.json` before generating any slides. All slides reference the same palette, typography, and spacing.
+
+#### Per-Slide HTML Format
+Each HTML file is a STANDALONE document with self-contained CSS. No external references, no navigation, no arrow keys. `body { width: 960px; height: 540px; overflow: hidden; }`. Contains exactly ONE slide (one idea). Same design tokens across all slides in the deck.
+
+#### Per-Slide Sidecar JSON Format
+Co-author the JSON WHILE writing the HTML — not extracted after. Each JSON is a single slide object (no `slides[]` wrapper, no metadata, no design_tokens — those are shared):
+
+```json
+{
+  "slide_index": 1,
+  "type": "title|content|data|comparison|flow|timeline|section",
+  "title": "Assertive sentence title",
+  "elements": [
+    {"type": "text", "content": "...", "x": 0.5, "y": 1.0, "w": 9, "h": 0.8,
+     "font_size": 28, "bold": true, "color": "1E293B"},
+    {"type": "shape", "shape": "rectangle", "x": 0, "y": 0, "w": 10, "h": 0.06, "fill": "accent"},
+    {"type": "image", "path": "/tmp/...", "x": 1, "y": 2, "w": 8, "h": 4}
+  ],
+  "background": {"type": "solid", "color": "FFFFFF"}
+}
+```
+
+Positions in inches (matching PPTX coordinates: 10"×5.625"). Co-authoring ensures HTML layout and JSON positions stay in sync — no extraction step, no drift (E-PRES-028 resolved by design).
 
 **HARD GATE: Before writing HTML, verify you can prevent F1-F10.** Each F is a known failure mode — if you can't prevent it, don't start building. Read `templates/presentation-components.md` and `errata/presentation_design.md` for the full failure patterns.
 
@@ -278,7 +307,7 @@ These patterns cause 80% of quality failures. Read before writing any HTML.
 | Aspect ratio | 16:9 strict |
 | Content width | 960px (matches viewport) |
 | Ideas per slide | One |
-| Navigation | Arrow keys + progress indicator |
+| Navigation | None (per-slide files are standalone; deck preview is optional) |
 | Title | 48px+ |
 | Subtitle | 28px |
 | Body | 18px |
@@ -299,9 +328,9 @@ These patterns cause 80% of quality failures. Read before writing any HTML.
 - **Content** — Assertive title, body proving title, evidence/source, optional visual
 - **Data** — Assertive insight title, chart/table as primary, annotation on key number, source
 
-### Step 4.5: Canvas Fill Gate [MECHANICAL]
+### Step 4.5: Canvas Fill Gate [MECHANICAL — per slide]
 
-Before opening in browser, self-check every slide against known presentation anti-patterns:
+For EACH slide file in `output/html/<slug>/s*.html`, self-check against known presentation anti-patterns:
 
 | Check | Rule | Auto-Fix |
 |-------|------|----------|
@@ -312,11 +341,11 @@ Before opening in browser, self-check every slide against known presentation ant
 | Content-richness match | If element contains image/screenshot, container ≥ 400px wide (E-PRES-008) | Widen container before inserting image |
 | `height:540px; overflow:hidden` per slide | No overflow or void | Split or tighten |
 
-Fix inline silently. Log to `brief.build.preflight_fixes[]`. Don't waste critique cycles on known anti-patterns.
+Fix inline in the individual slide HTML + update its co-authored JSON. Log to `brief.build.preflight_fixes[]`. Don't waste critique cycles on known anti-patterns.
 
-### Step 4.6: Brutal Honest Critic (self-review before presenting)
+### Step 4.6: Brutal Honest Critic (per slide, self-review before presenting)
 
-Before showing ANY slide to the user, view each Playwright screenshot and answer these 5 questions honestly. If ANY answer is "no", fix before presenting.
+For EACH slide file, take a Playwright screenshot at 960×540 and answer these 5 questions honestly. If ANY answer is "no" for a slide, fix that slide's HTML + JSON before presenting.
 
 | Test | Question | Failure = |
 |------|----------|-----------|
@@ -328,48 +357,75 @@ Before showing ANY slide to the user, view each Playwright screenshot and answer
 
 **This is NOT Q1-Q10 scoring.** This is a gestalt "does it look right?" check. Scoring happens at Step 5.
 
-### Step 4.9: HTML Approval Gate [HUMAN GATE — blocks PPTX]
+### Step 4.9: HTML Approval Gate [HUMAN GATE — per slide, blocks PPTX]
 
-Open HTML in browser at full screen. the user reviews.
-- **Gate:** the user approves at quality level per `pptx-quality.yaml` convergence.html_first_pass (SSOT) before ANY PPTX work
-- All design iteration happens on HTML — PPTX is a one-shot export
-- If not approved: iterate Steps 4-4.5, re-present
+Present per-slide HTML for the user's review:
+- **Gallery mode:** open each `s{NN}-*.html` in browser tabs sequentially
+- **Batch mode:** generate an ephemeral `index.html` (list of iframes) for side-by-side review — not part of the deliverable
+
+The user can:
+- **Approve all** → proceed to convergence + assembly
+- **Flag specific slides** (e.g., "s03 needs more data") → iterate those slides only at Steps 4-4.6, leave approved slides untouched
+- **Request variants** (e.g., "try s03 with a quadrant chart") → generate `s03-v2-*.html` alongside original, the user picks the winner
+
+- **Gate:** the user approves ALL slides at quality level per `pptx-quality.yaml` convergence.html_first_pass (SSOT) before ANY PPTX work
+- All design iteration happens on per-slide HTML — PPTX is a one-shot export
 - AskUserQuestion with diagnosis and proposed solution before changes
 
-### Step 4.95: Sidecar JSON Sync
+### Step 4.95: REMOVED
 
-After convergence rounds modify HTML, re-extract sidecar JSON before any PPTX export (E-PRES-028). Stale JSON from initial build will not match the converged HTML.
+Per-slide co-authoring eliminates sidecar drift — JSON is always in sync because it was written alongside the HTML, and any HTML fix includes a JSON fix (E-PRES-028 resolved by design).
 
-### Step 5: Convergence (max 3 rounds)
+### Step 5: Convergence (max 3 rounds PER SLIDE)
 
 **Targets:** per `config/pptx-quality.yaml` convergence section (SSOT). Q10 scored post-export only.
 
-**Iteration trigger** — re-enter loop if ANY of:
+**Iteration trigger** — re-enter loop for a slide if ANY of:
 1. Q1-Q9 avg below `convergence.html_first_pass` target
 2. Any single Q below `convergence.iteration_trigger.any_q_below`
 3. Gate violation: Q2 < 7 or Q6 < 8
 
-After HTML approval, score and iterate:
-- **5a:** Playwright screenshot all slides at 960×540 (native PPTX resolution per E-PRES-036 — 1 CSS px = 1/96" = exact PPTX coordinates)
+After HTML approval, score and iterate per slide:
+- **5a:** Playwright screenshot each slide file at 960×540 (native PPTX resolution per E-PRES-036 — 1 CSS px = 1/96" = exact PPTX coordinates)
 - **5b:** Score Q1-Q9 per slide (screenshot-before-score hard gate, E-PRES-017)
 - **5b.1:** SCAC re-evaluation — re-run G1-G6 per slide alongside Q1-Q9. If any slide regressed in content depth (e.g., layout fix removed evidence text), flag as regression same as Q score drops. If Q1 or Q8 is the bottleneck, SCAC diagnosis determines whether the problem is content (backtrack to 3.7) or layout (fix in convergence).
-- **5c:** Bottleneck diagnosis — identify the single lowest Q dimension. Fix ONLY that dimension this round (TOC one-constraint-at-a-time). Priority when tied: per `pptx-quality.yaml` convergence.bottleneck_priority (Q1 > Q8 > Q5 > Q2 > Q9 > Q7 > Q3 > Q4)
+- **5c:** Bottleneck diagnosis per slide — identify the single lowest Q dimension for that slide. Fix ONLY that dimension this round (TOC one-constraint-at-a-time). Priority when tied: per `pptx-quality.yaml` convergence.bottleneck_priority (Q1 > Q8 > Q5 > Q2 > Q9 > Q7 > Q3 > Q4)
 - **5d:** Context Review — re-read vision, ghost deck, sources.md. Top-down + bottom-up check. Per empty/weak slide: add content > add visual data > add image > condense > CSS fix only
 - **5e:** Image Coherence Review — view rendered images, check readability + assertion match
-- **5f:** Fix the bottleneck → re-screenshot → re-score ALL dimensions
+- **5f:** Fix the bottleneck in that slide's HTML + JSON → re-screenshot → re-score ALL dimensions
+  - **JSON sync gate:** After fixing any HTML element, update the corresponding JSON element's x/y/w/h/font_size. If elements were added/removed in HTML, mirror in the per-slide JSON array. JSON must be a 1:1 structural mirror of the HTML.
 - **5g:** Safety checks before accepting the fix:
   - **Regression gate:** if any previously-passing Q dropped more than `convergence.regression_threshold` points (0.5), reject the fix and try an alternative approach to the same bottleneck
   - **Oscillation detector:** if this round's bottleneck = two rounds ago's bottleneck, you are in a limit cycle (likely Q2↔Q7 coupling). Exit convergence with the best-scoring round's output
   - **Joint Q2+Q7:** if Q2 and Q7 are both below target and within 1 point of each other, treat as a single coupled constraint — "improve canvas fill WITHOUT degrading alignment"
 - **5h:** If content is the bottleneck (Q1 or Q8 persistently low) and CSS/layout fixes cannot help: exit convergence, report to user, offer to re-enrich at Step 3.7 and restart from Step 4. Do NOT automatically backtrack.
+- **5i:** Cross-slide coherence audit — after all slides pass individually, verify consistent palette, typography roles, spacing rhythm, and title positions across all slides. One-time check, not a loop. Flag any slide that breaks coherence → fix that slide only.
+- **5j: Self-learning errata capture** — after convergence completes, review all corrections made during this session. For each distinct error pattern:
+  1. Classify category: font | spacing | layout | content | shape | color | process
+  2. Read current max E-PRES-NNN from `errata/presentation_design.md`
+  3. Append new entry with: pattern, fix, root cause, source (this session)
+  4. If it maps to a failure mode, add to the F-table
+  5. Skip if the pattern already exists in errata (dedup by pattern match)
 
-### Step 6: Export to PPTX
+### Step 6: Assemble + Export to PPTX
 
 Triggered when user requests PPTX (`--pptx` flag or explicit request).
 
+#### 6a: Assemble per-slide JSONs into combined sidecar
+
+Mechanical concatenation — use the assembly script:
+
+```bash
+uv run hippt-assemble output/html/<slug>/
+```
+
+Validates each per-slide JSON (requires `elements` array), merges with `design-tokens.json`, outputs `output/html/<slug>-slides.json`.
+
+#### 6b: Generate PPTX
+
 1. **slides_to_pptx.py** (primary engine) — sidecar JSON + design tokens, fast, no browser. Default for all exports.
    ```bash
-   uv run hippt-draft output/html/presentation-<slug>-slides.json \
+   uv run hippt-draft output/html/<slug>-slides.json \
      --tokens output/design/ref-<slug>.yaml \
      --out output/pptx/<slug>-<YYYY-MM-DD>.pptx
    ```
@@ -392,9 +448,19 @@ Triggered when user requests PPTX (`--pptx` flag or explicit request).
      --out layouts/<slug>/ --verify
    ```
 
-### Step 7: Archive (non-optional)
+### Step 6.5: Fidelity Gate [MECHANICAL — blocks design capture]
 
-Archive approved HTML + PPTX + design tokens to `output/archive/<slug>/`. Write `capture.yaml` with scores, errata encountered, and techniques used. Tag novel layouts as candidates for `layouts/` library.
+Run `/pptx-fidelity` to visually compare the exported PPTX against the approved per-slide HTML:
+
+1. **Per-slide comparison** — Playwright screenshots of each `output/html/<slug>/s{NN}-*.html` at 960×540 vs PPTX screenshots of the corresponding slide (Google Slides, E-PRES-035)
+2. **Gate:** If any blocking finding (position delta >1" or missing content) → fix the per-slide JSON for that slide, re-assemble (Step 6a), re-export, re-check. Iterate until Q10 ≥ 8.
+3. Open comparison HTML for human review before proceeding to Step 7.
+
+Note: `html_to_sidecar.py` is no longer on the critical path. Co-authored per-slide JSONs already have accurate positions. The tool remains available as optional post-hoc enrichment if position refinement is needed.
+
+### Step 7: Design Capture (non-optional)
+
+Archive approved HTML + PPTX. Capture learnings → errata growth. Tag novel layouts as candidates for layout library. See MEGAPLAN Section 6 (Layout Library System).
 
 ---
 
@@ -458,13 +524,39 @@ Same as deck mode — invoke export mode with the visual structure.
 
 ## Mode: export (Editable PPTX Generation)
 
-### Sidecar JSON Contract
+### Per-Slide JSON Contract (co-authored at Step 4)
 
-When `--mode deck` or `--mode visual-aid` generates HTML, it MUST also emit a **sidecar JSON file** alongside:
-- HTML: `output/html/presentation-<slug>-<YYYY-MM-DD>.html` (for human review)
-- JSON: `output/html/presentation-<slug>-<YYYY-MM-DD>-slides.json` (for PPTX export)
+Each slide's JSON is a SINGLE slide object. It does NOT contain metadata or design_tokens — those are shared across the deck in `design-tokens.json`.
 
-The sidecar JSON contains the structured slide data that `slides_to_pptx.py` consumes:
+**Granular decomposition rule**: Every visual component decomposes into primitive elements (`text`, `shape`, `image`). There are NO abstract types like `stat_card`, `hero_stat`, `timeline`, or `radial`. A stat card = rounded_rectangle (bg) + rectangle (accent) + text (value) + text (label) + text (description). The engine only knows primitives. Target 20-50 elements per slide.
+
+**Font size units**: `font_size` in JSON = CSS px (matching the 960×540 HTML viewport). The engine converts at render time: `pptx_pt = css_px × 0.75` (CSS_PX_TO_PT). Do NOT pre-convert in the sidecar.
+
+```json
+{
+  "slide_index": 2,
+  "type": "content",
+  "title": "The Problem",
+  "background": {"type": "solid", "color": "FAFBFC"},
+  "elements": [
+    {"type": "shape", "shape": "rounded_rectangle", "x": 0.33, "y": 0.95, "w": 3.85, "h": 3.55, "fill": "0F2B46"},
+    {"type": "text", "content": "$4T", "x": 0.6, "y": 1.6, "w": 3.3, "h": 1.0, "font_size": 72, "bold": true, "color": "FFFFFF", "font": "display", "align": "center"},
+    {"type": "text", "content": "US Healthcare Spend", "x": 0.6, "y": 2.65, "w": 3.3, "h": 0.35, "font_size": 16, "color": "F28C7A", "font": "body", "align": "center"},
+    {"type": "text", "content": "CMS National Health Expenditure, 2024", "x": 0.6, "y": 3.05, "w": 3.3, "h": 0.25, "font_size": 11, "color": "7A96AD", "font": "body", "align": "center"},
+    {"type": "shape", "shape": "rounded_rectangle", "x": 4.5, "y": 0.95, "w": 5.17, "h": 1.05, "fill": "FFF8F6"},
+    {"type": "shape", "shape": "rectangle", "x": 4.5, "y": 0.95, "w": 0.04, "h": 1.05, "fill": "E8634A"},
+    {"type": "text", "content": "70%", "x": 4.7, "y": 1.05, "w": 1.2, "h": 0.8, "font_size": 28, "bold": true, "color": "E8634A", "font": "display"},
+    {"type": "text", "content": "of consumers don't price-shop", "x": 6.0, "y": 1.05, "w": 3.5, "h": 0.4, "font_size": 13, "color": "0F2B46"},
+    {"type": "text", "content": "Becker's Hospital Review", "x": 6.0, "y": 1.55, "w": 3.5, "h": 0.2, "font_size": 9, "color": "7A96AD"}
+  ]
+}
+```
+
+The `elements[]` array uses only primitive types. Positions are in inches (matching PPTX coordinates: 10"×5.625"). See `output/html/carecost-pitch/s02-problem-4t-healthcare.json` as canonical reference (34 elements).
+
+### Combined Sidecar Contract (assembled at Step 6a)
+
+The combined sidecar is assembled mechanically from per-slide JSONs + shared design tokens. This is what `slides_to_pptx.py` consumes:
 ```json
 {
   "metadata": {"title": "...", "author": "HIPPT", "date": "YYYY-MM-DD"},
@@ -474,11 +566,12 @@ The sidecar JSON contains the structured slide data that `slides_to_pptx.py` con
       "type": "title|content|data|comparison|flow|timeline|section",
       "title": "Assertive sentence title",
       "elements": [
-        {"type": "text", "content": "...", "x": 0.5, "y": 1.0, "w": 9, "h": 0.8, "font_size": 28, "bold": true, "color": "1E293B"},
-        {"type": "shape", "shape": "rectangle", "x": 0, "y": 0, "w": 10, "h": 0.06, "fill": "accent"},
-        {"type": "image", "path": "/tmp/...", "x": 1, "y": 2, "w": 8, "h": 4},
-        {"type": "chart", "chart_type": "bar", "data": [...], "x": 0.5, "y": 1, "w": 9, "h": 4},
-        {"type": "table", "headers": [...], "rows": [...], "x": 0.5, "y": 1.5, "w": 9, "h": 3}
+        {"type": "shape", "shape": "rounded_rectangle", "x": 0.33, "y": 0.95, "w": 3.85, "h": 3.55, "fill": "0F2B46"},
+        {"type": "text", "content": "$4T", "x": 0.6, "y": 1.6, "w": 3.3, "h": 1.0, "font_size": 72, "bold": true, "color": "FFFFFF", "font": "display", "align": "center"},
+        {"type": "text", "content": "US Healthcare Spend", "x": 0.6, "y": 2.65, "w": 3.3, "h": 0.35, "font_size": 16, "color": "F28C7A"},
+        {"type": "shape", "shape": "rectangle", "x": 4.5, "y": 0.95, "w": 0.04, "h": 1.05, "fill": "E8634A"},
+        {"type": "text", "content": "70%", "x": 4.7, "y": 1.05, "w": 1.2, "h": 0.8, "font_size": 28, "bold": true, "color": "E8634A"},
+        {"type": "image", "path": "/tmp/...", "x": 1, "y": 2, "w": 8, "h": 4}
       ],
       "background": {"type": "solid|gradient", "color": "FFFFFF"}
     }
@@ -486,7 +579,7 @@ The sidecar JSON contains the structured slide data that `slides_to_pptx.py` con
 }
 ```
 
-This avoids dual-SSOT: HTML renders for human review, JSON feeds PPTX export. Each has one consumer, one purpose.
+This avoids dual-SSOT: per-slide HTML renders for human review, per-slide JSON feeds PPTX export. Each has one consumer, one purpose. Co-authoring at Step 4 ensures they stay in sync (E-PRES-049).
 
 ### Dual Engine Support
 
@@ -597,10 +690,15 @@ After generating PPTX:
 ### Output
 
 ```bash
-# HTML output (for human review)
-output/html/presentation-<slug>-<YYYY-MM-DD>.html
-# Sidecar JSON (for PPTX export)
-output/html/presentation-<slug>-<YYYY-MM-DD>-slides.json
+# Per-slide HTML + JSON (for human review and co-authored sidecar)
+output/html/<slug>/design-tokens.json          # shared design tokens
+output/html/<slug>/s01-<title-slug>.html        # slide 1 HTML
+output/html/<slug>/s01-<title-slug>.json        # slide 1 sidecar
+output/html/<slug>/s02-<title-slug>.html        # slide 2 HTML
+output/html/<slug>/s02-<title-slug>.json        # slide 2 sidecar
+# ...one pair per slide
+# Combined sidecar (assembled at Step 6a for PPTX export)
+output/html/<slug>-slides.json
 # PPTX output
 output/pptx/<slug>-<YYYY-MM-DD>.pptx
 ```

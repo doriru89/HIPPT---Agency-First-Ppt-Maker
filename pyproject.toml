@@ -26,6 +26,7 @@ hippt-tokens = "hippt.pptx_to_tokens:main"
 hippt-layouts = "hippt.pptx_to_layout:main"
 hippt-extract-layouts = "hippt.extract_layouts:main"
 hippt-cockpit = "hippt.review_cockpit:main"
+hippt-assemble = "hippt.assemble_sidecar:main"
 
 [build-system]
 requires = ["setuptools>=75.0"]

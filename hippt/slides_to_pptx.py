@@ -21,7 +21,6 @@ import sys
 from datetime import date
 from pathlib import Path
 
-
 import yaml
 from pptx import Presentation
 from pptx.dml.color import RGBColor
@@ -32,6 +31,7 @@ from pptx.util import Inches, Pt
 from hippt.design_tokens import (
     ALIGN_CSS_TO_PPTX,
     COL_WIDTH_IN,
+    CSS_PX_TO_PT,
     DEFAULT_FONT,
     MARGIN_IN,
     SAFE_FONTS as _DT_SAFE_FONTS,
@@ -127,6 +127,31 @@ class TokenResolver:
         return fallback
 
 
+def _apply_gradient(fill, stops: list[dict], angle: int, resolver: TokenResolver):
+    """Apply gradient fill with stops and angle to a fill object."""
+    from lxml import etree
+
+    from pptx.oxml.ns import qn
+
+    fill.gradient()
+    grad_fill = fill._fill
+    lin = grad_fill.find(qn("a:lin"))
+    if lin is None:
+        lin = etree.SubElement(grad_fill, qn("a:lin"))
+    lin.set("ang", str(round(angle * 60000)))
+    lin.set("scaled", "1")
+    gs_lst = grad_fill.find(qn("a:gsLst"))
+    if gs_lst is None:
+        gs_lst = etree.SubElement(grad_fill, qn("a:gsLst"))
+    else:
+        gs_lst.clear()
+    for stop in stops:
+        gs = etree.SubElement(gs_lst, qn("a:gs"))
+        gs.set("pos", str(int(stop.get("position", 0) * 1000)))
+        srgb = etree.SubElement(gs, qn("a:srgbClr"))
+        srgb.set("val", str(resolver.resolve_color(stop["color"])))
+
+
 def set_background(slide, bg: dict | str | None, resolver: TokenResolver):
     """Set slide background from background spec."""
     if not bg:
@@ -142,10 +167,15 @@ def set_background(slide, bg: dict | str | None, resolver: TokenResolver):
         fill.fore_color.rgb = resolver.resolve_color(color)
     elif bg_type == "gradient":
         fill = slide.background.fill
-        fill.solid()
-        color_val = bg.get("stops", [{}])[0].get("color", color)
-        if color_val:
-            fill.fore_color.rgb = resolver.resolve_color(color_val)
+        stops = bg.get("stops", [])
+        angle = bg.get("angle", 0)
+        if len(stops) >= 2:
+            _apply_gradient(fill, stops, angle, resolver)
+        else:
+            fill.solid()
+            color_val = stops[0].get("color") if stops else color
+            if color_val:
+                fill.fore_color.rgb = resolver.resolve_color(color_val)
 
 
 def add_textbox(
@@ -191,7 +221,7 @@ def add_textbox(
             run = p.add_run()
             run.text = run_data.get("text", "")
             run.font.name = resolver.resolve_font(run_data.get("font"))
-            run.font.size = Pt(run_data.get("font_size", 14))
+            run.font.size = Pt(run_data.get("font_size", 14) * CSS_PX_TO_PT)
             run.font.bold = run_data.get("bold", False)
             run.font.italic = run_data.get("italic", False)
             color = run_data.get("color") or default_color
@@ -211,7 +241,7 @@ def add_textbox(
             run = p.add_run()
             run.text = para_text
             run.font.name = resolver.resolve_font(elem.get("font"))
-            run.font.size = Pt(elem.get("font_size", 14))
+            run.font.size = Pt(elem.get("font_size", 14) * CSS_PX_TO_PT)
             run.font.bold = elem.get("bold", False)
             run.font.italic = elem.get("italic", False)
             color = default_color
@@ -271,8 +301,17 @@ def add_shape(slide, elem: dict, resolver: TokenResolver):
 
     shape = slide.shapes.add_shape(mso_type, Inches(x), Inches(y), Inches(w), Inches(h))
 
+    gradient = elem.get("gradient")
     fill_color = elem.get("fill")
-    if fill_color:
+    if gradient:
+        stops = gradient.get("stops", [])
+        angle = gradient.get("angle", 0)
+        if len(stops) >= 2:
+            _apply_gradient(shape.fill, stops, angle, resolver)
+        elif fill_color:
+            shape.fill.solid()
+            shape.fill.fore_color.rgb = resolver.resolve_color(fill_color)
+    elif fill_color:
         shape.fill.solid()
         shape.fill.fore_color.rgb = resolver.resolve_color(fill_color)
     else:
@@ -345,7 +384,7 @@ def add_table(slide, elem: dict, resolver: TokenResolver):
             for p in cell.text_frame.paragraphs:
                 for r in p.runs:
                     r.font.name = font_name
-                    r.font.size = Pt(elem.get("header_font_size", 8))
+                    r.font.size = Pt(elem.get("header_font_size", 8) * CSS_PX_TO_PT)
                     r.font.bold = True
                     r.font.color.rgb = header_color
 
@@ -359,7 +398,7 @@ def add_table(slide, elem: dict, resolver: TokenResolver):
             for p in cell.text_frame.paragraphs:
                 for r in p.runs:
                     r.font.name = font_name
-                    r.font.size = Pt(elem.get("body_font_size", 8))
+                    r.font.size = Pt(elem.get("body_font_size", 8) * CSS_PX_TO_PT)
                     r.font.color.rgb = body_color
 
 
@@ -443,8 +482,9 @@ def add_card(slide, elem: dict, resolver: TokenResolver):
     # Body content
     content = elem.get("content", "")
     if content:
+        body_h = max(0.3, h - 1.0)
         body = slide.shapes.add_textbox(
-            Inches(x + 0.15), Inches(y + 0.5), Inches(w - 0.3), Inches(h - 1.0)
+            Inches(x + 0.15), Inches(y + 0.5), Inches(w - 0.3), Inches(body_h)
         )
         btf = body.text_frame
         btf.word_wrap = True
@@ -988,17 +1028,49 @@ def _estimate_min_height(
 
 
 def _check_collisions(
-    placed: list[tuple[str, float, float, float, float]],
+    placed: list[tuple[str, float, float, float, float, bool, bool]],
 ) -> list[str]:
-    """Check for overlapping placed elements. Returns warning strings."""
+    """Check for overlapping placed elements. Returns warning strings.
+
+    Suppresses warnings for intentional layering (filled bg shape containing
+    a smaller foreground element).
+    """
     warnings = []
-    for i, (desc_a, x_a, y_a, w_a, h_a) in enumerate(placed):
-        for j, (desc_b, x_b, y_b, w_b, h_b) in enumerate(placed[i + 1 :], i + 1):
+    for i, (desc_a, x_a, y_a, w_a, h_a, fill_a, text_a) in enumerate(placed):
+        for j, (desc_b, x_b, y_b, w_b, h_b, fill_b, text_b) in enumerate(
+            placed[i + 1 :], i + 1
+        ):
             ox = max(0, min(x_a + w_a, x_b + w_b) - max(x_a, x_b))
             oy = max(0, min(y_a + h_a, y_b + h_b) - max(y_a, y_b))
             overlap = ox * oy
-            smaller = min(w_a * h_a, w_b * h_b)
+            area_a = w_a * h_a
+            area_b = w_b * h_b
+            smaller = min(area_a, area_b)
             if smaller > 0 and overlap / smaller > 0.10:
+                # Suppress intentional layering: larger element has fill + no text
+                # (background shape) and smaller is fully contained
+                if area_a > area_b:
+                    bg_fill, bg_text = fill_a, text_a
+                    contained = (
+                        x_b >= x_a - 0.01
+                        and y_b >= y_a - 0.01
+                        and x_b + w_b <= x_a + w_a + 0.01
+                        and y_b + h_b <= y_a + h_a + 0.01
+                    )
+                elif area_b > area_a:
+                    bg_fill, bg_text = fill_b, text_b
+                    contained = (
+                        x_a >= x_b - 0.01
+                        and y_a >= y_b - 0.01
+                        and x_a + w_a <= x_b + w_b + 0.01
+                        and y_a + h_a <= y_b + h_b + 0.01
+                    )
+                else:
+                    bg_fill, bg_text, contained = False, True, False
+
+                if bg_fill and not bg_text and contained:
+                    continue
+
                 warnings.append(
                     f"Collision: {desc_a} overlaps {desc_b} ({overlap / smaller:.0%})"
                 )
@@ -1006,7 +1078,10 @@ def _check_collisions(
 
 
 def build_slide(
-    prs: PresentationClass, slide_data: dict, resolver: TokenResolver
+    prs: PresentationClass,
+    slide_data: dict,
+    resolver: TokenResolver,
+    slide_idx: int = 0,
 ) -> dict:
     """Build a single slide from structured data. Returns element count for validation.
 
@@ -1029,7 +1104,7 @@ def build_slide(
     y_cursor = CONTENT_START_Y
     row_max_bottom = y_cursor
     row_cols_used: set[int] = set()
-    placed_elements: list[tuple[str, float, float, float, float]] = []
+    placed_elements: list[tuple[str, float, float, float, float, bool, bool]] = []
 
     # Pre-scan: find max bottom of all role-positioned elements on title/close slides
     role_max_bottom = 0.0
@@ -1112,13 +1187,10 @@ def build_slide(
                         default_h = 1.0
                     elif len(content) > 100:
                         default_h = 0.7
-                # Title roles: content-aware height using font size + box width
-                if elem_type == "text" and elem.get("role") in (
-                    "title",
-                    "hero_title",
-                ):
+                # Content-aware height: prevent clipping on any text element
+                if elem_type == "text":
                     content = elem.get("content", "")
-                    font_pt = elem.get("font_size", 20)
+                    font_pt = elem.get("font_size", 14) * CSS_PX_TO_PT
                     box_w = elem.get("w", SLIDE_WIDTH - 2 * MARGIN)
                     min_h = _estimate_min_height(content, font_pt, box_w)
                     default_h = max(default_h, min_h)
@@ -1158,14 +1230,23 @@ def build_slide(
             gx, _, gw, _ = _grid_rect(elem)
             ex = elem.get("x", gx)
             ew = elem.get("w", gw)
-            placed_elements.append((desc, ex, ey, ew, eh))
+            has_fill = bool(elem.get("fill") or elem.get("gradient"))
+            has_text = bool(elem.get("content") or elem.get("value"))
+            placed_elements.append((desc, ex, ey, ew, eh, has_fill, has_text))
 
+            n_before = len(slide.shapes)
             if elem_type == "image":
                 handler(slide, elem)
             elif elem_type in HANDLERS_WITH_SLIDE_TEXT_COLOR:
                 handler(slide, elem, resolver, slide_text_color=slide_text_color)
             else:
                 handler(slide, elem, resolver)
+            for si in range(n_before, len(slide.shapes)):
+                slide.shapes[si].name = (
+                    f"s{slide_idx}-{elem_type}-{built}"
+                    if si == n_before
+                    else f"s{slide_idx}-{elem_type}-{built}-{si - n_before}"
+                )
             built += 1
         else:
             log.warning("Unknown element type: %s", elem_type)
@@ -1236,8 +1317,8 @@ def build_pptx(
         resolver = TokenResolver(inline_tokens)
 
     slide_stats = []
-    for slide_data in slides:
-        stats = build_slide(prs, slide_data, resolver)
+    for i, slide_data in enumerate(slides, 1):
+        stats = build_slide(prs, slide_data, resolver, slide_idx=i)
         slide_stats.append(stats)
 
     if not output_path:

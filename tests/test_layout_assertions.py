@@ -51,6 +51,13 @@ class TestHeightEstimation:
             f"28pt ({h_large:.2f}) should need more height than 14pt ({h_small:.2f})"
         )
 
+    def test_body_text_14pt_narrow_box(self):
+        content = "This is a longer body paragraph that would clip at the default 0.5 inch height when rendered at 14pt in a narrow column."
+        result = self._call(content, 14, 4.0)
+        assert result > 0.5, (
+            f'120-char body at 14pt/4" box must exceed 0.5", got {result:.2f}'
+        )
+
     def test_empty_content_returns_minimum(self):
         result = self._call("", 20, 9.2)
         assert result == 0.5
@@ -64,23 +71,25 @@ class TestHeightEstimation:
 class TestCollisionDetection:
     """Post-layout collision detection between placed elements."""
 
-    def _call(self, placed: list[tuple[str, float, float, float, float]]) -> list[str]:
+    def _call(
+        self, placed: list[tuple[str, float, float, float, float, bool, bool]]
+    ) -> list[str]:
         from hippt.slides_to_pptx import _check_collisions
 
         return _check_collisions(placed)
 
     def test_no_collision(self):
         placed = [
-            ("title", 0.4, 1.0, 9.2, 0.8),
-            ("card", 0.4, 2.0, 4.0, 1.5),
+            ("title", 0.4, 1.0, 9.2, 0.8, False, True),
+            ("card", 0.4, 2.0, 4.0, 1.5, False, True),
         ]
         warnings = self._call(placed)
         assert warnings == []
 
     def test_overlapping_detected(self):
         placed = [
-            ("title", 0.4, 1.0, 9.2, 1.0),
-            ("hero", 0.4, 1.5, 9.2, 1.5),  # overlaps title by 0.5"
+            ("title", 0.4, 1.0, 9.2, 1.0, False, True),
+            ("hero", 0.4, 1.5, 9.2, 1.5, False, True),
         ]
         warnings = self._call(placed)
         assert len(warnings) == 1
@@ -88,16 +97,16 @@ class TestCollisionDetection:
 
     def test_adjacent_no_false_positive(self):
         placed = [
-            ("a", 0.4, 1.0, 4.0, 1.0),
-            ("b", 0.4, 2.0, 4.0, 1.0),  # touching at y=2.0, not overlapping
+            ("a", 0.4, 1.0, 4.0, 1.0, False, True),
+            ("b", 0.4, 2.0, 4.0, 1.0, False, True),
         ]
         warnings = self._call(placed)
         assert warnings == []
 
     def test_small_overlap_below_threshold(self):
         placed = [
-            ("a", 0.0, 0.0, 10.0, 1.0),
-            ("b", 0.0, 0.97, 0.5, 0.5),  # overlap: 0.03 * 0.5 = 0.015 sq in
+            ("a", 0.0, 0.0, 10.0, 1.0, False, True),
+            ("b", 0.0, 0.97, 0.5, 0.5, False, True),
         ]
         # smaller area = 0.25, overlap/smaller = 0.015/0.25 = 6% < 10%
         warnings = self._call(placed)
@@ -105,8 +114,16 @@ class TestCollisionDetection:
 
     def test_side_by_side_no_collision(self):
         placed = [
-            ("left", 0.4, 1.0, 4.0, 1.5),
-            ("right", 4.6, 1.0, 4.0, 1.5),
+            ("left", 0.4, 1.0, 4.0, 1.5, False, True),
+            ("right", 4.6, 1.0, 4.0, 1.5, False, True),
+        ]
+        warnings = self._call(placed)
+        assert warnings == []
+
+    def test_intentional_layering_suppressed(self):
+        placed = [
+            ("bg_rect", 0.3, 0.9, 4.0, 3.6, True, False),
+            ("value_text", 0.6, 1.6, 3.3, 1.0, False, True),
         ]
         warnings = self._call(placed)
         assert warnings == []
